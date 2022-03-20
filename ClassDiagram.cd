@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ClassLibrary1.User">
+    <Position X="16.25" Y="13.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAgAABAAAAAAAAAwAAAAgAAAAgIABCERAAAAAAIAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.News">
+    <Position X="16.25" Y="11" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAAAAAgAEAAAAAAAAgAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.Serie">
+    <Position X="26.5" Y="7.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAABAAAgAEIAAAAAAAEiEAEAAgBAEAEAAAAAMAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.Film">
+    <Position X="5.5" Y="7.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AQCAgAAAAAgiAEAAAoAAAAAAAAIgIAAAADABCgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmToWatch">
+    <Position X="11.25" Y="15.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieToWatch">
+    <Position X="20.75" Y="15.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmWatched">
+    <Position X="11.25" Y="17.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAgAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieWatched">
+    <Position X="20.75" Y="17.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAIAQAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmRate">
+    <Position X="11.25" Y="11" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAAAAAAAAAAAAgAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieRate">
+    <Position X="20.75" Y="11" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmComment">
+    <Position X="11.25" Y="13" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAAAEAAAAAAAAAAAAAAgAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieComment">
+    <Position X="20.75" Y="13" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAEAAQAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmActor">
+    <Position X="11.25" Y="1" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAACAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieActor">
+    <Position X="20.75" Y="1" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmScreenwriter">
+    <Position X="11.25" Y="3.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieScreenwriter">
+    <Position X="20.75" Y="3.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmDirector">
+    <Position X="11.25" Y="5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieDirector">
+    <Position X="20.75" Y="5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.Celebritie">
+    <Position X="16.25" Y="1" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAABgAAAAAAAAAAAQAAAEQAiQAACEACAAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmProduction">
+    <Position X="11.25" Y="9" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAABCAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieProduction">
+    <Position X="20.75" Y="9" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAACAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.Production">
+    <Position X="16.25" Y="9" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAUAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmGenre">
+    <Position X="11.25" Y="7" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAIAAAAAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieGenre">
+    <Position X="20.75" Y="7" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.Genre">
+    <Position X="16.25" Y="7" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAQAAAAAAgAAAAABAAAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmPicture">
+    <Position X="5.5" Y="12.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAgAAABA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.FilmTrailer">
+    <Position X="5.5" Y="5.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAABAAAAAAAQgAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SeriePicture">
+    <Position X="26.5" Y="12.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieTrailer">
+    <Position X="26.5" Y="5.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ClassLibrary1.SerieEpisod">
+    <Position X="31.25" Y="8.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAQAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAE=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ClassLibrary1.UserType">
+    <Position X="16.25" Y="17.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAACAAIAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
