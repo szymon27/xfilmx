@@ -15,7 +15,7 @@ namespace xfilmx.BL
         public Genre Add(Genre genre)
         {
             if (genre == null)
-                throw new ArgumentException("invalid genre");
+                throw new ArgumentNullException("invalid genre");
 
             this.unitOfWork.GenreRepository.Add(genre);
             this.unitOfWork.Complete();
@@ -29,7 +29,7 @@ namespace xfilmx.BL
 
             Genre genre = this.Get(id);
             if (genre == null)
-                throw new ArgumentException("invalid genre");
+                throw new ArgumentNullException("invalid genre");
 
             genre.Name = name;
             this.unitOfWork.Complete();
@@ -41,7 +41,11 @@ namespace xfilmx.BL
             if (id <= 0)
                 throw new ArgumentException("invalid genre id");
 
-            return this.unitOfWork.GenreRepository.Delete(id);
+            bool removed = this.unitOfWork.GenreRepository.Delete(id);
+            if(removed)
+            this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public Genre Get(int id)

@@ -78,7 +78,11 @@ namespace xfilmx.BL
             if (id <= 0)        
                 throw new ArgumentException("invalid user id");
                      
-            return this.unitOfWork.UserRepository.Delete(id);
+            bool removed = this.unitOfWork.UserRepository.Delete(id);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public IEnumerable<User> Get()
