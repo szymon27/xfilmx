@@ -21,12 +21,12 @@ namespace xfilmx.BL
             return country;
         }
 
-        public bool Change(int id, string name)
+        public bool Change(int countryId, string name)
         {
-            if (id <= 0)
+            if (countryId <= 0)
                 throw new ArgumentException("invalid country id");
 
-            Country country = this.Get(id);
+            Country country = this.Get(countryId);
             if (country == null)
                 throw new ArgumentNullException("invalid country");
 
@@ -35,24 +35,24 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int countryId)
         {
-            if (id <= 0)
+            if (countryId <= 0)
                 throw new ArgumentException("invalid country id");
 
-            bool removed = this.unitOfWork.GenreRepository.Delete(id);
+            bool removed = this.unitOfWork.GenreRepository.Delete(countryId);
             if (removed)
                 this.unitOfWork.Complete();
 
             return removed;
         }
 
-        public Country Get(int id)
+        public Country Get(int countryId)
         {
-            if (id <= 0)
+            if (countryId <= 0)
                 throw new ArgumentException("invalid country id");
 
-            return this.unitOfWork.CountryRepository.Get(id);
+            return this.unitOfWork.CountryRepository.Get(countryId);
         }
 
         public IEnumerable<Country> Get()

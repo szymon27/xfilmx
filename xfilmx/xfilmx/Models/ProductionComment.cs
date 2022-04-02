@@ -18,6 +18,9 @@ namespace xfilmx.Models
         [Required, MaxLength(300), Column(Order = 3)]
         public string Comment { get; set; }
 
+        [Column(TypeName = "date", Order = 4)]
+        public DateTime Date { get; set; }
+
         public Production Production { get; set; }
         public User User { get; set; }
     }

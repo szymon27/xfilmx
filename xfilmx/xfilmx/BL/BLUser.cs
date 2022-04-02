@@ -51,8 +51,8 @@ namespace xfilmx.BL
             if (user == null)
                 throw new ArgumentException("invalid user");
 
-            if (picture == null || picture.Length == 0)
-                throw new ArgumentException("invalid picture");
+            //if (picture == null || picture.Length == 0)
+            //    throw new ArgumentException("invalid picture");
 
             user.Picture = picture;
             this.unitOfWork.Complete();
@@ -100,12 +100,28 @@ namespace xfilmx.BL
 
         public IEnumerable<Production> GetToWatchProductions(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0)
+                throw new ArgumentException("invalid user id");
+
+            return this.unitOfWork.ProductionWatchStatusRepository.Get()
+                .Where(pws => pws.UserId == id && pws.WatchStatus == WatchStatus.ToWatch)
+                .Join(this.unitOfWork.ProductionRepository.Get(),
+                pws => pws.ProductionId,
+                p => p.ProductionId,
+                (pws, p) => p);
         }
 
         public IEnumerable<Production> GetWatchedProductions(int id)
         {
-            throw new NotImplementedException();
+            if (id <= 0)
+                throw new ArgumentException("invalid user id");
+
+            return this.unitOfWork.ProductionWatchStatusRepository.Get()
+                .Where(pws => pws.UserId == id && pws.WatchStatus == WatchStatus.Watched)
+                .Join(this.unitOfWork.ProductionRepository.Get(),
+                pws => pws.ProductionId,
+                p => p.ProductionId,
+                (pws, p) => p);
         }
     }
 }

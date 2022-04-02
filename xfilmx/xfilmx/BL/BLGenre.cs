@@ -22,12 +22,12 @@ namespace xfilmx.BL
             return genre;
         }
 
-        public bool Change(int id, string name)
+        public bool Change(int genreId, string name)
         {
-            if (id <= 0)
+            if (genreId <= 0)
                 throw new ArgumentException("invalid genre id");
 
-            Genre genre = this.Get(id);
+            Genre genre = this.Get(genreId);
             if (genre == null)
                 throw new ArgumentNullException("invalid genre");
 
@@ -36,24 +36,24 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int genreId)
         {
-            if (id <= 0)
+            if (genreId <= 0)
                 throw new ArgumentException("invalid genre id");
 
-            bool removed = this.unitOfWork.GenreRepository.Delete(id);
+            bool removed = this.unitOfWork.GenreRepository.Delete(genreId);
             if(removed)
             this.unitOfWork.Complete();
 
             return removed;
         }
 
-        public Genre Get(int id)
+        public Genre Get(int genreId)
         {
-            if (id <= 0)
+            if (genreId <= 0)
                 throw new ArgumentException("invalid genre id");
 
-            return this.unitOfWork.GenreRepository.Get(id);
+            return this.unitOfWork.GenreRepository.Get(genreId);
         }
 
         public IEnumerable<Genre> Get()

@@ -21,12 +21,12 @@ namespace xfilmx.BL
             return news;
         }
 
-        public bool ChangeContent(int id, string title, string description, byte[] picture)
+        public bool ChangeContent(int newsId, string title, string description, byte[] picture)
         {
-            if (id <= 0)
+            if (newsId <= 0)
                 throw new ArgumentException("invalid news id");
 
-            News news = this.Get(id);
+            News news = this.Get(newsId);
             if (news == null)
                 throw new ArgumentNullException("invalid news");
 
@@ -37,24 +37,24 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int newsId)
         {
-            if (id <= 0)
+            if (newsId <= 0)
                 throw new ArgumentException("invalid news id");
 
-            bool removed = this.unitOfWork.NewsRepository.Delete(id);
+            bool removed = this.unitOfWork.NewsRepository.Delete(newsId);
             if(removed)
             this.unitOfWork.Complete();
 
             return removed;
         }
 
-        public News Get(int id)
+        public News Get(int newsId)
         {
-            if (id <= 0)
+            if (newsId <= 0)
                 throw new ArgumentException("invalid news id");
 
-            return this.unitOfWork.NewsRepository.Get(id);
+            return this.unitOfWork.NewsRepository.Get(newsId);
         }
 
         public IEnumerable<News> Get()

@@ -120,3 +120,14 @@ C:\Users\szymon\Desktop\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\refint\xfilmx.dll
 C:\Users\szymon\Desktop\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.pdb
 C:\Users\szymon\Desktop\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.genruntimeconfig.cache
 C:\Users\szymon\Desktop\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\ref\xfilmx.dll
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.csproj.AssemblyReference.cache
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.GeneratedMSBuildEditorConfig.editorconfig
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.AssemblyInfoInputs.cache
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.AssemblyInfo.cs
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.csproj.CoreCompileInputs.cache
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.MvcApplicationPartsAssemblyInfo.cache
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.RazorAssemblyInfo.cache
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.RazorAssemblyInfo.cs
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.dll
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\ref\xfilmx.dll
+D:\VSProjects\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.pdb

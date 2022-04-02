@@ -21,18 +21,18 @@ namespace xfilmx.BL
             return celebritie;
         }
 
-        public bool Change(int id, string name, string surename, DateTime date, string birthPlace, byte[] picture)
+        public bool Change(int celebritieId, string name, string surename, DateTime? dateOfBirth, string birthPlace, byte[] picture)
         {
-            if (id <= 0)
+            if (celebritieId <= 0)
                 throw new ArgumentException("invalid celebritie id");
 
-            Celebritie celebritie = this.Get(id);
+            Celebritie celebritie = this.Get(celebritieId);
             if (celebritie == null)
                 throw new ArgumentNullException("invalid celebritie");
 
             celebritie.Name = name;
             celebritie.Surname = surename;
-            celebritie.DateOfBirth = date;
+            celebritie.DateOfBirth = dateOfBirth;
             celebritie.PlaceOfBirth = birthPlace;
             celebritie.Picture = picture;
 
@@ -41,24 +41,24 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int celebritieId)
         {
-            if (id <= 0)
+            if (celebritieId <= 0)
                 throw new ArgumentException("invalid celebritie id");
 
-            bool removed = this.unitOfWork.CelebritieRepository.Delete(id);
+            bool removed = this.unitOfWork.CelebritieRepository.Delete(celebritieId);
             if (removed)
                 this.unitOfWork.Complete();
 
             return removed;
         }
 
-        public Celebritie Get(int id)
+        public Celebritie Get(int celebritieId)
         {
-            if (id <= 0)
+            if (celebritieId <= 0)
                 throw new ArgumentException("invalid celebritie id");
 
-            return this.unitOfWork.CelebritieRepository.Get(id);
+            return this.unitOfWork.CelebritieRepository.Get(celebritieId);
         }
 
         public IEnumerable<Celebritie> Get()

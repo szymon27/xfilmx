@@ -8,37 +8,37 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = xfilmx
 build_property.RootNamespace = xfilmx
-build_property.ProjectDir = D:\taiib projekt\xfilmx\xfilmx\xfilmx\
+build_property.ProjectDir = D:\VSProjects\xfilmx\xfilmx\xfilmx\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\taiib projekt\xfilmx\xfilmx\xfilmx
+build_property.MSBuildProjectDirectory = D:\VSProjects\xfilmx\xfilmx\xfilmx
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/Home/Index.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/Home/Privacy.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/Shared/Error.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/_ViewImports.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/_ViewStart.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/taiib projekt/xfilmx/xfilmx/xfilmx/Views/Shared/_Layout.cshtml]
+[D:/VSProjects/xfilmx/xfilmx/xfilmx/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-r4fd1gjr3v
