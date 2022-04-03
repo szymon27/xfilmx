@@ -23,12 +23,12 @@ namespace xfilmx.BL
             return user;
         }
 
-        public bool ChangePassword(int id, string password)
+        public bool ChangePassword(int userId, string password)
         {
-            if (id <= 0)
+            if (userId <= 0)
                 throw new ArgumentException("invalid user id");
 
-            User user = this.Get(id);
+            User user = this.Get(userId);
             if (user == null)
                 throw new ArgumentException("invalid user");
 
@@ -42,12 +42,12 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool ChangePicture(int id, byte[] picture)
+        public bool ChangePicture(int userId, byte[] picture)
         {
-            if (id <= 0)
+            if (userId <= 0)
                 throw new ArgumentException("invalid user id");
 
-            User user = this.Get(id);
+            User user = this.Get(userId);
             if (user == null)
                 throw new ArgumentException("invalid user");
 
@@ -59,12 +59,12 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool ChangeType(int id, UserType userType)
+        public bool ChangeType(int userId, UserType userType)
         {
-            if (id <= 0)
+            if (userId <= 0)
                 throw new ArgumentException("invalid user id");
 
-            User user = this.Get(id);
+            User user = this.Get(userId);
             if (user == null)
                 throw new ArgumentException("invalid user");
 
@@ -73,12 +73,12 @@ namespace xfilmx.BL
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int userId)
         {
-            if (id <= 0)        
+            if (userId <= 0)        
                 throw new ArgumentException("invalid user id");
                      
-            bool removed = this.unitOfWork.UserRepository.Delete(id);
+            bool removed = this.unitOfWork.UserRepository.Delete(userId);
             if (removed)
                 this.unitOfWork.Complete();
 
@@ -90,34 +90,34 @@ namespace xfilmx.BL
             return this.unitOfWork.UserRepository.Get();
         }
 
-        public User Get(int id)
+        public User Get(int userId)
         {
-            if (id <= 0)
+            if (userId <= 0)
                 throw new ArgumentException("invalid user id");
 
-            return this.unitOfWork.UserRepository.Get(id);
+            return this.unitOfWork.UserRepository.Get(userId);
         }
 
-        public IEnumerable<Production> GetToWatchProductions(int id)
+        public IEnumerable<Production> GetToWatchProductions(int userId)
         {
-            if (id <= 0)
+            if (userId <= 0)
                 throw new ArgumentException("invalid user id");
 
             return this.unitOfWork.ProductionWatchStatusRepository.Get()
-                .Where(pws => pws.UserId == id && pws.WatchStatus == WatchStatus.ToWatch)
+                .Where(pws => pws.UserId == userId && pws.WatchStatus == WatchStatus.ToWatch)
                 .Join(this.unitOfWork.ProductionRepository.Get(),
                 pws => pws.ProductionId,
                 p => p.ProductionId,
                 (pws, p) => p);
         }
 
-        public IEnumerable<Production> GetWatchedProductions(int id)
+        public IEnumerable<Production> GetWatchedProductions(int userId)
         {
-            if (id <= 0)
+            if (userId <= 0)
                 throw new ArgumentException("invalid user id");
 
             return this.unitOfWork.ProductionWatchStatusRepository.Get()
-                .Where(pws => pws.UserId == id && pws.WatchStatus == WatchStatus.Watched)
+                .Where(pws => pws.UserId == userId && pws.WatchStatus == WatchStatus.Watched)
                 .Join(this.unitOfWork.ProductionRepository.Get(),
                 pws => pws.ProductionId,
                 p => p.ProductionId,

@@ -4,7 +4,7 @@ namespace xfilmx.BL
 {
     public interface IProduction
     {
-        public Production Add(Production productionId);
+        public Production Add(Production production);
         public Production Change(int productionId, bool isSerie, string title, DateTime beginData,
                                 DateTime? endDate, int duration, string description, byte[] picture);
         public Production Delete(int productionId);           
@@ -26,7 +26,7 @@ namespace xfilmx.BL
         public bool DeleteComment(int productionCommentId);
 
         public ProductionEpisod AddEpisod(ProductionEpisod productionEpisod);
-        public IEnumerable<ProductionEpisod> AddEpisods(int productionId, ICollection<Tuple<int, int, string>> espids);
+        public IEnumerable<ProductionEpisod> AddEpisods(int productionId, ICollection<Tuple<int, int, string>> episods);
         public ProductionEpisod ChangeEpisod(int productionEpisodId, int season, int episod, string title);
         public bool DeleteEpisod(int productionEpisodId);
         public bool DeleteSeason(int productionId, int season);
@@ -50,7 +50,5 @@ namespace xfilmx.BL
         public IEnumerable<Celebritie> AddDirectors(int productionId, ICollection<int> celebritieIds);
         public bool DeleteDirector(int productionId, int celebritieId);
         public IEnumerable<Celebritie> GetDirectors(int productionId);
-
-
     }
 }
