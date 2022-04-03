@@ -591,32 +591,64 @@ namespace xfilmx.BL
 
         public IEnumerable<Production> Get()
         {
-            throw new NotImplementedException();
+            return this.unitOfWork.ProductionRepository.Get();
         }
 
         public IEnumerable<Celebritie> GetActors(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            return this.unitOfWork.ProductionActorRepository.Get()
+                .Where(pa => pa.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                pa => pa.CelebritieId,
+                c => c.CelebritieId,
+                (pa, c) => c);
         }
 
         public IEnumerable<Celebritie> GetDirectors(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            return this.unitOfWork.ProductionDirectorRepository.Get()
+                .Where(pd => pd.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                pd => pd.CelebritieId,
+                c => c.CelebritieId,
+                (pa, c) => c);
         }
 
         public IEnumerable<ProductionPicture> GetPictures(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            return this.unitOfWork.ProductionPictureRepository.Get()
+                .Where(pp => pp.ProductionId == productionId);
         }
 
         public IEnumerable<Celebritie> GetScreenwriters(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            return this.unitOfWork.ProductionScreenwriterRepository.Get()
+                .Where(ps => ps.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                ps => ps.CelebritieId,
+                c => c.CelebritieId,
+                (pa, c) => c);
         }
 
         public IEnumerable<ProductionTrailer> GetTrailers(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            return this.unitOfWork.ProductionTrailerRepository.Get()
+                .Where(pp => pp.ProductionId == productionId);
         }
     }
 }

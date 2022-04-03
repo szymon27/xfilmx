@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj": {}
+    "C:\\Users\\szymon\\Desktop\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj": {}
   },
   "projects": {
-    "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj": {
+    "C:\\Users\\szymon\\Desktop\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj",
+        "projectUniqueName": "C:\\Users\\szymon\\Desktop\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj",
         "projectName": "xfilmx",
-        "projectPath": "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj",
-        "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
-        "outputPath": "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\obj\\",
+        "projectPath": "C:\\Users\\szymon\\Desktop\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj",
+        "packagesPath": "C:\\Users\\szymon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\szymon\\Desktop\\xfilmx\\xfilmx\\xfilmx\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\szymon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
