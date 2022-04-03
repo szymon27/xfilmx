@@ -7,7 +7,7 @@ namespace xfilmx.BL
         public Production Add(Production production);
         public Production Change(int productionId, bool isSerie, string title, DateTime beginData,
                                 DateTime? endDate, int duration, string description, byte[] picture);
-        public Production Delete(int productionId);           
+        public bool Delete(int productionId);           
         public Production Get(int productionId);
         public IEnumerable<Production> Get();
 
@@ -28,7 +28,7 @@ namespace xfilmx.BL
         public ProductionEpisod AddEpisod(ProductionEpisod productionEpisod);
         public IEnumerable<ProductionEpisod> AddEpisods(int productionId, ICollection<Tuple<int, int, string>> episods);
         public ProductionEpisod ChangeEpisod(int productionEpisodId, int season, int episod, string title);
-        public bool DeleteEpisod(int productionEpisodId);
+        public bool DeleteEpisod(int productionId, int season, int episod);
         public bool DeleteSeason(int productionId, int season);
 
         public void AddTrailer(int productionId, string link);

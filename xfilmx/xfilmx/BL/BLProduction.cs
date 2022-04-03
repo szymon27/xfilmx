@@ -207,103 +207,386 @@ namespace xfilmx.BL
 
         public ProductionRate AddRate(int productionId, int userId, Stars stars)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            if (userId <= 0)
+                throw new ArgumentException("invalid user id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentException("invalid production");
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                throw new ArgumentException("invalid user");
+
+            ProductionRate productionRate = new ProductionRate()
+            {
+                ProductionId = productionId,
+                UserId = userId,
+                Stars = stars
+            };
+
+            this.unitOfWork.ProductionRateRepository.Add(productionRate);
+            this.unitOfWork.Complete();
+            return productionRate;
         }
 
         public IEnumerable<Celebritie> AddScreenwriters(int productionId, ICollection<int> celebritieIds)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentException("invalid production");
+
+            IEnumerable<ProductionScreenwriter> productionScreenwriters = celebritieIds
+                .Select(cId => new ProductionScreenwriter { ProductionId = productionId, CelebritieId = cId });
+            foreach (ProductionScreenwriter ps in productionScreenwriters)
+                this.unitOfWork.ProductionScreenwriterRepository.Add(ps);
+            this.unitOfWork.Complete();
+
+            return this.unitOfWork.ProductionActorRepository.Get()
+                .Where(ps => ps.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                ps => ps.CelebritieId,
+                c => c.CelebritieId,
+                (ps, c) => c);
         }
 
         public void AddTrailer(int productionId, string link)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentException("invalid production");
+
+            ProductionTrailer productionTrailer = new ProductionTrailer()
+            {
+                ProductionId = productionId,
+                Link = link
+            };
+            this.unitOfWork.ProductionTrailerRepository.Add(productionTrailer);
+            this.unitOfWork.Complete();
+
         }
 
         public Production Change(int productionId, bool isSerie, string title,
             DateTime beginData, DateTime? endDate, int duration, string description, byte[] picture)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentException("invalid production");
+
+            production.IsSerie = isSerie;
+            production.Title = title;
+            production.BeginDate = beginData;
+            production.EndDate = endDate;
+            production.Duration = duration;
+            production.Description = description;
+            production.Picture = picture;
+
+            this.unitOfWork.Complete();
+
+            return production;
         }
 
         public ProductionComment ChangeComment(int productionCommentId, string comment)
         {
-            throw new NotImplementedException();
+            if (productionCommentId <= 0)
+                throw new ArgumentException("invalid comment id");
+
+            ProductionComment productionComment = this.unitOfWork.ProductionCommentRepository.Get(productionCommentId);
+            if (productionComment == null)
+                throw new ArgumentNullException("invalid comment");
+
+            productionComment.Comment= comment;
+            this.unitOfWork.Complete();
+
+            return productionComment;
         }
 
         public ProductionEpisod ChangeEpisod(int productionEpisodId, int season, int episod, string title)
         {
-            throw new NotImplementedException();
+            if (productionEpisodId <= 0)
+                throw new ArgumentException("invalid episod id");
+
+            ProductionEpisod productionEpisod = this.unitOfWork.ProductionEpisodRepository.Get(productionEpisodId);
+            if (productionEpisod == null)
+                throw new ArgumentNullException("invalid episod");
+
+            productionEpisod.Season = season;
+            productionEpisod.Episod = episod;
+            productionEpisod.Title = title;
+            this.unitOfWork.Complete();
+
+            return productionEpisod;
         }
 
         public ProductionRate ChangeRate(int productionId, int userId, Stars stars)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            if (userId <= 0)
+                throw new ArgumentException("invalid user id");
+
+            ProductionRate productionRate = this.unitOfWork.ProductionRateRepository.Get().First(pr => pr.ProductionId == productionId && pr.UserId == userId);
+            if (productionRate == null)
+                throw new ArgumentNullException("invalid production rate");
+
+            productionRate.Stars = stars;
+            this.unitOfWork.Complete();
+
+            return productionRate;
         }
 
-        public Production Delete(int productionId)
+        public bool Delete(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            bool removed = this.Delete(productionId);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteActor(int productionId, int celebritieId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            if (celebritieId <= 0)
+                throw new ArgumentException("invalid celebritie id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionActor celebritie = production.ProductionActors.First(pa => pa.CelebritieId == celebritieId);
+            if (celebritie == null)
+                throw new ArgumentNullException("invalid actor");
+
+            bool removed = production.ProductionActors.Remove(celebritie);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteComment(int productionCommentId)
         {
-            throw new NotImplementedException();
+            if (productionCommentId <= 0)
+                throw new ArgumentException("invalid comment id");
+
+            bool removed = this.unitOfWork.ProductionCommentRepository.Delete(productionCommentId);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteCountry(int productionId, int countryId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+            if (countryId <= 0)
+                throw new ArgumentException("invalid country id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionCountry country = production.ProductionCountries.First(pc => pc.CountryId == countryId);
+            if (country == null)
+                throw new ArgumentNullException("invalid country");
+
+            bool removed = production.ProductionCountries.Remove(country);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteDirector(int productionId, int celebritieId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            if (celebritieId <= 0)
+                throw new ArgumentException("invalid celebritie id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionDirector celebritie = production.ProductionDirectors.First(pd => pd.CelebritieId == celebritieId);
+            if (celebritie == null)
+                throw new ArgumentNullException("invalid director");
+
+            bool removed = production.ProductionDirectors.Remove(celebritie);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
-        public bool DeleteEpisod(int productionEpisodId)
+        public bool DeleteEpisod(int productionId, int season, int episod)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionEpisod productionEpisod = production.ProductionEpisods.First(pe => pe.Season == season && pe.Episod == episod);
+            if (productionEpisod == null)
+                throw new ArgumentNullException("invalid episode");
+
+            bool removed = production.ProductionEpisods.Remove(productionEpisod);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteGenre(int productionId, int genreId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+            if (genreId <= 0)
+                throw new ArgumentException("invalid genre id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionGenre genre = production.ProductionGenres.First(pg => pg.GenreId == genreId);
+            if (genre == null)
+                throw new ArgumentNullException("invalid genre");
+
+            bool removed = production.ProductionGenres.Remove(genre);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeletePicture(int productionPictureId)
         {
-            throw new NotImplementedException();
+            if (productionPictureId <= 0)
+                throw new ArgumentException("invalid picture id");
+
+            bool removed = this.unitOfWork.ProductionPictureRepository.Delete(productionPictureId);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteRate(int productionId, int userId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            if (userId <= 0)
+                throw new ArgumentException("invalid user id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionRate productionRate = production.ProductionRates.First(pr => pr.UserId == userId);
+            if (productionRate == null)
+                throw new ArgumentNullException("invalid rate");
+
+            bool removed = production.ProductionRates.Remove(productionRate);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteSccreenwriter(int productionId, int celebritieId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            if (celebritieId <= 0)
+                throw new ArgumentException("invalid celebritie id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            ProductionScreenwriter celebritie = production.ProductionScreenwriters.First(ps => ps.CelebritieId == celebritieId);
+            if (celebritie == null)
+                throw new ArgumentNullException("invalid screenwriter");
+
+            bool removed = production.ProductionScreenwriters.Remove(celebritie);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteSeason(int productionId, int season)
         {
-            throw new NotImplementedException();
+            if(productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            Production production = this.Get(productionId);
+            if (production == null)
+                throw new ArgumentNullException("invalid production");
+
+            IEnumerable<ProductionEpisod> productionEpisods = production.ProductionEpisods.Where(pe => pe.Season == season);
+
+            bool removed = false;
+
+            if (productionEpisods.Any())
+            {
+                foreach (ProductionEpisod episode in productionEpisods)
+                    production.ProductionEpisods.Remove(episode);
+                removed = true;
+            }
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public bool DeleteTrailer(int productionTrailerId)
         {
-            throw new NotImplementedException();
+            if (productionTrailerId <= 0)
+                throw new ArgumentException("invalid trailer id");
+
+            bool removed = this.unitOfWork.ProductionTrailerRepository.Delete(productionTrailerId);
+            if (removed)
+                this.unitOfWork.Complete();
+
+            return removed;
         }
 
         public Production Get(int productionId)
         {
-            throw new NotImplementedException();
+            if (productionId <= 0)
+                throw new ArgumentException("invalid production id");
+
+            return this.unitOfWork.ProductionRepository.Get(productionId);
         }
 
         public IEnumerable<Production> Get()
