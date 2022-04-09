@@ -5,7 +5,12 @@
       "ProjectGuid": "b6a38d31-b768-4250-959e-ec362b790ac5",
       "DisplayName": "xfilmx",
       "ColorIndex": 0
+    },
+    "809a83cb-58e6-4d8d-9ec8-c3e87c65d499": {
+      "ProjectGuid": "809a83cb-58e6-4d8d-9ec8-c3e87c65d499",
+      "DisplayName": "Tests",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }
