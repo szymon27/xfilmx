@@ -8082,23 +8082,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\szymo\\.nuget\\packages\\": {},
+    "C:\\Users\\Max\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VSProjects\\xfilmx\\xfilmx\\Tests\\Tests.csproj",
+      "projectUniqueName": "D:\\taiib projekt\\xfilmx\\xfilmx\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "D:\\VSProjects\\xfilmx\\xfilmx\\Tests\\Tests.csproj",
-      "packagesPath": "C:\\Users\\szymo\\.nuget\\packages\\",
-      "outputPath": "D:\\VSProjects\\xfilmx\\xfilmx\\Tests\\obj\\",
+      "projectPath": "D:\\taiib projekt\\xfilmx\\xfilmx\\Tests\\Tests.csproj",
+      "packagesPath": "C:\\Users\\Max\\.nuget\\packages\\",
+      "outputPath": "D:\\taiib projekt\\xfilmx\\xfilmx\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\szymo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Max\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8113,8 +8113,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\VSProjects\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj": {
-              "projectPath": "D:\\VSProjects\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj"
+            "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj": {
+              "projectPath": "D:\\taiib projekt\\xfilmx\\xfilmx\\xfilmx\\xfilmx.csproj"
             }
           }
         }
@@ -8169,7 +8169,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

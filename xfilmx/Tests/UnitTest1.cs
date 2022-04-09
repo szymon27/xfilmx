@@ -5,6 +5,7 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Tests
 {
@@ -71,41 +72,39 @@ namespace Tests
 
         public class MockUnitOfWork : IUnitOfWork
         {
-            public IRepository<User> UserRepository => new Mock<IRepository<User>>().Object;
+            public IRepository<User> UserRepository => new MockRepository<User>().Object;
 
-            public IRepository<Genre> GenreRepository => new Mock<IRepository<Genre>>()
-                .Setup(x => x.)
-                .Object;
+            public IRepository<Genre> GenreRepository => new MockRepository<Genre>().Object;
 
-            public IRepository<Country> CountryRepository => new Mock<IRepository<Country>>().Object;
+            public IRepository<Country> CountryRepository => new MockRepository<Country>().Object;
 
-            public IRepository<News> NewsRepository => new Mock<IRepository<News>>().Object;
+            public IRepository<News> NewsRepository => new MockRepository<News>().Object;
 
-            public IRepository<Celebritie> CelebritieRepository => new Mock<IRepository<Celebritie>>().Object;
+            public IRepository<Celebritie> CelebritieRepository => new MockRepository<Celebritie>().Object;
 
-            public IRepository<Production> ProductionRepository => new Mock<IRepository<Production>>().Object;
+            public IRepository<Production> ProductionRepository => new MockRepository<Production>().Object;
 
-            public IRepository<ProductionComment> ProductionCommentRepository => new Mock<IRepository<ProductionComment>>().Object;
+            public IRepository<ProductionComment> ProductionCommentRepository => new MockRepository<ProductionComment>().Object;
 
-            public IRepository<ProductionRate> ProductionRateRepository => new Mock<IRepository<ProductionRate>>().Object;
+            public IRepository<ProductionRate> ProductionRateRepository => new MockRepository<ProductionRate>().Object;
 
-            public IRepository<ProductionWatchStatus> ProductionWatchStatusRepository => new Mock<IRepository<ProductionWatchStatus>>().Object;
+            public IRepository<ProductionWatchStatus> ProductionWatchStatusRepository => new MockRepository<ProductionWatchStatus>().Object;
 
-            public IRepository<ProductionGenre> ProductionGenreRepository => new Mock<IRepository<ProductionGenre>>().Object;
+            public IRepository<ProductionGenre> ProductionGenreRepository => new MockRepository<ProductionGenre>().Object;
 
-            public IRepository<ProductionCountry> ProductionCountryRepository => new Mock<IRepository<ProductionCountry>>().Object;
+            public IRepository<ProductionCountry> ProductionCountryRepository => new MockRepository<ProductionCountry>().Object;
 
-            public IRepository<ProductionTrailer> ProductionTrailerRepository => new Mock<IRepository<ProductionTrailer>>().Object;
+            public IRepository<ProductionTrailer> ProductionTrailerRepository => new MockRepository<ProductionTrailer>().Object;
 
-            public IRepository<ProductionEpisod> ProductionEpisodRepository => new Mock<IRepository<ProductionEpisod>>().Object;
+            public IRepository<ProductionEpisod> ProductionEpisodRepository => new MockRepository<ProductionEpisod>().Object;
 
-            public IRepository<ProductionScreenwriter> ProductionScreenwriterRepository => new Mock<IRepository<ProductionScreenwriter>>().Object;
+            public IRepository<ProductionScreenwriter> ProductionScreenwriterRepository => new MockRepository<ProductionScreenwriter>().Object;
 
-            public IRepository<ProductionActor> ProductionActorRepository => new Mock<IRepository<ProductionActor>>().Object;
+            public IRepository<ProductionActor> ProductionActorRepository => new MockRepository<ProductionActor>().Object;
 
-            public IRepository<ProductionDirector> ProductionDirectorRepository => new Mock<IRepository<ProductionDirector>>().Object;
+            public IRepository<ProductionDirector> ProductionDirectorRepository => new MockRepository<ProductionDirector>().Object;
 
-            public IRepository<ProductionPicture> ProductionPictureRepository => new Mock<IRepository<ProductionPicture>>().Object;
+            public IRepository<ProductionPicture> ProductionPictureRepository => new MockRepository<ProductionPicture>().Object;
 
             public int Complete()
             {
@@ -115,6 +114,55 @@ namespace Tests
             public Task<int> CompleteAsync()
             {
                 throw new System.NotImplementedException();
+            }
+
+            public class MockRepository<T> : Mock<IRepository<T>>
+            {
+                public MockRepository<T> MockGetByID(T result)
+                {
+                    Setup(x => x.Get(It.IsAny<int>()))
+                        .Returns(result);
+
+                    return this;
+                }
+
+                public MockRepository<T> MockGetByIDInvalid()
+                {
+                    Setup(x => x.Get(It.IsAny<int>()))
+                        .Throws(new Exception());
+
+                    return this;
+                }
+
+                public MockRepository<T> VerifyGetByID(Times times)
+                {
+                    Verify(x => x.Get(It.IsAny<int>()), times);
+
+                    return this;
+                }
+
+                public MockRepository<T> MockGetAll(IEnumerable<T> result)
+                {
+                    Setup(x => x.Get())
+                        .Returns(result);
+
+                    return this;
+                }
+
+                public MockRepository<T> MockGetAll()
+                {
+                    Setup(x => x.Get())
+                        .Throws(new Exception());
+
+                    return this;
+                }
+
+                public MockRepository<T> VerifyGetAll(Times times)
+                {
+                    Verify(x => x.Get(), times);
+
+                    return this;
+                }
             }
         }
     }
