@@ -1,26 +1,27 @@
-﻿using xfilmx.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using xfilmx.DAL;
+using xfilmx.Models;
+using static Tests.TestMockRepository;
 
-namespace xfilmx.DAL
+namespace Tests
 {
-    public class UnitOfWork : IUnitOfWork
+    public class TestUnitOfWork : IUnitOfWork
     {
-        private readonly Database database;
-        
-        public UnitOfWork(Database database)
-        {
-            this.database = database;
-        }
-
         private IRepository<User> userRepository;
         public IRepository<User> UserRepository
         {
             get
             {
                 if (this.userRepository == null)
-                    this.userRepository = new Repository<User>(this.database);
+                    this.userRepository = new MockRepository<User>().Object;
 
                 return this.userRepository;
             }
+            set { this.userRepository = value; }
         }
 
         private IRepository<Genre> genreRepository;
@@ -29,10 +30,11 @@ namespace xfilmx.DAL
             get
             {
                 if (this.genreRepository == null)
-                    this.genreRepository = new Repository<Genre>(this.database);
+                    this.genreRepository = new MockRepository<Genre>().Object;
 
                 return this.genreRepository;
             }
+            set { this.genreRepository = value; }
         }
 
         private IRepository<Country> countryRepository;
@@ -40,23 +42,25 @@ namespace xfilmx.DAL
         {
             get
             {
-                if(this.countryRepository == null)
-                    this.countryRepository = new Repository<Country>(this.database);
+                if (this.countryRepository == null)
+                    this.countryRepository = new MockRepository<Country>().Object; ;
 
                 return this.countryRepository;
             }
+            set { this.countryRepository = value; }
         }
 
         private IRepository<News> newsRepository;
-        public IRepository<News> NewsRepository 
-        { 
-            get 
+        public IRepository<News> NewsRepository
+        {
+            get
             {
                 if (this.newsRepository == null)
-                    this.newsRepository = new Repository<News>(this.database);
+                    this.newsRepository = new MockRepository<News>().Object;
 
-                return this.newsRepository; 
-            } 
+                return this.newsRepository;
+            }
+            set { this.newsRepository = value; }
         }
 
         private IRepository<Celebritie> celebritieRepository;
@@ -65,10 +69,11 @@ namespace xfilmx.DAL
             get
             {
                 if (this.celebritieRepository == null)
-                    this.celebritieRepository = new Repository<Celebritie>(this.database);
+                    this.celebritieRepository = new MockRepository<Celebritie>().Object;
 
                 return this.celebritieRepository;
             }
+            set { this.celebritieRepository = value; }
         }
 
         private IRepository<Production> productionRepository;
@@ -77,10 +82,11 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionRepository == null)
-                    this.productionRepository = new Repository<Production>(this.database);
+                    this.productionRepository = new MockRepository<Production>().Object;
 
                 return this.productionRepository;
             }
+            set { this.productionRepository = value; }
         }
         private IRepository<ProductionComment> productionCommentRepository;
         public IRepository<ProductionComment> ProductionCommentRepository
@@ -88,9 +94,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionCommentRepository == null)
-                    this.productionCommentRepository = new Repository<ProductionComment>(this.database);
+                    this.productionCommentRepository = new MockRepository<ProductionComment>().Object;
                 return this.productionCommentRepository;
             }
+            set { this.productionCommentRepository = value; }
         }
 
         private IRepository<ProductionRate> productionRateRepository;
@@ -99,9 +106,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionRateRepository == null)
-                    this.productionRateRepository = new Repository<ProductionRate>(this.database);
+                    this.productionRateRepository = new MockRepository<ProductionRate>().Object;
                 return this.productionRateRepository;
             }
+            set { this.productionRateRepository = value; }
         }
 
         private IRepository<ProductionWatchStatus> productionWatchStatusRepository;
@@ -110,9 +118,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionWatchStatusRepository == null)
-                    this.productionWatchStatusRepository = new Repository<ProductionWatchStatus>(this.database);
+                    this.productionWatchStatusRepository = new MockRepository<ProductionWatchStatus>().Object;
                 return this.productionWatchStatusRepository;
             }
+            set { this.productionWatchStatusRepository = value; }
         }
 
         private IRepository<ProductionGenre> productionGenreRepository;
@@ -121,9 +130,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionGenreRepository == null)
-                    this.productionGenreRepository = new Repository<ProductionGenre>(this.database);
+                    this.productionGenreRepository = new MockRepository<ProductionGenre>().Object;
                 return this.productionGenreRepository;
             }
+            set { this.productionGenreRepository = value; }
         }
 
         private IRepository<ProductionCountry> productionCountryRepository;
@@ -132,7 +142,7 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionCountryRepository == null)
-                    this.productionCountryRepository = new Repository<ProductionCountry>(this.database);
+                    this.productionCountryRepository = new MockRepository<ProductionCountry>().Object;
                 return this.productionCountryRepository;
             }
         }
@@ -143,9 +153,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionTrailerRepository == null)
-                    this.productionTrailerRepository = new Repository<ProductionTrailer>(this.database);
+                    this.productionTrailerRepository = new MockRepository<ProductionTrailer>().Object;
                 return this.productionTrailerRepository;
             }
+            set { this.productionTrailerRepository = value; }
         }
 
         private IRepository<ProductionEpisod> productionEpisodRepository;
@@ -154,9 +165,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionEpisodRepository == null)
-                    this.productionEpisodRepository = new Repository<ProductionEpisod>(this.database);
+                    this.productionEpisodRepository = new MockRepository<ProductionEpisod>().Object;
                 return this.productionEpisodRepository;
             }
+            set { this.productionEpisodRepository = value; }
         }
 
         private IRepository<ProductionScreenwriter> productionScreenwriterRepository;
@@ -165,9 +177,10 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionScreenwriterRepository == null)
-                    this.productionScreenwriterRepository = new Repository<ProductionScreenwriter>(this.database);
+                    this.productionScreenwriterRepository = new MockRepository<ProductionScreenwriter>().Object;
                 return this.productionScreenwriterRepository;
             }
+            set { this.productionScreenwriterRepository = value; }
         }
 
         private IRepository<ProductionActor> productionActorRepository;
@@ -176,20 +189,22 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionActorRepository == null)
-                    this.productionActorRepository = new Repository<ProductionActor>(this.database);
+                    this.productionActorRepository = new MockRepository<ProductionActor>().Object;
                 return this.productionActorRepository;
             }
+            set { this.productionActorRepository = value; }
         }
 
         private IRepository<ProductionDirector> productionDirectorRepository;
         public IRepository<ProductionDirector> ProductionDirectorRepository
         {
-            get 
+            get
             {
                 if (this.productionDirectorRepository == null)
-                    this.productionDirectorRepository = new Repository<ProductionDirector>(this.database);
+                    this.productionDirectorRepository = new MockRepository<ProductionDirector>().Object;
                 return this.productionDirectorRepository;
             }
+            set { this.productionDirectorRepository = value; }
         }
 
         private IRepository<ProductionPicture> productionPictureRepository;
@@ -198,24 +213,26 @@ namespace xfilmx.DAL
             get
             {
                 if (this.productionPictureRepository == null)
-                    this.productionPictureRepository = new Repository<ProductionPicture>(this.database);
+                    this.productionPictureRepository = new MockRepository<ProductionPicture>().Object;
                 return this.productionPictureRepository;
             }
+            set { this.productionPictureRepository = value; }
         }
 
         public int Complete()
         {
-            return this.database.SaveChanges();
+            return 1;
         }
 
         public async Task<int> CompleteAsync()
         {
-            return await this.database.SaveChangesAsync();
+            return 1;
         }
 
-        public void Dispose() 
+        public void Dispose()
         {
-            this.database.Dispose();
+            
         }
     }
 }
+

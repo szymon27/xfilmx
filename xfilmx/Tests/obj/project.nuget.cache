@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VWNhPIIBfUQvgiVE/zbQ8+3NfyzAUHa+rzorG5+COK8yc2x6jhvw+0qOTKBxvZiGnH6vD1eyvI5LR40UQDrKiQ==",
+  "dgSpecHash": "cW0toTNgN6OKnW9x3qoqIGzS14VJInBE07vVk1N73cecQO+f5Y81BwsYFlsnUey2GZzAKK9rrB2JDAFAvZWMcQ==",
   "success": true,
   "projectFilePath": "D:\\taiib projekt\\xfilmx\\xfilmx\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.3\\microsoft.entityframeworkcore.6.0.3.nupkg.sha512",
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.3\\microsoft.entityframeworkcore.abstractions.6.0.3.nupkg.sha512",
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.3\\microsoft.entityframeworkcore.analyzers.6.0.3.nupkg.sha512",
+    "C:\\Users\\Max\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.3\\microsoft.entityframeworkcore.inmemory.6.0.3.nupkg.sha512",
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.3\\microsoft.entityframeworkcore.relational.6.0.3.nupkg.sha512",
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.3\\microsoft.entityframeworkcore.sqlserver.6.0.3.nupkg.sha512",
     "C:\\Users\\Max\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
