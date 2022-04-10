@@ -40,7 +40,7 @@ namespace Tests
                 this.users.Add(item);
             }
 
-            public bool Delete(object id)
+            public bool Delete(params object[] keys)
             {
                 throw new System.NotImplementedException();
             }
@@ -50,7 +50,7 @@ namespace Tests
                 return this.users;
             }
 
-            public User Get(object id)
+            public User Get(params object[] keys)
             {
                 throw new System.NotImplementedException();
             }

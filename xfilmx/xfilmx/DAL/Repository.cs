@@ -20,10 +20,10 @@ namespace xfilmx.DAL
             this.dbSet.Add(item);
         }
 
-        public bool Delete(object id)
+        public bool Delete(params object[] keys)
         {
             bool removed = false;
-            T item = this.Get(id);
+            T item = this.Get(keys);
 
             if(item != null)
             {
@@ -39,9 +39,9 @@ namespace xfilmx.DAL
             return this.dbSet;
         }
 
-        public T Get(object id)
+        public T Get(params object[] keys)
         {
-            return this.dbSet.Find(id);
+            return this.dbSet.Find(keys);
         }
 
         public void Update(T item)

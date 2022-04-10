@@ -2,17 +2,6 @@
 
 namespace xfilmx.Models
 {
-    public static class UnitTestDetector
-    {
-        static UnitTestDetector()
-        {
-            string testAssemblyName = "Microsoft.VisualStudio.QualityTools.UnitTestFramework";
-            UnitTestDetector.IsInUnitTest = AppDomain.CurrentDomain.GetAssemblies()
-                .Any(a => a.FullName.StartsWith(testAssemblyName));
-        }
-
-        public static bool IsInUnitTest { get; private set; }
-    }
     public class Database : DbContext
     {
         public DbSet<Celebritie> Celebrities { get; set; }
@@ -33,15 +22,20 @@ namespace xfilmx.Models
         public DbSet<ProductionWatchStatus> ProductionWatchStatuses { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public Database() { }
+
+        private readonly Action<Database, ModelBuilder> modelCustomizer;
+        public Database(DbContextOptions<Database> options, Action<Database, ModelBuilder> modelCustomizer = null)
+            : base(options) 
+        {
+            this.modelCustomizer = modelCustomizer;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (UnitTestDetector.IsInUnitTest)
+            if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=EFProviders.InMemory;Trusted_Connection=True");
-            }
-
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;
                                         Initial Catalog=XFILMX;
                                         Integrated Security=True;
                                         Connect Timeout=30;
@@ -49,6 +43,7 @@ namespace xfilmx.Models
                                         TrustServerCertificate=False;
                                         ApplicationIntent=ReadWrite;
                                         MultiSubnetFailover=False");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -67,6 +62,11 @@ namespace xfilmx.Models
             modelBuilder.Entity<Celebritie>().Property(c => c.PlaceOfBirth).IsRequired(false);
             modelBuilder.Entity<ProductionEpisod>().Property(c => c.Title).IsRequired(false);
             modelBuilder.Entity<Production>().Property(c => c.Picture).IsRequired(false);
+
+            if(this.modelCustomizer is not null)
+            {
+                this.modelCustomizer(this, modelBuilder);
+            }
         }
     }
 }
