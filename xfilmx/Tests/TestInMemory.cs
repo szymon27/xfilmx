@@ -231,5 +231,13 @@ namespace Tests
                                                         pe.Episod == productionEpisodToDelete.Episod));
 
         }
+
+        [Fact]
+        public void DeleteCelebrityException()
+        {
+            var uof = new UnitOfWork(new Database(this.CreateContext()));
+
+            Assert.Throws<ArgumentNullException>(() => uof.CelebritieRepository.Delete(-1));
+        }
     }
 }

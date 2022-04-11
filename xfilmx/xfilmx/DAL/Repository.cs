@@ -25,11 +25,11 @@ namespace xfilmx.DAL
             bool removed = false;
             T item = this.Get(keys);
 
-            if(item != null)
-            {
-                removed = true;
-                this.dbSet.Remove(item);
-            }
+            if (item == null)
+                throw new ArgumentNullException("delete null");
+
+            removed = true;
+            this.dbSet.Remove(item);
 
             return removed;
         }
