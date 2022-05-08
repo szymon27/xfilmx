@@ -11,6 +11,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<ICountry, BLLCountry>();
 builder.Services.AddScoped<IGenre, BLLGenre>();
 builder.Services.AddScoped<ICelebritie, BLLCelebritie>();
+builder.Services.AddScoped<IUser, BLLUser>();
 
 var app = builder.Build();
 

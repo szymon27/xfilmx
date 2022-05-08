@@ -1,0 +1,24 @@
+﻿@model IEnumerable<xfilmx.Models.User>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <div class = "text-danger">@ViewBag.ErrorMessage</div>
+}
+
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>User type</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach(User user in Model) {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.UserType</td>
+                <td>@Html.ActionLink("edit", "Edit", new { userId = user.UserId })</td>
+            </tr>
+        }
+    </table>
+</div>
