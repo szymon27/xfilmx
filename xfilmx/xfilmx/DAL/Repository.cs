@@ -26,7 +26,7 @@ namespace xfilmx.DAL
             T item = this.Get(keys);
 
             if (item == null)
-                throw new ArgumentNullException("delete null");
+                throw new Exception("item doesn't exists");
 
             removed = true;
             this.dbSet.Remove(item);

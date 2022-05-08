@@ -1,0 +1,24 @@
+﻿@model IEnumerable<xfilmx.Models.Country>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <div class = "text-danger">@ViewBag.ErrorMessage</div>
+}
+
+@Html.ActionLink("create", "Create")
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach(Country country in Model) {
+            <tr>
+                <td>@country.Name</td>
+                <td>@Html.ActionLink("delete", "Delete", new { countryId = country.CountryId })</td>
+                <td>@Html.ActionLink("edit", "Edit", new { countryId = country.CountryId })</td>
+            </tr>
+        }
+    </table>
+</div>

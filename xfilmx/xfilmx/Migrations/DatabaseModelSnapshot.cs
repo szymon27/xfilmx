@@ -226,6 +226,10 @@ namespace xfilmx.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasColumnOrder(3);
 
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date")
+                        .HasColumnOrder(4);
+
                     b.Property<int>("ProductionId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);

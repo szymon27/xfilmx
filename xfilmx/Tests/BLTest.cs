@@ -7,7 +7,7 @@ using xfilmx.DAL;
 using xfilmx.Models;
 using Moq;
 using Xunit;
-using xfilmx.BL;
+using xfilmx.BLL;
 using static Tests.TestMockRepository;
 
 namespace Tests
@@ -25,7 +25,7 @@ namespace Tests
 
             testUnitOfWork.GenreRepository = mockRepository.Object;
 
-            BLGenre bLGenre = new BLGenre(testUnitOfWork);
+            BLLGenre bLGenre = new BLLGenre(testUnitOfWork);
 
             Genre genre = bLGenre.Get(1);
 

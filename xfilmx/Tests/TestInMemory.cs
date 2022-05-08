@@ -237,7 +237,7 @@ namespace Tests
         {
             var uof = new UnitOfWork(new Database(this.CreateContext()));
 
-            Assert.Throws<ArgumentNullException>(() => uof.CelebritieRepository.Delete(-1));
+            Assert.Throws<Exception>(() => uof.CelebritieRepository.Delete(-1));
         }
     }
 }

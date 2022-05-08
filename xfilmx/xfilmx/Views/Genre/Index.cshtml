@@ -1,0 +1,24 @@
+﻿@model IEnumerable<xfilmx.Models.Genre>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <div class = "text-danger">@ViewBag.ErrorMessage</div>
+}
+
+@Html.ActionLink("create", "Create")
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach(Genre genre in Model) {
+            <tr>
+                <td>@genre.Name</td>
+                <td>@Html.ActionLink("delete", "Delete", new { genreId = genre.GenreId })</td>
+                <td>@Html.ActionLink("edit", "Edit", new { genreId = genre.GenreId })</td>
+            </tr>
+        }
+    </table>
+</div>

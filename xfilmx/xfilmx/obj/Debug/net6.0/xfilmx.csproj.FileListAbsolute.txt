@@ -242,3 +242,4 @@ D:\taiib projekt\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\refint\xfilmx.dll
 D:\taiib projekt\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.pdb
 D:\taiib projekt\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\xfilmx.genruntimeconfig.cache
 D:\taiib projekt\xfilmx\xfilmx\xfilmx\obj\Debug\net6.0\ref\xfilmx.dll
+D:\VSProjects\xfilmx\xfilmx\xfilmx\bin\Debug\net6.0\libman.json
