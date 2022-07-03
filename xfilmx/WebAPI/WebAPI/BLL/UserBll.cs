@@ -14,11 +14,89 @@ namespace WebAPI.BLL
             this.unitOfWork = unitOfWork;
         }
 
+        public bool ChangePassword(int userId, ChangePasswordDto dto)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return false;
+
+            if (user.Password != dto.OldPassword)
+                return false;
+
+            user.Password = dto.NewPassword;
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool ChangePicture(int userId, byte[] picture)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+
+            if (user == null)
+                return false;
+
+            user.Picture = picture;
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool ChangeType(int userId, UserType userType)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+
+            if (user == null)
+                return false;
+
+            user.UserType = userType;
+            this.unitOfWork.Complete();
+            return true;
+        }
+
         public bool Delete(int userId)
         {
             bool deleted = this.unitOfWork.UserRepository.Delete(userId);
             if (deleted) this.unitOfWork.Complete();
             return deleted;
+        }
+
+        public bool DeletePicture(int userId)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+
+            if (user == null)
+                return false;
+
+            user.Picture = File.ReadAllBytes(@"D:\VSProjects\xfilmx\xfilmx\WebAPI\WebAPI\Resources\defaultProfilePicture.png");
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public UserDto Get(int userId)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+
+            if (user == null)
+                return (UserDto)null;
+
+            return new UserDto
+            {
+                UserId = user.UserId,
+                UserType = user.UserType,
+                Username = user.Username,
+                Picture = user.Picture
+            };
+        }
+
+        public List<UserDto> Get()
+        {
+            return this.unitOfWork.UserRepository.Get()
+                .Select(u => new UserDto
+                {
+                    UserId = u.UserId,
+                    UserType = u.UserType,
+                    Username = u.Username,
+                    Picture = u.Picture
+                }).ToList();
         }
 
         public UserDto Post(PostUserDto dto)
@@ -34,7 +112,8 @@ namespace WebAPI.BLL
             {
                 UserType = UserType.Normal,
                 Username = dto.Username,
-                Password = dto.Password
+                Password = dto.Password,
+                Picture = File.ReadAllBytes(@"D:\VSProjects\xfilmx\xfilmx\WebAPI\WebAPI\Resources\defaultProfilePicture.png")
             };
 
             this.unitOfWork.UserRepository.Add(user);

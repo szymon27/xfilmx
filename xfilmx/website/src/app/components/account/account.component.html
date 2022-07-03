@@ -1,0 +1,31 @@
+<div class="container">
+    <form #changePasswordForm="ngForm" (ngSubmit)="onChangePassword()">
+        <div>
+            <h2>Change Password</h2>
+        </div>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Old password</mat-label>
+            <input matInput type="password" name="oldPassword" id="oldPassword" [(ngModel)]="changePassword.oldPassword" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>New password</mat-label>
+            <input matInput type="password" name="newPassword" id="newPassword" [(ngModel)]="changePassword.newPassword" required>
+        </mat-form-field>
+     
+        <button mat-flat-button color="primary" type="submit" [disabled]="!changePasswordForm.valid">change password</button>
+    </form>
+
+    <form #changePictureForm="ngForm" (ngSubmit)="onChangePicture()">
+        <div>
+            <h2>Change Picture</h2>
+        </div>
+
+        <img [src]="imageSrc" style="width:200px; height: 200px;">
+        <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewPicture($event)">
+
+        <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
+        <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
+    </form>
+</div>

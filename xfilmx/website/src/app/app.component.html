@@ -1,6 +1,21 @@
-<div *ngIf="!isUserAuthenticated()">unauthorized</div>
-<div *ngIf="isUserAuthenticated()">authorized</div>
-<button *ngIf="isUserAuthenticated()" mat-stroked-button color="primary" (click)="logout()">sign out</button>
-<div *ngIf="hasRole(['Employee', 'Admin'])">employeeeee</div>
-<div *ngIf="hasRole(['Admin'])">adminnnn</div>
+<mat-toolbar>
+    <div class="container">
+        <div class="title">
+            <span>{{title}}</span>
+        </div>
+        <div class="menu">
+            <a routerLink="/news" routerLinkActive="active">news</a>
+            <a routerLink="/celebrities" routerLinkActive="active">celebrities</a>
+            <a routerLink="/films" routerLinkActive="active">films</a>
+            <a routerLink="/series" routerLinkActive="active">series</a>
+            <a routerLink="/myxfilmx" routerLinkActive="active">my xfilmx</a>
+            <a routerLink="/users" routerLinkActive="active">users</a>
+        </div>
+        <div class="account">
+            <a routerLink="/account" routerLinkActive="active" *ngIf="isUserAuthenticated()">account</a>
+            <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isUserAuthenticated()">logout</a>
+            <a routerLink="/login" routerLinkActive="active" *ngIf="!isUserAuthenticated()">sign in</a>
+        </div>
+    </div>
+</mat-toolbar>
 <router-outlet></router-outlet>
