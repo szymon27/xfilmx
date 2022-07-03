@@ -1,0 +1,6 @@
+<div *ngIf="!isUserAuthenticated()">unauthorized</div>
+<div *ngIf="isUserAuthenticated()">authorized</div>
+<button *ngIf="isUserAuthenticated()" mat-stroked-button color="primary" (click)="logout()">sign out</button>
+<div *ngIf="hasRole(['Employee', 'Admin'])">employeeeee</div>
+<div *ngIf="hasRole(['Admin'])">adminnnn</div>
+<router-outlet></router-outlet>

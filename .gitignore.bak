@@ -1,0 +1,7 @@
+xfilmx/website/.angular
+xfilmx/website/node_modules
+xfilmx/website/.gitignore
+
+xfilmx/WebAPI/.vs
+xfilmx/WebAPI/WebAPI/bin
+xfilmx/WebAPI/WebAPI/obj
