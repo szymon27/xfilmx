@@ -66,7 +66,7 @@ namespace WebAPI.BLL
             if (user == null)
                 return false;
 
-            user.Picture = File.ReadAllBytes(@"D:\VSProjects\xfilmx\xfilmx\WebAPI\WebAPI\Resources\defaultProfilePicture.png");
+            user.Picture = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultProfilePicture.png"));
             this.unitOfWork.Complete();
             return true;
         }
@@ -113,8 +113,8 @@ namespace WebAPI.BLL
                 UserType = UserType.Normal,
                 Username = dto.Username,
                 Password = dto.Password,
-                Picture = File.ReadAllBytes(@"D:\VSProjects\xfilmx\xfilmx\WebAPI\WebAPI\Resources\defaultProfilePicture.png")
-            };
+                Picture = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultProfilePicture.png")) //@"D:\VSProjects\xfilmx\xfilmx\WebAPI\WebAPI\Resources\defaultProfilePicture.png"
+        };
 
             this.unitOfWork.UserRepository.Add(user);
             this.unitOfWork.Complete();
