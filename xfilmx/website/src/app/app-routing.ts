@@ -1,9 +1,12 @@
 import { Routes } from "@angular/router";
 import { AccountComponent } from "./components/account/account.component";
 import { CelebritiesListComponent } from "./components/celebrities-list/celebrities-list.component";
+import { CountriesListComponent } from "./components/countries-list/countries-list.component";
+import { CountryFormComponent } from "./components/country-form/country-form.component";
 import { FilmsListComponent } from "./components/films-list/films-list.component";
 import { LoginFormComponent } from "./components/login-form/login-form.component";
 import { MyXfilmxComponent } from "./components/my-xfilmx/my-xfilmx.component";
+import { NewCountryFormComponent } from "./components/new-country-form/new-country-form.component";
 import { NewsComponent } from "./components/news/news.component";
 import { RegisterFormComponent } from "./components/register-form/register-form.component";
 import { SeriesListComponent } from "./components/series-list/series-list.component";
@@ -21,5 +24,8 @@ export const APP_ROUTES: Routes = [
     {path: 'series', component: SeriesListComponent},
     {path: 'myxfilmx', component: MyXfilmxComponent},
     {path: 'users', component: UsersListComponent},
+    {path: 'countries', component: CountriesListComponent},
+    {path: 'countries/add', component: NewCountryFormComponent},
+    {path: 'countries/:id', component: CountryFormComponent},
     {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];

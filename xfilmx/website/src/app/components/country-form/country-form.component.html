@@ -1,1 +1,17 @@
-<p>country-form works!</p>
+<form #countryForm="ngForm" (ngSubmit)="editCountry()">
+    <div>
+        <h2>Edit country</h2>
+    </div>
+
+    <mat-error *ngIf="countryAlreadyExists">
+        Country already exists
+    </mat-error>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" id="name" [(ngModel)]="country.name" required>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="!countryForm.valid">edit</button>
+    <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
+</form>

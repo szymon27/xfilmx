@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<Database>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserBll, UserBll>();
+builder.Services.AddScoped<ICountryBll, CountryBll>();
 builder.Services.AddScoped<ICelebritieBll, CelebritieBll>();
 builder.Services.AddScoped<IAuthorizationBll, AuthorizationBll>();
 builder.Services.AddEndpointsApiExplorer();
