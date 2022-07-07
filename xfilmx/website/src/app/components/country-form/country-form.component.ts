@@ -9,7 +9,10 @@ import { CountriesService } from 'src/app/services/countries.service';
   styleUrls: ['./country-form.component.css']
 })
 export class CountryFormComponent implements OnInit {
-  country: Country;
+  country: Country = {
+    countryId: -1,
+    name: ""
+  };
   countryAlreadyExists: boolean = false;
 
   constructor(private countriesService: CountriesService, private router: Router, private activatedRoute: ActivatedRoute) { 

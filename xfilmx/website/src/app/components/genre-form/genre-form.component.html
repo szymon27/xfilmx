@@ -1,1 +1,17 @@
-<p>genre-form works!</p>
+<form #genreForm="ngForm" (ngSubmit)="editGenre()">
+    <div>
+        <h2>Edit genre</h2>
+    </div>
+
+    <mat-error *ngIf="genreAlreadyExists">
+        Genre already exists
+    </mat-error>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" id="name" [(ngModel)]="genre.name" required>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="!genreForm.valid">edit</button>
+    <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
+</form>
