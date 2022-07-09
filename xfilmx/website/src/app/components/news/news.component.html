@@ -1,1 +1,14 @@
-<p>news works!</p>
+<div>
+    <div>
+        <h2>{{news.title}}</h2>
+    </div>
+    <div>
+        <img [src]="getImageSrc()" style="width:200px; height: 200px;">
+    </div>
+    <div>
+        <span>{{news.description}}</span>
+    </div>
+    <div>
+        <span>{{news.date}}</span>
+    </div>
+</div>

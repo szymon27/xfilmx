@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
             var picture = HttpContext.Request.Form.Files["Picture"];
             if(picture == null)
                 return this.userBll.ChangePicture(userId,
-                    System.IO.File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultProfilePicture.png"))); //@"D:\VSProjects\xfilmx\xfilmx\WebAPI\WebAPI\Resources\defaultProfilePicture.png"
+                    System.IO.File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultProfilePicture.png")));
 
             MemoryStream memoryStream = new MemoryStream();
             picture.CopyTo(memoryStream);

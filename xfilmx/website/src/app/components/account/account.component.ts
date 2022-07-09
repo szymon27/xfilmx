@@ -35,6 +35,7 @@ export class AccountComponent implements OnInit {
       console.log("password changed: " + res);
     })
   }
+
   handleNewPicture(e: any): void {
     this.file = (e.target as HTMLInputElement).files.item(0);
     if(this.file != null) {
@@ -53,16 +54,15 @@ export class AccountComponent implements OnInit {
   onChangePicture(): void {
     const token: string = localStorage.getItem("jwt");
     let userId: number = jwtDecode(localStorage.getItem("jwt"))['userId'];
-    this.usersService.changePicture(userId, this.file).subscribe(res => {
-      console.log("change picture: " + res);
-    });
+
+    console.log(userId);
+    this.usersService.changePicture(userId, this.file).subscribe();
   }
 
   onDeletePicture(): void {
     const token: string = localStorage.getItem("jwt");
     let userId: number = jwtDecode(localStorage.getItem("jwt"))['userId'];
     this.usersService.deletePicture(userId).subscribe(res => {
-      console.log("delete picture: " + res);
       if(res) {
         this.imageSrc = null;
         this.file = null;

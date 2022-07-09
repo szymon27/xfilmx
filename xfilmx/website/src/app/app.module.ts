@@ -33,6 +33,8 @@ import { NewGenreFormComponent } from './components/new-genre-form/new-genre-for
 import { GenreFormComponent } from './components/genre-form/genre-form.component';
 import { CountryFormComponent } from './components/country-form/country-form.component';
 import { NewCountryFormComponent } from './components/new-country-form/new-country-form.component';
+import { NewsFormComponent } from './components/news-form/news-form.component';
+import { NewNewsFormComponent } from './components/new-news-form/new-news-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -59,7 +61,9 @@ export function tokenGetter() {
     NewGenreFormComponent,
     GenreFormComponent,
     CountryFormComponent,
-    NewCountryFormComponent
+    NewCountryFormComponent,
+    NewsFormComponent,
+    NewNewsFormComponent
   ],
   imports: [
     BrowserModule,

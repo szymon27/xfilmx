@@ -53,10 +53,7 @@ export class UsersService {
   public changePicture(userId: number, file: File): Observable<boolean> {
     const formData: FormData = new FormData();
     formData.append('Picture', file);
-    return this.httpClient.put<boolean>(this.url + '/changePicture/' + userId, formData, {
-        headers: new HttpHeaders({"Content-Type":"application/json"
-      })
-    });
+    return this.httpClient.put<boolean>(this.url + '/changePicture/' + userId, formData);
   }
 
   public deletePicture(userId: number) : Observable<boolean> {

@@ -16,6 +16,7 @@ builder.Services.AddScoped<IUserBll, UserBll>();
 builder.Services.AddScoped<ICountryBll, CountryBll>();
 builder.Services.AddScoped<IGenreBll, GenreBll>();
 builder.Services.AddScoped<ICelebritieBll, CelebritieBll>();
+builder.Services.AddScoped<INewsBll, NewsBll>();
 builder.Services.AddScoped<IAuthorizationBll, AuthorizationBll>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

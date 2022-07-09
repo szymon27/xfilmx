@@ -1,1 +1,39 @@
-<p>news-list works!</p>
+<button id="addBtn" mat-fab color="primary" (click)="addNews()">
+    <mat-icon>add</mat-icon>
+</button>
+<div>
+    <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
+</div>
+<table mat-table [dataSource]="news">
+
+    <ng-container matColumnDef="picture">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Picture </th>
+        <td mat-cell *matCellDef="let n" class="content-cell"> 
+            <img [src]="getImageSrc(n)" style="width:200px; height: 200px;">
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Title </th>
+        <td mat-cell *matCellDef="let n" class="content-cell"> {{n.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Description </th>
+        <td mat-cell *matCellDef="let n" class="content-cell"> {{n.description}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Actions </th>
+        <td mat-cell *matCellDef="let n" class="content-cell">
+            <button (click)="editNews(n.newsId)">edit</button>
+            <button (click)="deleteNews(n.newsId)">delete</button>
+            <button (click)="readNews(n.newsId)">read more</button>
+        </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="['picture', 'title', 'description', 'actions']"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: ['picture', 'title', 'description', 'actions']"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" #paginator></mat-paginator>

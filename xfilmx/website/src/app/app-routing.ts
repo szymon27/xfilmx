@@ -10,6 +10,9 @@ import { LoginFormComponent } from "./components/login-form/login-form.component
 import { MyXfilmxComponent } from "./components/my-xfilmx/my-xfilmx.component";
 import { NewCountryFormComponent } from "./components/new-country-form/new-country-form.component";
 import { NewGenreFormComponent } from "./components/new-genre-form/new-genre-form.component";
+import { NewNewsFormComponent } from "./components/new-news-form/new-news-form.component";
+import { NewsFormComponent } from "./components/news-form/news-form.component";
+import { NewsListComponent } from "./components/news-list/news-list.component";
 import { NewsComponent } from "./components/news/news.component";
 import { RegisterFormComponent } from "./components/register-form/register-form.component";
 import { SeriesListComponent } from "./components/series-list/series-list.component";
@@ -21,7 +24,10 @@ export const APP_ROUTES: Routes = [
     {path: 'login', component: LoginFormComponent},
     {path: 'register', component: RegisterFormComponent},
     {path: 'account', component: AccountComponent},
-    {path: 'news', component: NewsComponent},
+    {path: 'news', component: NewsListComponent},
+    {path: 'news/add', component: NewNewsFormComponent},
+    {path: 'news/:id', component: NewsComponent},
+    {path: 'news/:id/edit', component: NewsFormComponent},
     {path: 'celebrities', component: CelebritiesListComponent},
     {path: 'films', component: FilmsListComponent},
     {path: 'series', component: SeriesListComponent},
