@@ -1,5 +1,7 @@
 import { Routes } from "@angular/router";
+import { CelebritieFormComponent } from "./components/celebritie-form/celebritie-form.component";
 import { AccountComponent } from "./components/account/account.component";
+import { CelebritieComponent } from "./components/celebritie/celebritie.component";
 import { CelebritiesListComponent } from "./components/celebrities-list/celebrities-list.component";
 import { CountriesListComponent } from "./components/countries-list/countries-list.component";
 import { CountryFormComponent } from "./components/country-form/country-form.component";
@@ -8,6 +10,7 @@ import { GenreFormComponent } from "./components/genre-form/genre-form.component
 import { GenresListComponent } from "./components/genres-list/genres-list.component";
 import { LoginFormComponent } from "./components/login-form/login-form.component";
 import { MyXfilmxComponent } from "./components/my-xfilmx/my-xfilmx.component";
+import { NewCelebritieFormComponent } from "./components/new-celebritie-form/new-celebritie-form.component";
 import { NewCountryFormComponent } from "./components/new-country-form/new-country-form.component";
 import { NewGenreFormComponent } from "./components/new-genre-form/new-genre-form.component";
 import { NewNewsFormComponent } from "./components/new-news-form/new-news-form.component";
@@ -29,6 +32,9 @@ export const APP_ROUTES: Routes = [
     {path: 'news/:id', component: NewsComponent},
     {path: 'news/:id/edit', component: NewsFormComponent},
     {path: 'celebrities', component: CelebritiesListComponent},
+    {path: 'celebrities/add', component: NewCelebritieFormComponent},
+    {path: 'celebrities/:id', component: CelebritieComponent},
+    {path: 'celebrities/:id/edit', component: CelebritieFormComponent},
     {path: 'films', component: FilmsListComponent},
     {path: 'series', component: SeriesListComponent},
     {path: 'myxfilmx', component: MyXfilmxComponent},

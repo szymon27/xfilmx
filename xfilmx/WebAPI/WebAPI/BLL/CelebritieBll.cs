@@ -14,11 +14,33 @@ namespace WebAPI.BLL
             this.unitOfWork = unitOfWork;
         }
 
+        public bool ChangePicture(int celebritieId, byte[] picture)
+        {
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+            if (celebritie == null)
+                return false;
+
+            celebritie.Picture = picture;
+            this.unitOfWork.Complete();
+            return true;
+        }
+
         public bool Delete(int celebritieId)
         {
             bool deleted = this.unitOfWork.CelebritieRepository.Delete(celebritieId);
             if (deleted) this.unitOfWork.Complete();
             return deleted;
+        }
+
+        public bool DeletePicture(int celebritieId)
+        {
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+            if (celebritie == null)
+                return false;
+
+            celebritie.Picture = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultNewsPicture.png"));
+            this.unitOfWork.Complete();
+            return true;
         }
 
         public CelebritieDto Get(int celebritieId)
@@ -62,8 +84,7 @@ namespace WebAPI.BLL
                 Surname= dto.Surname,
                 DateOfBirth = dto.DateOfBirth,
                 PlaceOfBirth = dto.PlaceOfBirth,
-                Picture = dto.Picture.Length > 0 ? dto.Picture
-                                                 : File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultCelebritiePicture.png"))
+                Picture = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultCelebritiePicture.png"))
             };
 
             this.unitOfWork.CelebritieRepository.Add(celebritie);
@@ -80,7 +101,7 @@ namespace WebAPI.BLL
             };
         }
 
-        public CelebritieDto Put(int celebritieId, PostCelebritieDto dto)//zwykle dto bo wszystko poza id sie moze powtarzac
+        public CelebritieDto Put(int celebritieId, PutCelebritieDto dto)
         {
             Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
 
@@ -91,8 +112,7 @@ namespace WebAPI.BLL
             celebritie.Surname = dto.Surname;
             celebritie.DateOfBirth = dto.DateOfBirth;
             celebritie.PlaceOfBirth = dto.PlaceOfBirth;
-            celebritie.Picture = dto.Picture.Length > 0 ? dto.Picture
-                                                 : File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultCelebritiePicture.png"));
+            celebritie.Picture = File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultCelebritiePicture.png"));
 
 
             this.unitOfWork.Complete();

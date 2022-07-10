@@ -35,6 +35,8 @@ import { CountryFormComponent } from './components/country-form/country-form.com
 import { NewCountryFormComponent } from './components/new-country-form/new-country-form.component';
 import { NewsFormComponent } from './components/news-form/news-form.component';
 import { NewNewsFormComponent } from './components/new-news-form/new-news-form.component';
+import { NewCelebritieFormComponent } from './components/new-celebritie-form/new-celebritie-form.component';
+import { CelebritieFormComponent } from './components/celebritie-form/celebritie-form.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -63,7 +65,9 @@ export function tokenGetter() {
     CountryFormComponent,
     NewCountryFormComponent,
     NewsFormComponent,
-    NewNewsFormComponent
+    NewNewsFormComponent,
+    NewCelebritieFormComponent,
+    CelebritieFormComponent
   ],
   imports: [
     BrowserModule,

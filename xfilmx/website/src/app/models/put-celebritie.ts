@@ -1,4 +1,4 @@
-export class PostCelebritie{
+export class PutCelebritie{
     name: string;
     surname: string;
     dateOfBirth: Date;

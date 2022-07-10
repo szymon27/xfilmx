@@ -1,5 +1,8 @@
+<button id="addBtn" mat-fab color="primary" (click)="addCelebritie()">
+    <mat-icon>add</mat-icon>
+</button>
 <div>
-    <input matInput (keyup)="search($event.target)" placeholder="search">
+    <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
 </div>
 
 <table mat-table [dataSource]="celebrities">
@@ -20,8 +23,17 @@
         <td mat-cell *matCellDef="let celebritie" class="content-cell"> {{celebritie.surname}} </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['picture', 'name', 'surname']"></tr>
-    <tr mat-row *matRowDef="let myRowData; columns: ['picture', 'name', 'surname']"></tr>
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Actions </th>
+        <td mat-cell *matCellDef="let celebritie" class="content-cell">
+            <button (click)="showCelebritie(celebritie.id)">show</button>
+            <button (click)="editCelebritie(celebritie.id)">edit</button>
+            <button (click)="deleteCelebritie(celebritie.id)">delete</button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['picture', 'name', 'surname', 'actions']"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: ['picture', 'name', 'surname', 'actions']"></tr>
 </table>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" #paginator></mat-paginator>

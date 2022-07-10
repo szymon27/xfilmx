@@ -1,1 +1,15 @@
-<p>celebritie works!</p>
+<div>
+    <div>
+        <h2>{{celebritie.name}} {{celebritie.surname}} </h2>
+    </div>
+    <div>
+        <img [src]="getImageSrc()" style="width:200px; height: 200px;">
+    </div>
+    <div>
+        <span>{{celebritie.placeOfBirth}}</span>
+        <span>  {{celebritie.dateOfBirth | date}}</span>
+    </div>
+    <div>
+        <h3>Played in</h3>
+    </div>
+</div>
