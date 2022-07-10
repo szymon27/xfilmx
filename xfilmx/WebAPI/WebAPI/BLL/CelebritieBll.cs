@@ -28,7 +28,23 @@ namespace WebAPI.BLL
         public bool Delete(int celebritieId)
         {
             bool deleted = this.unitOfWork.CelebritieRepository.Delete(celebritieId);
-            if (deleted) this.unitOfWork.Complete();
+            if (deleted)
+            {
+                var directed = this.unitOfWork.ProductionDirectorRepository.Get().Where(x => x.CelebritieId == celebritieId).ToList();
+                var played  = this.unitOfWork.ProductionActorRepository.Get().Where(x => x.CelebritieId == celebritieId).ToList();
+                var screenwrited = this.unitOfWork.ProductionScreenwriterRepository.Get().Where(x => x.CelebritieId == celebritieId).ToList();
+
+                foreach(var x in directed)
+                    this.unitOfWork.ProductionDirectorRepository.Delete(new { x.ProductionId, x.CelebritieId });
+
+                foreach (var x in played)
+                    this.unitOfWork.ProductionActorRepository.Delete(new { x.ProductionId, x.CelebritieId });
+
+                foreach (var x in screenwrited)
+                    this.unitOfWork.ProductionScreenwriterRepository.Delete(new { x.ProductionId, x.CelebritieId });
+
+                this.unitOfWork.Complete();
+            }
             return deleted;
         }
 

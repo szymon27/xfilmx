@@ -17,7 +17,12 @@ namespace WebAPI.BLL
         public bool Delete(int genreId)
         {
             bool deleted = this.unitOfWork.GenreRepository.Delete(genreId);
-            if (deleted) this.unitOfWork.Complete();
+            if (deleted)
+            {
+                var productions = this.unitOfWork.ProductionGenreRepository.Get().Where(x => x.GenreId == genreId);
+                foreach (var x in productions) this.unitOfWork.ProductionGenreRepository.Delete(new { x.ProductionId, x.GenreId });
+                this.unitOfWork.Complete();
+            }
             return deleted;
         }
 

@@ -22,6 +22,7 @@ import { SeriesListComponent } from "./components/series-list/series-list.compon
 import { UsersListComponent } from "./components/users-list/users-list.component";
 import { AuthorizationGuard } from "./guards/authorization.guard";
 import { RoleGuard } from "./guards/role.guard";
+import { NewProductionFormComponent } from "./components/new-production-form/new-production-form.component";
 
 export const APP_ROUTES: Routes = [
     {path: 'login', component: LoginFormComponent},
@@ -35,6 +36,7 @@ export const APP_ROUTES: Routes = [
     {path: 'celebrities/add', component: NewCelebritieFormComponent},
     {path: 'celebrities/:id', component: CelebritieComponent},
     {path: 'celebrities/:id/edit', component: CelebritieFormComponent},
+    {path: 'productions/add', component: NewProductionFormComponent},
     {path: 'films', component: FilmsListComponent},
     {path: 'series', component: SeriesListComponent},
     {path: 'myxfilmx', component: MyXfilmxComponent},

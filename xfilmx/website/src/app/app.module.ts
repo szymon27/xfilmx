@@ -21,10 +21,8 @@ import { AccountComponent } from './components/account/account.component';
 import { NewsListComponent } from './components/news-list/news-list.component';
 import { FilmsListComponent } from './components/films-list/films-list.component';
 import { SeriesListComponent } from './components/series-list/series-list.component';
-import { FilmComponent } from './components/film/film.component';
 import { CelebritiesListComponent } from './components/celebrities-list/celebrities-list.component';
 import { CelebritieComponent } from './components/celebritie/celebritie.component';
-import { SeriesComponent } from './components/series/series.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { GenresListComponent } from './components/genres-list/genres-list.component';
@@ -37,6 +35,9 @@ import { NewsFormComponent } from './components/news-form/news-form.component';
 import { NewNewsFormComponent } from './components/new-news-form/new-news-form.component';
 import { NewCelebritieFormComponent } from './components/new-celebritie-form/new-celebritie-form.component';
 import { CelebritieFormComponent } from './components/celebritie-form/celebritie-form.component';
+import { ProductionComponent } from './components/production/production.component';
+import { NewProductionFormComponent } from './components/new-production-form/new-production-form.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -53,10 +54,8 @@ export function tokenGetter() {
     NewsListComponent,
     FilmsListComponent,
     SeriesListComponent,
-    FilmComponent,
     CelebritiesListComponent,
     CelebritieComponent,
-    SeriesComponent,
     UsersListComponent,
     GenresListComponent,
     CountriesListComponent,
@@ -67,7 +66,9 @@ export function tokenGetter() {
     NewsFormComponent,
     NewNewsFormComponent,
     NewCelebritieFormComponent,
-    CelebritieFormComponent
+    CelebritieFormComponent,
+    ProductionComponent,
+    NewProductionFormComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +88,8 @@ export function tokenGetter() {
     MatPaginatorModule,
     MatToolbarModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
