@@ -275,16 +275,16 @@ namespace WebAPI.BLL
                 var screenwriters = this.unitOfWork.ProductionScreenwriterRepository.Get().Where(x => x.ProductionId == productionId);
 
                 foreach (var x in comments) this.unitOfWork.ProductionCommentRepository.Delete(x.ProductionCommentId);
-                foreach (var x in rates) this.unitOfWork.ProductionRateRepository.Delete(new { productionId, x.UserId });
-                foreach (var x in watchStatus) this.unitOfWork.ProductionWatchStatusRepository.Delete(new { productionId, x.UserId });
-                foreach (var x in genres) this.unitOfWork.ProductionGenreRepository.Delete(new { productionId, x.GenreId });
-                foreach (var x in countries) this.unitOfWork.ProductionRateRepository.Delete(new { productionId, x.CountryId });
+                foreach (var x in rates) this.unitOfWork.ProductionRateRepository.Delete(productionId, x.UserId);
+                foreach (var x in watchStatus) this.unitOfWork.ProductionWatchStatusRepository.Delete(productionId, x.UserId);
+                foreach (var x in genres) this.unitOfWork.ProductionGenreRepository.Delete(productionId, x.GenreId);
+                foreach (var x in countries) this.unitOfWork.ProductionRateRepository.Delete(productionId, x.CountryId);
                 foreach (var x in trailers) this.unitOfWork.ProductionTrailerRepository.Delete(x.ProductionTrailerId);
-                foreach (var x in episods) this.unitOfWork.ProductionEpisodRepository.Delete(new { productionId, x.Season, x.Episod });
+                foreach (var x in episods) this.unitOfWork.ProductionEpisodRepository.Delete(productionId, x.Season, x.Episod);
                 foreach (var x in pictures) this.unitOfWork.ProductionPictureRepository.Delete(x.ProductionPictureId);
-                foreach (var x in actors) this.unitOfWork.ProductionActorRepository.Delete(new { productionId, x.CelebritieId });
-                foreach (var x in directors) this.unitOfWork.ProductionDirectorRepository.Delete(new { productionId, x.CelebritieId });
-                foreach (var x in screenwriters) this.unitOfWork.ProductionScreenwriterRepository.Delete(new { productionId, x.CelebritieId });
+                foreach (var x in actors) this.unitOfWork.ProductionActorRepository.Delete(productionId, x.CelebritieId);
+                foreach (var x in directors) this.unitOfWork.ProductionDirectorRepository.Delete(productionId, x.CelebritieId);
+                foreach (var x in screenwriters) this.unitOfWork.ProductionScreenwriterRepository.Delete(productionId, x.CelebritieId);
                 this.unitOfWork.Complete();
             }
             return deleted;
@@ -338,6 +338,7 @@ namespace WebAPI.BLL
             if (removed) this.unitOfWork.Complete();
             return removed;
         }
+
         public List<GenreDto> GetGenres(int productionId)
         {
             Production production = this.unitOfWork.ProductionRepository.Get(productionId);
@@ -383,6 +384,165 @@ namespace WebAPI.BLL
         public bool DeleteGenre(int productionId, int genreId)
         {
             bool removed = this.unitOfWork.ProductionGenreRepository.Delete(productionId, genreId);
+            if (removed) this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public List<CelebritieDto> GetActors(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<CelebritieDto>();
+
+            return this.unitOfWork.ProductionActorRepository.Get().ToList()
+                .Where(p => p.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                    pa => pa.CelebritieId,
+                    c => c.CelebritieId,
+                    (pa, c) => new CelebritieDto
+                    {
+                        Id = c.CelebritieId,
+                        Name = c.Name,
+                        Surname = c.Surname,
+                        DateOfBirth = c.DateOfBirth,
+                        PlaceOfBirth = c.PlaceOfBirth,
+                        Picture = c.Picture
+                    })
+                .ToList();
+        }
+
+        public bool AddActor(int productionId, int celebritieId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+            if (celebritie == null)
+                return false;
+
+            bool exist = this.unitOfWork.ProductionActorRepository.Get().Where(x => x.CelebritieId == celebritieId && x.ProductionId == productionId).Count() > 0;
+            if (exist)
+                return false;
+
+            this.unitOfWork.ProductionActorRepository.Add(new ProductionActor
+            {
+                CelebritieId = celebritieId,
+                ProductionId = productionId
+            });
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteActor(int productionId, int celebritieId)
+        {
+            bool removed = this.unitOfWork.ProductionActorRepository.Delete(productionId, celebritieId);
+            if (removed) this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public List<CelebritieDto> GetDirectors(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<CelebritieDto>();
+
+            return this.unitOfWork.ProductionDirectorRepository.Get().ToList()
+                .Where(p => p.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                    pd => pd.CelebritieId,
+                    c => c.CelebritieId,
+                    (pd, c) => new CelebritieDto
+                    {
+                        Id = c.CelebritieId,
+                        Name = c.Name,
+                        Surname = c.Surname,
+                        DateOfBirth = c.DateOfBirth,
+                        PlaceOfBirth = c.PlaceOfBirth,
+                        Picture = c.Picture
+                    })
+                .ToList();
+        }
+
+        public bool AddDirector(int productionId, int celebritieId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+            if (celebritie == null)
+                return false;
+
+            bool exist = this.unitOfWork.ProductionDirectorRepository.Get().Where(x => x.CelebritieId == celebritieId && x.ProductionId == productionId).Count() > 0;
+            if (exist)
+                return false;
+
+            this.unitOfWork.ProductionDirectorRepository.Add(new ProductionDirector
+            {
+                CelebritieId = celebritieId,
+                ProductionId = productionId
+            });
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteDirector(int productionId, int celebritieId)
+        {
+            bool removed = this.unitOfWork.ProductionDirectorRepository.Delete(productionId, celebritieId);
+            if (removed) this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public List<CelebritieDto> GetScreenwriters(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<CelebritieDto>();
+
+            return this.unitOfWork.ProductionScreenwriterRepository.Get().ToList()
+                .Where(p => p.ProductionId == productionId)
+                .Join(this.unitOfWork.CelebritieRepository.Get(),
+                    ps => ps.CelebritieId,
+                    c => c.CelebritieId,
+                    (ps, c) => new CelebritieDto
+                    {
+                        Id = c.CelebritieId,
+                        Name = c.Name,
+                        Surname = c.Surname,
+                        DateOfBirth = c.DateOfBirth,
+                        PlaceOfBirth = c.PlaceOfBirth,
+                        Picture = c.Picture
+                    })
+                .ToList();
+        }
+
+        public bool AddScreenwriter(int productionId, int celebritieId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+            if (celebritie == null)
+                return false;
+
+            bool exist = this.unitOfWork.ProductionScreenwriterRepository.Get().Where(x => x.CelebritieId == celebritieId && x.ProductionId == productionId).Count() > 0;
+            if (exist)
+                return false;
+
+            this.unitOfWork.ProductionScreenwriterRepository.Add(new ProductionScreenwriter
+            {
+                CelebritieId = celebritieId,
+                ProductionId = productionId
+            });
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteScreenwriter(int productionId, int celebritieId)
+        {
+            bool removed = this.unitOfWork.ProductionScreenwriterRepository.Delete(productionId, celebritieId);
             if (removed) this.unitOfWork.Complete();
             return removed;
         }

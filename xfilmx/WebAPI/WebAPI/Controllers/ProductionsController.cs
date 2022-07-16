@@ -84,5 +84,41 @@ namespace WebAPI.Controllers
         [HttpDelete("genres/{productionId}/{genreId}")]
         public bool DeleteGenre(int productionId, int genreId)
             => this.productionBll.DeleteGenre(productionId, genreId);
+
+        [HttpGet("actors/{productionId}")]
+        public List<CelebritieDto> GetActors(int productionId)
+            => this.productionBll.GetActors(productionId);
+
+        [HttpPut("actors/{productionId}")]
+        public bool AddActor(int productionId, [FromBody] int celebritieId)
+            => this.productionBll.AddActor(productionId, celebritieId);
+
+        [HttpDelete("actors/{productionId}/{celebritieId}")]
+        public bool DeleteActor(int productionId, int celebritieId)
+            => this.productionBll.DeleteActor(productionId, celebritieId);
+
+        [HttpGet("directors/{productionId}")]
+        public List<CelebritieDto> GetDirectors(int productionId)
+            => this.productionBll.GetDirectors(productionId);
+
+        [HttpPut("directors/{productionId}")]
+        public bool AddDirector(int productionId, [FromBody] int celebritieId)
+            => this.productionBll.AddDirector(productionId, celebritieId);
+
+        [HttpDelete("directors/{productionId}/{celebritieId}")]
+        public bool DeleteDirector(int productionId, int celebritieId)
+            => this.productionBll.DeleteDirector(productionId, celebritieId);
+
+        [HttpGet("screenwriters/{productionId}")]
+        public List<CelebritieDto> GetScreenwriters(int productionId)
+            => this.productionBll.GetScreenwriters(productionId);
+
+        [HttpPut("screenwriters/{productionId}")]
+        public bool AddScreenwriter(int productionId, [FromBody] int celebritieId)
+            => this.productionBll.AddScreenwriter(productionId, celebritieId);
+
+        [HttpDelete("screenwriters/{productionId}/{celebritieId}")]
+        public bool DeleteScreenwriter(int productionId, int celebritieId)
+            => this.productionBll.DeleteScreenwriter(productionId, celebritieId);
     }
 }
