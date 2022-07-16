@@ -10,7 +10,7 @@ import { CelebritiesService } from 'src/app/services/celebrities.service';
 })
 export class CelebritieComponent implements OnInit {
   celebritie: Celebritie = {
-    celebritieId: -1,
+    id: -1,
     name: "",
     surname: "",
     dateOfBirth: null,

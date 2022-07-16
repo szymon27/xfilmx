@@ -25,8 +25,8 @@ namespace WebAPI.BLL.Interfaces
         public bool AddGenre(int productionId, int genreId);
         public bool DeleteGenre(int productionId, int genreId);
 
-        public List<CelebritieDto> GetActors(int productionId);
-        public bool AddActor(int productionId, int celebritieId);
+        public List<Tuple<CelebritieDto, string>> GetActors(int productionId);
+        public bool AddActor(int productionId, int celebritieId, string character);
         public bool DeleteActor(int productionId, int celebritieId);
 
         public List<CelebritieDto> GetDirectors(int productionId);

@@ -1,8 +1,7 @@
-import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Celebritie } from 'src/app/models/celebritie';
 import { Country } from 'src/app/models/country';
 import { Genre } from 'src/app/models/genre';
 import { PutProduction } from 'src/app/models/put-production';
@@ -10,13 +9,17 @@ import { CelebritiesService } from 'src/app/services/celebrities.service';
 import { CountriesService } from 'src/app/services/countries.service';
 import { GenresService } from 'src/app/services/genres.service';
 import { ProductionsService } from 'src/app/services/productions.service';
+import { of } from 'rxjs';
 
 
 export class ProductionCelebritie{
-  celebritie: Celebritie;
+  celebritieId: number;
+  celebritieName: string;
+  celebritieSurname: string;
   isScreenwriter: boolean;
   isDirector: boolean;
   isActor: boolean;
+  character: string;
 }
 
 @Component({
@@ -40,9 +43,8 @@ export class ProductionFormComponent implements OnInit {
   productionId: number;
   countries: [Country, boolean][] = [];
   genres: [Genre, boolean][] = [];
-  celebrities: MatTableDataSource<ProductionCelebritie>;
+  public productionCelebrities: MatTableDataSource<ProductionCelebritie>;
   searchTxt: string;
-
 
   constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
      private genresService: GenresService, private celebritiesService: CelebritiesService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -89,50 +91,62 @@ export class ProductionFormComponent implements OnInit {
       })
     });
 
-    let celebrities: ProductionCelebritie[] = [];
+    let celebritiess: ProductionCelebritie[] = [];
 
     this.celebritiesService.get().subscribe(res=> {     
       let i=0;
       res.forEach(element => {
-        celebrities[i++] = {
-          celebritie: element,
+        celebritiess[i++] = {
+          celebritieId: element.id,
+          celebritieName: element.name,
+          celebritieSurname: element.surname,
           isScreenwriter: false,
           isDirector: false,
-          isActor: false
-        }               
-      });
+          isActor: false,
+          character: ""
+        }          
+      });                 
     });
+
+
     this.productionsService.getScreenwriters(this.productionId).subscribe(res =>{
       res.forEach(s =>{
-        celebrities.forEach(c =>{
-          if(c.celebritie.celebritieId == s.celebritieId)
+        celebritiess.forEach(c =>{
+          if(c.celebritieId == s.id)
           c.isScreenwriter = true;
         })
       })
     });
+
     this.productionsService.getDirectors(this.productionId).subscribe(res =>{
       res.forEach(d =>{
-        celebrities.forEach(c =>{
-          if(c.celebritie.celebritieId == d.celebritieId)
+        celebritiess.forEach(c =>{
+          if(c.celebritieId == d.id)
           c.isDirector = true;
         })
       })
     });
+    
+
+
     this.productionsService.getActors(this.productionId).subscribe(res =>{
       res.forEach(a =>{
-        celebrities.forEach(c =>{
-          if(c.celebritie.celebritieId == a.celebritieId)
+        celebritiess.forEach(c =>{
+          if(c.celebritieId == a["item1"].id){
           c.isActor = true;
+          c.character = a["item2"]
+          }
         })
       })
     });
 
-    this.celebrities = new MatTableDataSource(celebrities);
-
-    console.log(this.celebrities);
+    const data = this.productionCelebrities.data;
+    celebritiess.forEach(element => data.push(element));
+    this.productionCelebrities.data = data;
   }
 
   ngOnInit(): void {
+    
   }
 
   editProduction(): void {
@@ -190,23 +204,22 @@ export class ProductionFormComponent implements OnInit {
   }
 
   changeScreenwriter(celebritieId : number, e:any):void{
-    console.log(e)
-    if(e)
+    if(e.checked)
     this.productionsService.addScreenwriter(this.productionId, celebritieId).subscribe()
     else
     this.productionsService.deleteScreenwriter(this.productionId, celebritieId).subscribe()
   }
 
   changeDirector(celebritieId : number, e:any):void{
-    if(e)
+    if(e.checked)
     this.productionsService.addDirector(this.productionId, celebritieId).subscribe()
     else
     this.productionsService.deleteDirector(this.productionId, celebritieId).subscribe()
   }
 
-  changeActor(celebritieId : number, e:any):void{
-    if(e)
-    this.productionsService.addActor(this.productionId, celebritieId).subscribe()
+  changeActor(celebritieId : number, character: string, e:any):void{
+    if(e.checked)
+    this.productionsService.addActor(this.productionId, celebritieId, character).subscribe()
     else
     this.productionsService.deleteActor(this.productionId, celebritieId).subscribe()
   }

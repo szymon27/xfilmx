@@ -162,15 +162,15 @@ export class ProductionsService {
     });
   }
 
-  public getActors(productionId: number): Observable<Celebritie[]> {
-    return this.httpClient.get<Celebritie[]>(this.url + '/actors/' + productionId, {
+  public getActors(productionId: number): Observable<[Celebritie, string][]> {
+    return this.httpClient.get<[Celebritie, string][]>(this.url + '/actors/' + productionId, {
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });
   }
 
-  public addActor(productionId: number, celebritieId: number): Observable<boolean> {
-    return this.httpClient.put<boolean>(this.url + '/actors/' + productionId, JSON.stringify(celebritieId), {
+  public addActor(productionId: number, celebritieId: number, character: string): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url + '/actors/' + productionId + '/' + celebritieId, JSON.stringify(character), {
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });

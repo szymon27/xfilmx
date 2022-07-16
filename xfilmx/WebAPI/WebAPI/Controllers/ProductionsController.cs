@@ -86,12 +86,12 @@ namespace WebAPI.Controllers
             => this.productionBll.DeleteGenre(productionId, genreId);
 
         [HttpGet("actors/{productionId}")]
-        public List<CelebritieDto> GetActors(int productionId)
+        public List<Tuple<CelebritieDto, string>> GetActors(int productionId)
             => this.productionBll.GetActors(productionId);
 
-        [HttpPut("actors/{productionId}")]
-        public bool AddActor(int productionId, [FromBody] int celebritieId)
-            => this.productionBll.AddActor(productionId, celebritieId);
+        [HttpPut("actors/{productionId}/{celebritieId}")]
+        public bool AddActor(int productionId, int celebritieId, [FromBody] string character)
+            => this.productionBll.AddActor(productionId, celebritieId, character);
 
         [HttpDelete("actors/{productionId}/{celebritieId}")]
         public bool DeleteActor(int productionId, int celebritieId)

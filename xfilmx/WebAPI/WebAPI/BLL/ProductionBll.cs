@@ -388,18 +388,18 @@ namespace WebAPI.BLL
             return removed;
         }
 
-        public List<CelebritieDto> GetActors(int productionId)
+        public List<Tuple<CelebritieDto, string>> GetActors(int productionId)
         {
             Production production = this.unitOfWork.ProductionRepository.Get(productionId);
             if (production == null)
-                return new List<CelebritieDto>();
+                return new List<Tuple<CelebritieDto, string>>();
 
             return this.unitOfWork.ProductionActorRepository.Get().ToList()
                 .Where(p => p.ProductionId == productionId)
                 .Join(this.unitOfWork.CelebritieRepository.Get(),
                     pa => pa.CelebritieId,
                     c => c.CelebritieId,
-                    (pa, c) => new CelebritieDto
+                    (pa, c) => new Tuple<CelebritieDto, string>(new CelebritieDto
                     {
                         Id = c.CelebritieId,
                         Name = c.Name,
@@ -407,11 +407,11 @@ namespace WebAPI.BLL
                         DateOfBirth = c.DateOfBirth,
                         PlaceOfBirth = c.PlaceOfBirth,
                         Picture = c.Picture
-                    })
+                    }, pa.Character))
                 .ToList();
         }
 
-        public bool AddActor(int productionId, int celebritieId)
+        public bool AddActor(int productionId, int celebritieId, string character)
         {
             Production production = this.unitOfWork.ProductionRepository.Get(productionId);
             if (production == null)
@@ -428,7 +428,8 @@ namespace WebAPI.BLL
             this.unitOfWork.ProductionActorRepository.Add(new ProductionActor
             {
                 CelebritieId = celebritieId,
-                ProductionId = productionId
+                ProductionId = productionId,
+                Character = character
             });
             this.unitOfWork.Complete();
             return true;

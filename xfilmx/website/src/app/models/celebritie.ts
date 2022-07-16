@@ -1,5 +1,5 @@
 export class Celebritie{
-    celebritieId: number;
+    id: number;
     name: string;
     surname: string;
     dateOfBirth: Date;
