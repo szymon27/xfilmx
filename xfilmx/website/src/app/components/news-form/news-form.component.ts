@@ -65,4 +65,8 @@ export class NewsFormComponent implements OnInit {
       }
     });
   }
+
+  cancel():void{
+    this.router.navigate(['/news'])
+  }
 }

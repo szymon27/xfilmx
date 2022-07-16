@@ -27,5 +27,6 @@
 
         <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
         <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
+        <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
     </form>
 </div>

@@ -1,4 +1,6 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Celebritie } from 'src/app/models/celebritie';
 import { Country } from 'src/app/models/country';
@@ -9,11 +11,20 @@ import { CountriesService } from 'src/app/services/countries.service';
 import { GenresService } from 'src/app/services/genres.service';
 import { ProductionsService } from 'src/app/services/productions.service';
 
+
+export class ProductionCelebritie{
+  celebritie: Celebritie;
+  isScreenwriter: boolean;
+  isDirector: boolean;
+  isActor: boolean;
+}
+
 @Component({
   selector: 'app-production-form',
   templateUrl: './production-form.component.html',
   styleUrls: ['./production-form.component.css']
 })
+
 export class ProductionFormComponent implements OnInit {
   production: PutProduction = {
     isSerie: false,
@@ -29,10 +40,12 @@ export class ProductionFormComponent implements OnInit {
   productionId: number;
   countries: [Country, boolean][] = [];
   genres: [Genre, boolean][] = [];
-  celebrities: [Celebritie, boolean, boolean, boolean][] = [];
+  celebrities: MatTableDataSource<ProductionCelebritie>;
+  searchTxt: string;
 
 
-  constructor(private productionsService: ProductionsService, private countriesService: CountriesService, private genresService: GenresService, private celebritiesSevice: CelebritiesService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
+     private genresService: GenresService, private celebritiesService: CelebritiesService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(p => {
       this.productionId = p['id'];
       this.productionsService.getById(this.productionId).subscribe(res => {
@@ -76,21 +89,47 @@ export class ProductionFormComponent implements OnInit {
       })
     });
 
-    this.genresService.get().subscribe(res=> {
+    let celebrities: ProductionCelebritie[] = [];
+
+    this.celebritiesService.get().subscribe(res=> {     
       let i=0;
       res.forEach(element => {
-        this.genres[i++] = [element, false];        
+        celebrities[i++] = {
+          celebritie: element,
+          isScreenwriter: false,
+          isDirector: false,
+          isActor: false
+        }               
       });
     });
-
-    this.productionsService.getGenres(this.productionId).subscribe(res =>{
-      res.forEach(g =>{
-        this.genres.forEach(gg =>{
-          if(gg[0].genreId == g.genreId)
-          gg[1] = true;
+    this.productionsService.getScreenwriters(this.productionId).subscribe(res =>{
+      res.forEach(s =>{
+        celebrities.forEach(c =>{
+          if(c.celebritie.celebritieId == s.celebritieId)
+          c.isScreenwriter = true;
         })
       })
     });
+    this.productionsService.getDirectors(this.productionId).subscribe(res =>{
+      res.forEach(d =>{
+        celebrities.forEach(c =>{
+          if(c.celebritie.celebritieId == d.celebritieId)
+          c.isDirector = true;
+        })
+      })
+    });
+    this.productionsService.getActors(this.productionId).subscribe(res =>{
+      res.forEach(a =>{
+        celebrities.forEach(c =>{
+          if(c.celebritie.celebritieId == a.celebritieId)
+          c.isActor = true;
+        })
+      })
+    });
+
+    this.celebrities = new MatTableDataSource(celebrities);
+
+    console.log(this.celebrities);
   }
 
   ngOnInit(): void {
@@ -131,9 +170,9 @@ export class ProductionFormComponent implements OnInit {
 
   cancel(): void {
     if(this.production == null || !this.production.isSerie)
-    this.router.navigate(['films/'])
+    this.router.navigate(['/films'])
     else
-    this.router.navigate(['series/'])
+    this.router.navigate(['/series'])
   }
 
   changeCountry(countryId : number, e:any):void{
@@ -148,5 +187,27 @@ export class ProductionFormComponent implements OnInit {
     this.productionsService.addGenre(this.productionId, genreId).subscribe()
     else
     this.productionsService.deleteGenre(this.productionId, genreId).subscribe()
+  }
+
+  changeScreenwriter(celebritieId : number, e:any):void{
+    console.log(e)
+    if(e)
+    this.productionsService.addScreenwriter(this.productionId, celebritieId).subscribe()
+    else
+    this.productionsService.deleteScreenwriter(this.productionId, celebritieId).subscribe()
+  }
+
+  changeDirector(celebritieId : number, e:any):void{
+    if(e)
+    this.productionsService.addDirector(this.productionId, celebritieId).subscribe()
+    else
+    this.productionsService.deleteDirector(this.productionId, celebritieId).subscribe()
+  }
+
+  changeActor(celebritieId : number, e:any):void{
+    if(e)
+    this.productionsService.addActor(this.productionId, celebritieId).subscribe()
+    else
+    this.productionsService.deleteActor(this.productionId, celebritieId).subscribe()
   }
 }

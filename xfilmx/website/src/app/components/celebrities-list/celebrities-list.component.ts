@@ -23,8 +23,6 @@ export class CelebritiesListComponent implements OnInit {
       this.celebrities.filterPredicate = (data: Celebritie, filter: string) => {
         const tofilter = String(data.name+data.surname).trim().toLowerCase();
         const filterr = filter.replace(/\s/g, "").toLowerCase()
-        console.log(tofilter)
-        console.log(filterr)
         return tofilter.includes(filter.replace(/\s/g, "").toLowerCase())
       }
     })

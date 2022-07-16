@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Celebritie } from '../models/celebritie';
 import { Country } from '../models/country';
 import { Genre } from '../models/genre';
 import { PostProduction } from '../models/post-production';
@@ -114,6 +115,69 @@ export class ProductionsService {
 
   public deleteGenre(productionId: number, genreId: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(this.url + '/genres/' + productionId + '/' + genreId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getScreenwriters(productionId: number): Observable<Celebritie[]> {
+    return this.httpClient.get<Celebritie[]>(this.url + '/screenwriters/' + productionId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public addScreenwriter(productionId: number, celebritieId: number): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url + '/screenwriters/' + productionId, JSON.stringify(celebritieId), {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteScreenwriter(productionId: number, celebritieId: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.url + '/screenwriters/' + productionId + '/' + celebritieId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getDirectors(productionId: number): Observable<Celebritie[]> {
+    return this.httpClient.get<Celebritie[]>(this.url + '/directors/' + productionId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public addDirector(productionId: number, celebritieId: number): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url + '/directors/' + productionId, JSON.stringify(celebritieId), {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteDirector(productionId: number, celebritieId: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.url + '/directors/' + productionId + '/' + celebritieId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getActors(productionId: number): Observable<Celebritie[]> {
+    return this.httpClient.get<Celebritie[]>(this.url + '/actors/' + productionId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public addActor(productionId: number, celebritieId: number): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url + '/actors/' + productionId, JSON.stringify(celebritieId), {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteActor(productionId: number, celebritieId: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.url + '/actors/' + productionId + '/' + celebritieId, {
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });

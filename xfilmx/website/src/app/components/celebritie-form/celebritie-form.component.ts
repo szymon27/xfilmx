@@ -66,10 +66,8 @@ export class CelebritieFormComponent implements OnInit {
       }
     });
   }
-  parseDate(dateString: any): Date {
-    if (dateString) {
-        return new Date(dateString);
-    }
-    return null;
+  
+  cancel():void{
+    this.router.navigate(['/celebrities'])
   }
 }
