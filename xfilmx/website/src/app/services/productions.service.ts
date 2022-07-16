@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Country } from '../models/country';
+import { Genre } from '../models/genre';
 import { PostProduction } from '../models/post-production';
 import { Production } from '../models/production';
 import { PutProduction } from '../models/put-production';
@@ -92,6 +93,27 @@ export class ProductionsService {
 
   public deleteCountry(productionId: number, countryId: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(this.url + '/countries/' + productionId + '/' + countryId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getGenres(productionId: number): Observable<Genre[]> {
+    return this.httpClient.get<Genre[]>(this.url + '/genres/' + productionId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public addGenre(productionId: number, genreId: number): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url + '/genres/' + productionId, JSON.stringify(genreId), {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteGenre(productionId: number, genreId: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.url + '/genres/' + productionId + '/' + genreId, {
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });

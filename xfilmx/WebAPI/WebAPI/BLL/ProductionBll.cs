@@ -22,26 +22,29 @@ namespace WebAPI.BLL
 
             return new ProductionDto
             {
+                IsSerie = production.IsSerie,
                 ProductionId = production.ProductionId,
                 Title = production.Title,
+                Description = production.Description,
                 BeginDate = production.BeginDate,
                 EndDate = production.EndDate,
+                Duration = production.Duration,
                 Picture = production.Picture,
-                Countries = this.unitOfWork.ProductionCountryRepository.Get()
+                Countries = this.unitOfWork.ProductionCountryRepository.Get().ToList()
                                 .Where(pc => pc.ProductionId == productionId)
                                 .Join(this.unitOfWork.CountryRepository.Get(),
                                     pc => pc.CountryId,
                                     c => c.CountryId,
                                     (pc, c) => new string(c.Name))
                                 .ToList(),
-                Genres = this.unitOfWork.ProductionGenreRepository.Get()
+                Genres = this.unitOfWork.ProductionGenreRepository.Get().ToList()
                                 .Where(pg => pg.ProductionId == productionId)
                                 .Join(this.unitOfWork.GenreRepository.Get(),
                                     pg => pg.GenreId,
                                     g => g.GenreId,
                                     (pg, g) => new string(g.Name))
                                 .ToList(),
-                Rate = this.unitOfWork.ProductionRateRepository.Get().Where(r => r.ProductionId == productionId).Select(r => r.Stars).Average(x => (int)x),
+                Rate = this.unitOfWork.ProductionRateRepository.Get().Where(r => r.ProductionId == productionId).Select(r => r.Stars).DefaultIfEmpty().Average(x => (int)x),
                 RateCount = this.unitOfWork.ProductionRateRepository.Get().Where(r => r.ProductionId == productionId).Count()
             };
         }
@@ -52,17 +55,20 @@ namespace WebAPI.BLL
             {
                 ProductionId = production.ProductionId,
                 Title = production.Title,
+                Description = production.Description,
+                Duration = production.Duration,
+                IsSerie = production.IsSerie,
                 BeginDate = production.BeginDate,
                 EndDate = production.EndDate,
                 Picture = production.Picture,
-                Countries = this.unitOfWork.ProductionCountryRepository.Get()
+                Countries = this.unitOfWork.ProductionCountryRepository.Get().ToList()
                                 .Where(pc => pc.ProductionId == production.ProductionId)
                                 .Join(this.unitOfWork.CountryRepository.Get(),
                                     pc => pc.CountryId,
                                     c => c.CountryId,
                                     (pc, c) => new string(c.Name))
                                 .ToList(),
-                Genres = this.unitOfWork.ProductionGenreRepository.Get()
+                Genres = this.unitOfWork.ProductionGenreRepository.Get().ToList()
                                 .Where(pg => pg.ProductionId == production.ProductionId)
                                 .Join(this.unitOfWork.GenreRepository.Get(),
                                     pg => pg.GenreId,
@@ -80,17 +86,20 @@ namespace WebAPI.BLL
             {
                 ProductionId = production.ProductionId,
                 Title = production.Title,
+                Description = production.Description,
+                Duration = production.Duration,
+                IsSerie = production.IsSerie,
                 BeginDate = production.BeginDate,
                 EndDate = production.EndDate,
                 Picture = production.Picture,
-                Countries = this.unitOfWork.ProductionCountryRepository.Get()
+                Countries = this.unitOfWork.ProductionCountryRepository.Get().ToList()
                     .Where(pc => pc.ProductionId == production.ProductionId)
                     .Join(this.unitOfWork.CountryRepository.Get(),
                         pc => pc.CountryId,
                         c => c.CountryId,
                         (pc, c) => new string(c.Name))
                     .ToList(),
-                Genres = this.unitOfWork.ProductionGenreRepository.Get()
+                Genres = this.unitOfWork.ProductionGenreRepository.Get().ToList()
                     .Where(pg => pg.ProductionId == production.ProductionId)
                     .Join(this.unitOfWork.GenreRepository.Get(),
                         pg => pg.GenreId,
@@ -108,17 +117,20 @@ namespace WebAPI.BLL
                 {
                     ProductionId = production.ProductionId,
                     Title = production.Title,
+                    Description = production.Description,
+                    Duration = production.Duration,
+                    IsSerie = production.IsSerie,
                     BeginDate = production.BeginDate,
                     EndDate = production.EndDate,
                     Picture = production.Picture,
-                    Countries = this.unitOfWork.ProductionCountryRepository.Get()
+                    Countries = this.unitOfWork.ProductionCountryRepository.Get().ToList()
                         .Where(pc => pc.ProductionId == production.ProductionId)
                         .Join(this.unitOfWork.CountryRepository.Get(),
                             pc => pc.CountryId,
                             c => c.CountryId,
                             (pc, c) => new string(c.Name))
                         .ToList(),
-                    Genres = this.unitOfWork.ProductionGenreRepository.Get()
+                    Genres = this.unitOfWork.ProductionGenreRepository.Get().ToList()
                         .Where(pg => pg.ProductionId == production.ProductionId)
                         .Join(this.unitOfWork.GenreRepository.Get(),
                             pg => pg.GenreId,
@@ -153,6 +165,9 @@ namespace WebAPI.BLL
             {
                 ProductionId = production.ProductionId,
                 Title = production.Title,
+                Description = production.Description,
+                Duration = production.Duration,
+                IsSerie = production.IsSerie,
                 BeginDate = production.BeginDate,
                 EndDate = production.EndDate,
                 Picture = production.Picture,
@@ -195,6 +210,9 @@ namespace WebAPI.BLL
             {
                 ProductionId = production.ProductionId,
                 Title = production.Title,
+                Description = production.Description,
+                Duration = production.Duration,
+                IsSerie = production.IsSerie,
                 BeginDate = production.BeginDate,
                 EndDate = production.EndDate,
                 Picture = production.Picture,
@@ -278,7 +296,7 @@ namespace WebAPI.BLL
             if (production == null)
                 return new List<CountryDto>();
 
-            return this.unitOfWork.ProductionCountryRepository.Get()
+            return this.unitOfWork.ProductionCountryRepository.Get().ToList()
                 .Where(p => p.ProductionId == productionId)
                 .Join(this.unitOfWork.CountryRepository.Get(),
                     pc => pc.CountryId,
@@ -316,7 +334,55 @@ namespace WebAPI.BLL
 
         public bool DeleteCountry(int productionId, int countryId)
         {
-            bool removed = this.unitOfWork.ProductionCountryRepository.Delete(new { productionId, countryId });
+            bool removed = this.unitOfWork.ProductionCountryRepository.Delete( productionId, countryId );
+            if (removed) this.unitOfWork.Complete();
+            return removed;
+        }
+        public List<GenreDto> GetGenres(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<GenreDto>();
+
+            return this.unitOfWork.ProductionGenreRepository.Get().ToList()
+                .Where(p => p.ProductionId == productionId)
+                .Join(this.unitOfWork.GenreRepository.Get(),
+                    pg => pg.GenreId,
+                    g => g.GenreId,
+                    (pg, g) => new GenreDto
+                    {
+                        GenreId = g.GenreId,
+                        Name = g.Name
+                    })
+                .ToList();
+        }
+
+        public bool AddGenre(int productionId, int genreId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            Genre genre = this.unitOfWork.GenreRepository.Get(genreId);
+            if (genre == null)
+                return false;
+
+            bool exist = this.unitOfWork.ProductionGenreRepository.Get().Where(x => x.GenreId == genreId && x.ProductionId == productionId).Count() > 0;
+            if (exist)
+                return false;
+
+            this.unitOfWork.ProductionGenreRepository.Add(new ProductionGenre
+            {
+                GenreId = genreId,
+                ProductionId = productionId
+            });
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteGenre(int productionId, int genreId)
+        {
+            bool removed = this.unitOfWork.ProductionGenreRepository.Delete(productionId, genreId);
             if (removed) this.unitOfWork.Complete();
             return removed;
         }

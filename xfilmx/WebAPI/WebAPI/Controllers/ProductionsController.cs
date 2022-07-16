@@ -72,5 +72,17 @@ namespace WebAPI.Controllers
         [HttpDelete("countries/{productionId}/{countryId}")]
         public bool DeleteCountry(int productionId, int countryId)
             => this.productionBll.DeleteCountry(productionId, countryId);
+
+        [HttpGet("genres/{productionId}")]
+        public List<GenreDto> GetGenres(int productionId)
+            => this.productionBll.GetGenres(productionId);
+
+        [HttpPut("genres/{productionId}")]
+        public bool AddGenres(int productionId, [FromBody] int genreId)
+            => this.productionBll.AddGenre(productionId, genreId);
+
+        [HttpDelete("genres/{productionId}/{genreId}")]
+        public bool DeleteGenre(int productionId, int genreId)
+            => this.productionBll.DeleteGenre(productionId, genreId);
     }
 }

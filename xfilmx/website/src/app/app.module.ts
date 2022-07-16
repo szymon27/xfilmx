@@ -38,6 +38,8 @@ import { CelebritieFormComponent } from './components/celebritie-form/celebritie
 import { ProductionComponent } from './components/production/production.component';
 import { NewProductionFormComponent } from './components/new-production-form/new-production-form.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ProductionFormComponent } from './components/production-form/production-form.component';
+import {MatListModule} from '@angular/material/list';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -68,7 +70,8 @@ export function tokenGetter() {
     NewCelebritieFormComponent,
     CelebritieFormComponent,
     ProductionComponent,
-    NewProductionFormComponent
+    NewProductionFormComponent,
+    ProductionFormComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +92,8 @@ export function tokenGetter() {
     MatToolbarModule,
     MatIconModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

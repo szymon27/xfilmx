@@ -41,4 +41,25 @@ export class FilmsListComponent implements OnInit {
       return 'data:image/png;base64,' + production.picture;
     return null;
   }
+
+  showFilm(productionId: number): void{
+    this.router.navigate(['films/' + productionId])
+  }
+  editFilm(productionId:number): void{
+    this.router.navigate(['productions/' + productionId + '/edit'])
+  }
+  deleteFilm(productionId:number): void{
+    this.productionsService.delete(productionId).subscribe(res =>{
+      if(res){
+        this.productionsService.get().subscribe(r => {
+          this.films = new MatTableDataSource(r);
+          this.films.paginator = this.paginator;
+          this.searchTxt = "";
+          this.films.filterPredicate = (data: Production, filter: string) => {
+            return data.title.includes(filter);
+          }
+        })
+      }
+    })
+  }
 }

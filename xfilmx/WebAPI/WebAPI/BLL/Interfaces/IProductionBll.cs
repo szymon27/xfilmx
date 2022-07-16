@@ -20,5 +20,9 @@ namespace WebAPI.BLL.Interfaces
         public List<CountryDto> GetCountries(int productionId);
         public bool AddCountry(int productionId, int countryId);
         public bool DeleteCountry(int productionId, int countryId);
+
+        public List<GenreDto> GetGenres(int productionId);
+        public bool AddGenre(int productionId, int genreId);
+        public bool DeleteGenre(int productionId, int genreId);
     }
 }
