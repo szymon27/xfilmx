@@ -36,5 +36,7 @@ namespace WebAPI.BLL.Interfaces
         public List<CelebritieDto> GetScreenwriters(int productionId);
         public bool AddScreenwriter(int productionId, int celebritieId);
         public bool DeleteScreenwriter(int productionId, int celebritieId);
+
+        public List<ProductionCelebritiesDto> GetCelebrities(int productionId);
     }
 }

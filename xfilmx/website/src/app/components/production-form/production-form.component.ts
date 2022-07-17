@@ -4,23 +4,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Country } from 'src/app/models/country';
 import { Genre } from 'src/app/models/genre';
+import { ProductionCelebrities } from 'src/app/models/production-celebrities';
 import { PutProduction } from 'src/app/models/put-production';
 import { CelebritiesService } from 'src/app/services/celebrities.service';
 import { CountriesService } from 'src/app/services/countries.service';
 import { GenresService } from 'src/app/services/genres.service';
 import { ProductionsService } from 'src/app/services/productions.service';
-import { of } from 'rxjs';
-
-
-export class ProductionCelebritie{
-  celebritieId: number;
-  celebritieName: string;
-  celebritieSurname: string;
-  isScreenwriter: boolean;
-  isDirector: boolean;
-  isActor: boolean;
-  character: string;
-}
 
 @Component({
   selector: 'app-production-form',
@@ -43,7 +32,7 @@ export class ProductionFormComponent implements OnInit {
   productionId: number;
   countries: [Country, boolean][] = [];
   genres: [Genre, boolean][] = [];
-  public productionCelebrities: MatTableDataSource<ProductionCelebritie>;
+  productionCelebrities: MatTableDataSource<ProductionCelebrities>;
   searchTxt: string;
 
   constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
@@ -91,58 +80,9 @@ export class ProductionFormComponent implements OnInit {
       })
     });
 
-    let celebritiess: ProductionCelebritie[] = [];
-
-    this.celebritiesService.get().subscribe(res=> {     
-      let i=0;
-      res.forEach(element => {
-        celebritiess[i++] = {
-          celebritieId: element.id,
-          celebritieName: element.name,
-          celebritieSurname: element.surname,
-          isScreenwriter: false,
-          isDirector: false,
-          isActor: false,
-          character: ""
-        }          
-      });                 
-    });
-
-
-    this.productionsService.getScreenwriters(this.productionId).subscribe(res =>{
-      res.forEach(s =>{
-        celebritiess.forEach(c =>{
-          if(c.celebritieId == s.id)
-          c.isScreenwriter = true;
-        })
-      })
-    });
-
-    this.productionsService.getDirectors(this.productionId).subscribe(res =>{
-      res.forEach(d =>{
-        celebritiess.forEach(c =>{
-          if(c.celebritieId == d.id)
-          c.isDirector = true;
-        })
-      })
-    });
-    
-
-
-    this.productionsService.getActors(this.productionId).subscribe(res =>{
-      res.forEach(a =>{
-        celebritiess.forEach(c =>{
-          if(c.celebritieId == a["item1"].id){
-          c.isActor = true;
-          c.character = a["item2"]
-          }
-        })
-      })
-    });
-
-    const data = this.productionCelebrities.data;
-    celebritiess.forEach(element => data.push(element));
-    this.productionCelebrities.data = data;
+    this.productionsService.getCelebrities(this.productionId).subscribe(res => {
+      this.productionCelebrities = new MatTableDataSource(res);
+    })
   }
 
   ngOnInit(): void {
@@ -218,6 +158,7 @@ export class ProductionFormComponent implements OnInit {
   }
 
   changeActor(celebritieId : number, character: string, e:any):void{
+    console.log(character);
     if(e.checked)
     this.productionsService.addActor(this.productionId, celebritieId, character).subscribe()
     else

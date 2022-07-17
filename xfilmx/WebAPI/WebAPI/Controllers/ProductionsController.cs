@@ -120,5 +120,9 @@ namespace WebAPI.Controllers
         [HttpDelete("screenwriters/{productionId}/{celebritieId}")]
         public bool DeleteScreenwriter(int productionId, int celebritieId)
             => this.productionBll.DeleteScreenwriter(productionId, celebritieId);
+
+        [HttpGet("celebrities/{productionId}")]
+        public List<ProductionCelebritiesDto> GetCelebrities(int productionId)
+            => this.productionBll.GetCelebrities(productionId);
     }
 }

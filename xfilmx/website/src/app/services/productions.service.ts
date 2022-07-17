@@ -6,6 +6,7 @@ import { Country } from '../models/country';
 import { Genre } from '../models/genre';
 import { PostProduction } from '../models/post-production';
 import { Production } from '../models/production';
+import { ProductionCelebrities } from '../models/production-celebrities';
 import { PutProduction } from '../models/put-production';
 
 @Injectable({
@@ -178,6 +179,13 @@ export class ProductionsService {
 
   public deleteActor(productionId: number, celebritieId: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(this.url + '/actors/' + productionId + '/' + celebritieId, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getCelebrities(productionId: number): Observable<ProductionCelebrities[]> {
+    return this.httpClient.get<ProductionCelebrities[]>(this.url + '/celebrities/' + productionId, {
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });
