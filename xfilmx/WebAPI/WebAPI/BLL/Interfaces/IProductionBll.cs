@@ -40,5 +40,9 @@ namespace WebAPI.BLL.Interfaces
         public List<ProductionCelebritiesDto> GetCelebrities(int productionId);
 
         public List<SeasonDto> GetSeasons(int productionId);
+        public bool AddEpisod(int productionId, NewEpisodDto newEpisod);
+        public bool DeleteEpisod(int productionId, int season, int episod);
+        public bool EditEpisod(int productionId, int season, int episod, string title);
+        public bool DeleteSeason(int productionId, int season);
     }
 }

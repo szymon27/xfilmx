@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Country } from 'src/app/models/country';
 import { Genre } from 'src/app/models/genre';
 import { ProductionCelebrities } from 'src/app/models/production-celebrities';
 import { PutProduction } from 'src/app/models/put-production';
+import { Season } from 'src/app/models/season';
 import { CelebritiesService } from 'src/app/services/celebrities.service';
 import { CountriesService } from 'src/app/services/countries.service';
 import { GenresService } from 'src/app/services/genres.service';
@@ -27,12 +28,17 @@ export class ProductionFormComponent implements OnInit {
     description: ""
   }
 
+  season: number = 1;
+  episod: number = 1;
+  title: string = "";
+
   imageSrc:any = null;
   file: File = null;
   productionId: number;
   countries: [Country, boolean][] = [];
   genres: [Genre, boolean][] = [];
   productionCelebrities: MatTableDataSource<ProductionCelebrities>;
+  seasons: Season[];
   searchTxt: string;
 
   constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
@@ -82,10 +88,18 @@ export class ProductionFormComponent implements OnInit {
 
     this.productionsService.getCelebrities(this.productionId).subscribe(res => {
       this.productionCelebrities = new MatTableDataSource(res);
-    })
+    });
+
+    this.productionsService.getSeasons(this.productionId).subscribe(res => {
+      this.seasons = res;
+    });
   }
 
   ngOnInit(): void {
+    
+  }
+
+  addSeason(): void {
     
   }
 

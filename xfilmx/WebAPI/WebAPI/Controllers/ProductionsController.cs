@@ -128,5 +128,21 @@ namespace WebAPI.Controllers
         [HttpGet("seasons/{productionId}")]
         public List<SeasonDto> GetSeasons(int productionId)
             => this.productionBll.GetSeasons(productionId);
+
+        [HttpPost("episods/{productionId}/")]
+        public bool AddEpisod(int productionId, [FromBody] NewEpisodDto newEpisod)
+            => this.productionBll.AddEpisod(productionId, newEpisod);
+
+        [HttpDelete("episods/{productionId}/{season}/{episod}")]
+        public bool DeleteEpisod(int productionId, int season, int episod)
+            => this.productionBll.DeleteEpisod(productionId, season, episod);
+
+        [HttpPut("episods/{productionId}/{season}/{episod}")]
+        public bool EditEpisod(int productionId, int season, int episod, [FromBody] string title)
+            => this.productionBll.EditEpisod(productionId, season, episod, title);
+
+        [HttpDelete("seasons/{productionId}/{season}")]
+        public bool DeleteSeason(int productionId, int season)
+            => this.productionBll.DeleteSeason(productionId, season);
     }
 }

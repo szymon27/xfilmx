@@ -106,12 +106,46 @@
                 <tr mat-row *matRowDef="let myRowData; columns: ['id', 'name', 'surname', 'role']"></tr>
             </table>
         </mat-expansion-panel>
-        <mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="production.isSerie">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Seasons
                 </mat-panel-title>
-            </mat-expansion-panel-header>
-            
+            </mat-expansion-panel-header>  
+
+            <form #addSeasonForm="ngForm" (ngSubmit)="addSeason()">
+                <div>
+                    <h2>Add season</h2>
+                </div>
+    
+                <mat-form-field appearance="fill">
+                    <mat-label>Season</mat-label>
+                    <input matInput type="number" name="season" id="season" [(ngModel)]="season" required>
+                </mat-form-field>
+    
+                <mat-form-field appearance="fill">
+                    <mat-label>Episod</mat-label>
+                    <input matInput type="number" name="episod" id="episod" [(ngModel)]="episod" required [disabled]="true">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Title</mat-label>
+                    <input matInput type="text" name="title" id="title" [(ngModel)]="title" required>
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="!addSeasonForm.valid">add season</button>
+            </form>    
+
+            <mat-expansion-panel *ngFor="let s of seasons">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Season {{s.seasonId}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ul>
+                    <li *ngFor="let e of s.episods"> {{e.title}} </li>
+                </ul>      
+            </mat-expansion-panel>   
         </mat-expansion-panel>
 </div>

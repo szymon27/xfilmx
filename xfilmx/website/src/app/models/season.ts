@@ -1,6 +1,6 @@
 import { Episod } from "./episod";
 
-export interface Season {
+export class Season {
     seasonId: number;
     episods: Episod[];
 }

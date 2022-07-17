@@ -617,5 +617,65 @@ namespace WebAPI.BLL
             }
             return list;
         }
+
+        public bool AddEpisod(int productionId, NewEpisodDto newEpisod)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            var episod = this.unitOfWork.ProductionEpisodRepository.Get()
+                .Where(x => x.ProductionId == productionId && x.Season == newEpisod.Season && x.Episod == newEpisod.Episod)
+                .FirstOrDefault();
+
+            if (episod != null)
+                return false;
+
+            this.unitOfWork.ProductionEpisodRepository.Add(new ProductionEpisod
+            {
+                ProductionId = productionId,
+                Season = newEpisod.Season,
+                Episod = newEpisod.Episod,
+                Title = newEpisod.Title
+            });
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteEpisod(int productionId, int season, int episod) 
+        {
+            bool removed = this.unitOfWork.ProductionEpisodRepository.Delete(productionId, season, episod);
+            if (removed) this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public bool EditEpisod(int productionId, int season, int episod, string title)
+        {
+            var productionEpisod = this.unitOfWork.ProductionEpisodRepository.Get()
+                
+                .FirstOrDefault();
+
+            if (productionEpisod == null)
+                return false;
+
+            productionEpisod.Title = title;
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteSeason(int productionId, int season)
+        {
+            var episods = this.unitOfWork.ProductionEpisodRepository.Get()
+                .Where(x => x.ProductionId == productionId && x.Season == season)
+                .ToList();
+            if (episods.Count == 0)
+                return false;
+
+            foreach (var e in episods)
+                this.unitOfWork.ProductionEpisodRepository.Delete(e.ProductionId, e.Season, e.Episod);
+            this.unitOfWork.Complete();
+
+            return true;
+        }
     }
 }
