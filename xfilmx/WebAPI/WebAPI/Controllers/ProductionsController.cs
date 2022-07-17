@@ -124,5 +124,9 @@ namespace WebAPI.Controllers
         [HttpGet("celebrities/{productionId}")]
         public List<ProductionCelebritiesDto> GetCelebrities(int productionId)
             => this.productionBll.GetCelebrities(productionId);
+
+        [HttpGet("seasons/{productionId}")]
+        public List<SeasonDto> GetSeasons(int productionId)
+            => this.productionBll.GetSeasons(productionId);
     }
 }

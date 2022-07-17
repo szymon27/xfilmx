@@ -8,6 +8,7 @@ import { PostProduction } from '../models/post-production';
 import { Production } from '../models/production';
 import { ProductionCelebrities } from '../models/production-celebrities';
 import { PutProduction } from '../models/put-production';
+import { Season } from '../models/season';
 
 @Injectable({
   providedIn: 'root'
@@ -187,6 +188,13 @@ export class ProductionsService {
   public getCelebrities(productionId: number): Observable<ProductionCelebrities[]> {
     return this.httpClient.get<ProductionCelebrities[]>(this.url + '/celebrities/' + productionId, {
         headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getSeasons(productionId: number): Observable<Season[]>{
+    return this.httpClient.get<Season[]>(this.url + '/seasons/' + productionId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });
   }

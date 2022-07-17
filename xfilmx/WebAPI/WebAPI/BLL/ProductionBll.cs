@@ -588,5 +588,34 @@ namespace WebAPI.BLL
             }
             return list;
         }
+
+        public List<SeasonDto> GetSeasons(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<SeasonDto>();
+
+            var list = new List<SeasonDto>();
+
+            var seasonsEpisodes = this.unitOfWork.ProductionEpisodRepository.Get().Where(x => x.ProductionId == productionId).ToList();
+            var seasons = seasonsEpisodes.Select(x => x.Season).Distinct().ToList();
+
+            foreach(var s in seasons)
+            {
+                SeasonDto seasonDto = new SeasonDto();
+                seasonDto.SeasonId = s;
+                List<EpisodDto> t = new List<EpisodDto>();
+                foreach(var e in seasonsEpisodes.Where(x=> x.Season == s).ToList())
+                {
+                    t.Add(new EpisodDto
+                    {
+                        EpisodId = e.Episod,
+                        Title = e.Title
+                    });
+                }
+                list.Add(seasonDto);
+            }
+            return list;
+        }
     }
 }
