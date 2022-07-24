@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Celebritie } from '../models/celebritie';
 import { Country } from '../models/country';
 import { Genre } from '../models/genre';
+import { NewEpisod } from '../models/new-episod';
 import { PostProduction } from '../models/post-production';
 import { Production } from '../models/production';
 import { ProductionCelebrities } from '../models/production-celebrities';
@@ -195,6 +196,34 @@ export class ProductionsService {
   public getSeasons(productionId: number): Observable<Season[]>{
     return this.httpClient.get<Season[]>(this.url + '/seasons/' + productionId, {
       headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public addEpisod(productionId: number, newEpisod: NewEpisod): Observable<boolean>{
+    return this.httpClient.post<boolean>(this.url + '/episods/' + productionId, newEpisod, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteEpisod(productionId: number, season: number, episod: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.url + '/episods/' + productionId + '/' + season + '/' + episod, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public editEpisod(productionId: number, season: number, episod: number, title: string): Observable<boolean> {
+    return this.httpClient.put<boolean>(this.url + '/episods/' + productionId + '/' + season + '/' + episod, JSON.stringify(title), {
+        headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteSeason(productionId: number, season: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(this.url + '/seasons/' + productionId + '/' + season, {
+        headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });
   }

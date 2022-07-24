@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Country } from 'src/app/models/country';
+import { Episod } from 'src/app/models/episod';
 import { Genre } from 'src/app/models/genre';
+import { NewEpisod } from 'src/app/models/new-episod';
 import { ProductionCelebrities } from 'src/app/models/production-celebrities';
 import { PutProduction } from 'src/app/models/put-production';
 import { Season } from 'src/app/models/season';
@@ -92,6 +95,7 @@ export class ProductionFormComponent implements OnInit {
 
     this.productionsService.getSeasons(this.productionId).subscribe(res => {
       this.seasons = res;
+      console.log(res);
     });
   }
 
@@ -99,8 +103,97 @@ export class ProductionFormComponent implements OnInit {
     
   }
 
+  SortedSeasonArray(arr: Season[]): Season[] {
+    if(arr == null)
+      return new Array();
+    return arr.sort((a, b) => a.seasonId - b.seasonId);
+  }
+
+  SortedEpisodArray(arr: Episod[]): Episod[] {
+    if(arr == null)
+      return new Array();
+    return arr.sort((a, b) => a.episodId - b.episodId);
+  }
+
   addSeason(): void {
-    
+    const newEpisod: NewEpisod = {
+      season: this.season,
+      episod: this.episod,
+      title: this.title,
+    };
+    this.productionsService.addEpisod(this.productionId, newEpisod).subscribe(res => {
+      if (res) {        
+        this.seasons.push({
+          seasonId: this.season,
+           episods: [
+            {
+              episodId: this.episod,
+              title: this.title
+            }
+           ]
+        });
+      }
+      else{
+        alert("season exist");
+      }
+    });
+  }
+
+  deleteEpisod(season:number, episod:number): void {
+    this.productionsService.deleteEpisod(this.productionId, season, episod).subscribe(res =>{
+      if(res) {
+        this.seasons.forEach(s => {
+          if(s.seasonId == season) {
+            const arr:Episod[] = s.episods.filter((element) => {
+              return element.episodId != episod;
+            });
+            s.episods = arr;
+          }
+        });
+      }
+      else {
+        alert("cannot delete episod");
+      }
+    });
+  }
+
+  addEpisod(season: number, episod: any, title: any): void {
+    const newEpisod: NewEpisod = {
+      season: season,
+      episod: parseInt((episod as HTMLInputElement).value),
+      title: (title as HTMLInputElement).value
+    };
+    this.productionsService.addEpisod(this.productionId, newEpisod).subscribe(res => {
+      if (res) {        
+        let s: Season = null;
+        this.seasons.forEach(x => {
+          if (x.seasonId == season) {
+            x.episods.push({
+              episodId: newEpisod.episod,
+              title: newEpisod.title
+            });
+          } 
+        });
+
+      }
+      else{
+        alert("episod exist");
+      }
+    });
+  }
+
+  deleteSeason(seasonId): void {
+    this.productionsService.deleteSeason(this.productionId, seasonId).subscribe(res =>{
+      if(res) {
+        const arr: Season[] = this.seasons.filter((element) => {
+          return element.seasonId != seasonId;
+        });
+        this.seasons = arr;
+      }
+      else {
+        alert("cannot delete season");
+      }
+    });
   }
 
   editProduction(): void {

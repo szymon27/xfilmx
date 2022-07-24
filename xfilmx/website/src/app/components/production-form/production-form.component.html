@@ -121,7 +121,7 @@
     
                 <mat-form-field appearance="fill">
                     <mat-label>Season</mat-label>
-                    <input matInput type="number" name="season" id="season" [(ngModel)]="season" required>
+                    <input matInput type="number" name="season" id="season" [(ngModel)]="season" min="1" required>
                 </mat-form-field>
     
                 <mat-form-field appearance="fill">
@@ -137,15 +137,43 @@
                 <button mat-flat-button color="primary" type="submit" [disabled]="!addSeasonForm.valid">add season</button>
             </form>    
 
-            <mat-expansion-panel *ngFor="let s of seasons">
+            <mat-expansion-panel *ngFor="let s of SortedSeasonArray(seasons)">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         Season {{s.seasonId}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
+                <div>
+                    <button mat-flat-button color="primary" (click)="deleteSeason(s.seasonId)">delete season</button>
+                </div>
                 <ul>
-                    <li *ngFor="let e of s.episods"> {{e.title}} </li>
-                </ul>      
+                    <li *ngFor="let e of SortedEpisodArray(s.episods)"> 
+                        <div>
+                            <span>{{e.episodId}}</span>
+                            <span>{{e.title}}</span>
+                            <button mat-flat-button color="primary" (click)="deleteEpisod(s.seasonId, e.episodId)">delete episod</button>
+                        </div> 
+                    </li>
+                </ul>     
+                <div>
+                    <form #addEpisodForm="ngForm" (ngSubmit)="addEpisod(s.seasonId, newEpisod, newTitle)">
+                        <div>
+                            <h2>Add episod</h2>
+                        </div>
+                          
+                        <mat-form-field appearance="fill">
+                            <mat-label>Episod</mat-label>
+                            <input matInput type="number" name="episod" ngModel #newEpisod required min="1">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="fill">
+                            <mat-label>Title</mat-label>
+                            <input matInput type="text" name="title" ngModel #newTitle required>
+                        </mat-form-field>
+        
+                        <button mat-flat-button color="primary" type="submit" [disabled]="!addEpisodForm.valid">add episod</button>
+                    </form>    
+                </div>   
             </mat-expansion-panel>   
         </mat-expansion-panel>
 </div>

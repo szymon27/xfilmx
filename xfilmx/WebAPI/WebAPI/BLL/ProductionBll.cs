@@ -613,6 +613,7 @@ namespace WebAPI.BLL
                         Title = e.Title
                     });
                 }
+                seasonDto.Episods = t;
                 list.Add(seasonDto);
             }
             return list;
