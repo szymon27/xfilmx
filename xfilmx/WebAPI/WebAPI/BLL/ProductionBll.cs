@@ -678,5 +678,72 @@ namespace WebAPI.BLL
 
             return true;
         }
+
+        public ProductionPicture AddToGallery(int productionId, byte[] picture)
+        {
+            ProductionPicture productionPicture = new ProductionPicture
+            {
+                Picture = picture,
+                ProductionId = productionId
+            };
+            this.unitOfWork.ProductionPictureRepository.Add(productionPicture);
+            this.unitOfWork.Complete();
+            return productionPicture;
+        }
+
+        public bool DeleteFromGallery(int pictureId)
+        {
+            bool removed = this.unitOfWork.ProductionPictureRepository.Delete(pictureId);
+            if(removed)
+                this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public List<ProductionPictureDto> GetGallery(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<ProductionPictureDto>();
+
+            return this.unitOfWork.ProductionPictureRepository.Get().Where(x => x.ProductionId == productionId).Select(x => new ProductionPictureDto
+            {
+                Picture = x.Picture,
+                Id = x.ProductionPictureId
+            }).ToList();            
+        }
+
+        public ProductionTrailer AddTrailer(int productionId, string link)
+        {
+            ProductionTrailer productionTrailer = new ProductionTrailer
+            {
+                Link = link,
+                ProductionId = productionId
+            };
+            this.unitOfWork.ProductionTrailerRepository.Add(productionTrailer);
+            this.unitOfWork.Complete();
+            return productionTrailer;
+        }
+
+        public bool DeleteTrailer(int trailerId)
+        {
+
+            bool removed = this.unitOfWork.ProductionTrailerRepository.Delete(trailerId);
+            if(removed)
+                this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public List<ProductionTrailerDto> GetTrailers(int productionId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return new List<ProductionTrailerDto>();
+
+            return this.unitOfWork.ProductionTrailerRepository.Get().Where(x => x.ProductionId == productionId).Select(x => new ProductionTrailerDto
+            {
+                Link = x.Link,
+                Id = x.ProductionTrailerId
+            }).ToList();
+        }
     }
 }

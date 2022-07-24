@@ -6,8 +6,12 @@ import { Country } from '../models/country';
 import { Genre } from '../models/genre';
 import { NewEpisod } from '../models/new-episod';
 import { PostProduction } from '../models/post-production';
+import { ProductionPicture } from '../models/post-production-picture';
+import { ProductionTrailer } from '../models/post-production-trailer';
 import { Production } from '../models/production';
 import { ProductionCelebrities } from '../models/production-celebrities';
+import { ProductionPictureDto } from '../models/production-picture';
+import { ProductionTrailerDto } from '../models/production-trailer';
 import { PutProduction } from '../models/put-production';
 import { Season } from '../models/season';
 
@@ -226,5 +230,46 @@ export class ProductionsService {
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });
+  }
+
+  public addPicture(productionId: number, file: File): Observable<ProductionPicture>{
+    const formData: FormData = new FormData();
+    formData.append('Picture', file);
+    return this.httpClient.post<ProductionPicture>(this.url + '/pictures/' + productionId, formData);
+  }
+
+  public removePicture(pictureId: number): Observable<boolean>{
+    return this.httpClient.delete<boolean>(this.url + '/pictures/' + pictureId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
+  }
+
+  public getGallery(productionId: number): Observable<ProductionPictureDto[]>{
+    return this.httpClient.get<ProductionPictureDto[]>(this.url + '/pictures/' + productionId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
+  }
+
+  public addTrailer(productionId: number, link: string): Observable<ProductionTrailer>{
+    return this.httpClient.post<ProductionTrailer>(this.url + '/trailers/' + productionId, JSON.stringify(link), {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteTrailer(trailerId: number): Observable<boolean>{
+    return this.httpClient.delete<boolean>(this.url + '/trailers/' + trailerId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
+  }
+
+  public getTrailers(productionId: number): Observable<ProductionTrailerDto[]>{
+    return this.httpClient.get<ProductionTrailerDto[]>(this.url + '/trailers/' + productionId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
   }
 }

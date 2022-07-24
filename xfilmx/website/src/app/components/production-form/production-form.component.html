@@ -176,4 +176,31 @@
                 </div>   
             </mat-expansion-panel>   
         </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    trailers
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form #addTrailerForm="ngForm" (ngSubmit)="addTrailer()">
+                <div>
+                    <h2> Add trailer</h2>
+                </div>
+
+                <mat-form-field>
+                    <mat-label>Link</mat-label>
+                    <input matInput type="text" name="trailer" [(ngModel)]="trailer" required>
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="!addTrailerForm.valid">add trailer</button>
+            </form>
+            
+            <li *ngFor="let t of productionTrailers; let i = index">
+                <div>
+                    <a href="{{t.link}}" target="_blank"> trailer {{i+1}} </a>
+                    <button mat-flat-button color="primary" (click)="deleteTrailer(t.id)">delete trailer</button>
+                </div>
+            </li>
+        </mat-expansion-panel>
 </div>

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.BLL.Interfaces;
 using WebAPI.DTO;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -144,5 +145,38 @@ namespace WebAPI.Controllers
         [HttpDelete("seasons/{productionId}/{season}")]
         public bool DeleteSeason(int productionId, int season)
             => this.productionBll.DeleteSeason(productionId, season);
+
+        [HttpPost("pictures/{productionId}")]
+        public ProductionPicture AddToGallery(int productionId)
+        {
+            var picture = HttpContext.Request.Form.Files["Picture"];
+            if (picture == null)
+                return this.productionBll.AddToGallery(productionId,
+                    System.IO.File.ReadAllBytes(Path.Combine(Environment.CurrentDirectory, @"Resources\", "defaultProductionPicture.png")));
+
+            MemoryStream memoryStream = new MemoryStream();
+            picture.CopyTo(memoryStream);
+            return this.productionBll.AddToGallery(productionId, memoryStream.ToArray());
+        }
+
+        [HttpDelete("pictures/{pictureId}")]
+        public bool DeleteFromGallery(int pictureId)
+            => this.productionBll.DeleteFromGallery(pictureId);
+
+        [HttpGet("pictures/{productionId}")]
+        public List<ProductionPictureDto> GetGallery(int productionId)
+            => this.productionBll.GetGallery(productionId);
+
+        [HttpPost("trailers/{productionId}")]
+        public ProductionTrailer AddTrailer(int productionId, [FromBody] string link)
+            => this.productionBll.AddTrailer(productionId, link);
+
+        [HttpDelete("trailers/{trailerId}")]
+        public bool DeleteTrailer(int trailerId)
+            => this.productionBll.DeleteTrailer(trailerId);
+
+        [HttpGet("trailers/{productionId}")]
+        public List<ProductionTrailerDto> GetTrailers(int productionId)
+            => this.productionBll.GetTrailers(productionId);
     }
 }

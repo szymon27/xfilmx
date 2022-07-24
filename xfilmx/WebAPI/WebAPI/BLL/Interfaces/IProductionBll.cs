@@ -1,4 +1,5 @@
 ﻿using WebAPI.DTO;
+using WebAPI.Models;
 
 namespace WebAPI.BLL.Interfaces
 {
@@ -44,5 +45,13 @@ namespace WebAPI.BLL.Interfaces
         public bool DeleteEpisod(int productionId, int season, int episod);
         public bool EditEpisod(int productionId, int season, int episod, string title);
         public bool DeleteSeason(int productionId, int season);
+
+        public ProductionPicture AddToGallery(int productionId, byte[] picture);
+        public bool DeleteFromGallery(int pictureId);
+        public List<ProductionPictureDto> GetGallery(int productionId);
+
+        public ProductionTrailer AddTrailer(int productionId, string link);
+        public bool DeleteTrailer(int trailerId);
+        public List<ProductionTrailerDto> GetTrailers(int productionId);
     }
 }

@@ -7,7 +7,9 @@ import { Country } from 'src/app/models/country';
 import { Episod } from 'src/app/models/episod';
 import { Genre } from 'src/app/models/genre';
 import { NewEpisod } from 'src/app/models/new-episod';
+import { ProductionTrailer } from 'src/app/models/post-production-trailer';
 import { ProductionCelebrities } from 'src/app/models/production-celebrities';
+import { ProductionTrailerDto } from 'src/app/models/production-trailer';
 import { PutProduction } from 'src/app/models/put-production';
 import { Season } from 'src/app/models/season';
 import { CelebritiesService } from 'src/app/services/celebrities.service';
@@ -43,6 +45,8 @@ export class ProductionFormComponent implements OnInit {
   productionCelebrities: MatTableDataSource<ProductionCelebrities>;
   seasons: Season[];
   searchTxt: string;
+  productionTrailers: ProductionTrailerDto[] = [];
+  trailer: string;
 
   constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
      private genresService: GenresService, private celebritiesService: CelebritiesService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -97,6 +101,11 @@ export class ProductionFormComponent implements OnInit {
       this.seasons = res;
       console.log(res);
     });
+
+    this.productionsService.getTrailers(this.productionId).subscribe(res => {
+      console.log(res)
+      this.productionTrailers = res;
+    })
   }
 
   ngOnInit(): void {
@@ -271,4 +280,33 @@ export class ProductionFormComponent implements OnInit {
     else
     this.productionsService.deleteActor(this.productionId, celebritieId).subscribe()
   }
+
+  deleteTrailer(trailerId: number): void{
+    console.log(trailerId);
+    this.productionsService.deleteTrailer(trailerId).subscribe(res =>{
+      if(res) {
+        const arr: ProductionTrailerDto[] = this.productionTrailers.filter((element) => {
+          return element.id != trailerId;
+        });
+        console.log(arr)
+        this.productionTrailers = arr;
+      }
+      else {
+        alert("cannot delete trailer");
+      }
+    });
+  }
+
+  addTrailer(): void{    
+      this.productionsService.addTrailer(this.productionId, this.trailer).subscribe(res =>{
+        if(res != null){
+          console.log(res)
+        this.productionTrailers.push({id: res.productionTrailerId, link: res.link})
+        console.log(this.productionTrailers)
+        }
+        else
+        alert("cannot add trailer")
+      })
+  }
+
 }
