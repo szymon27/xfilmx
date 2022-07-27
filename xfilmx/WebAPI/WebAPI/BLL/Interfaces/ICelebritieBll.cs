@@ -12,5 +12,8 @@ namespace WebAPI.BLL.Interfaces
         public bool ChangePicture(int celebritieId, byte[] picture);
         public bool DeletePicture(int celebritieId);
         public bool Delete(int celebritieId);
+        public List<ProductionDto> DirectorIn(int celebritieId);
+        public List<ProductionDto> ScreenwriterIn(int celebritieId);
+        public List<ProductionDto> ActorIn(int celebritieId);
     }
 }

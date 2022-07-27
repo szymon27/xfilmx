@@ -38,9 +38,19 @@
                     </mat-form-field>
         
                     <button mat-flat-button color="primary" type="submit" [disabled]="!editProductionForm.valid">edit</button>
-                    <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
                 </form>
+
+                <form #changePictureForm="ngForm" (ngSubmit)="onChangePicture()">
+                    <div>
+                        <h2>Change Picture</h2>
+                    </div>
             
+                    <img [src]="imageSrc" style="width:200px; height: 200px;">
+                    <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewPicture($event)">
+            
+                    <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
+                    <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
+                </form>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -75,6 +85,9 @@
                     celebrities
                 </mat-panel-title>
             </mat-expansion-panel-header>
+            <div>
+                <input matInput (keyup)="searchCelebrity($event.target)" [(ngModel)]="searchCelebrityTxt" placeholder="search">
+            </div>
             <table mat-table [dataSource]="productionCelebrities">    
 
                 <ng-container matColumnDef="id">
@@ -203,4 +216,5 @@
                 </div>
             </li>
         </mat-expansion-panel>
+        <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
 </div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Celebritie } from '../models/celebritie';
 import { PostCelebritie } from '../models/post-celebritie';
+import { Production } from '../models/production';
 import { PutCelebritie } from '../models/put-celebritie';
 
 @Injectable({
@@ -59,5 +60,27 @@ private url: string = 'http://localhost:1234/Celebrities'
         headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });
+  }
+
+  public ActorIn(celebritieId: number): Observable<Production[]>{
+    console.log(this.url + '/actor/' + celebritieId)
+    return this.httpClient.get<Production[]>(this.url + '/actor/' + celebritieId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
+  }
+
+  public DirectorIn(celebritieId: number): Observable<Production[]>{
+    return this.httpClient.get<Production[]>(this.url + '/director/' + celebritieId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
+  }
+
+  public ScreenwriterIn(celebritieId: number): Observable<Production[]>{
+    return this.httpClient.get<Production[]>(this.url + '/screenwriter/' + celebritieId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    })
   }
 }

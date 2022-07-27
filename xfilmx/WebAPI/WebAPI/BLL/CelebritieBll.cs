@@ -59,6 +59,27 @@ namespace WebAPI.BLL
             return true;
         }
 
+        public List<ProductionDto> DirectorIn(int celebritieId)
+        {
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+
+            if (celebritie == null)
+                return new List<ProductionDto>();
+
+            return this.unitOfWork.ProductionDirectorRepository.Get().ToList()
+                .Where(pd => pd.CelebritieId == celebritieId)
+                .Join(this.unitOfWork.ProductionRepository.Get(),
+                    pd => pd.ProductionId,
+                    p => p.ProductionId,
+                    (pd, p) => new ProductionDto
+                    {
+                        ProductionId = p.ProductionId,
+                        Title = p.Title,
+                        Picture = p.Picture
+                    })
+                .ToList();
+        }
+
         public CelebritieDto Get(int celebritieId)
         {
             Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
@@ -90,6 +111,27 @@ namespace WebAPI.BLL
                     PlaceOfBirth = c.PlaceOfBirth,
                     Picture = c.Picture
                 }).ToList();
+        }
+
+        public List<ProductionDto> ActorIn(int celebritieId)
+        {
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+
+            if (celebritie == null)
+                return new List<ProductionDto>();
+
+            return this.unitOfWork.ProductionActorRepository.Get().ToList()
+                .Where(pd => pd.CelebritieId == celebritieId)
+                .Join(this.unitOfWork.ProductionRepository.Get(),
+                    pd => pd.ProductionId,
+                    p => p.ProductionId,
+                    (pd, p) => new ProductionDto
+                    {
+                        ProductionId = p.ProductionId,
+                        Title = p.Title,
+                        Picture = p.Picture
+                    })
+                .ToList();
         }
 
         public CelebritieDto Post(PostCelebritieDto dto) 
@@ -142,6 +184,27 @@ namespace WebAPI.BLL
                 PlaceOfBirth = celebritie.PlaceOfBirth,
                 Picture = celebritie.Picture
             };
+        }
+
+        public List<ProductionDto> ScreenwriterIn(int celebritieId)
+        {
+            Celebritie celebritie = this.unitOfWork.CelebritieRepository.Get(celebritieId);
+
+            if (celebritie == null)
+                return new List<ProductionDto>();
+
+            return this.unitOfWork.ProductionScreenwriterRepository.Get().ToList()
+                .Where(pd => pd.CelebritieId == celebritieId)
+                .Join(this.unitOfWork.ProductionRepository.Get(),
+                    pd => pd.ProductionId,
+                    p => p.ProductionId,
+                    (pd, p) => new ProductionDto
+                    {
+                        ProductionId = p.ProductionId,
+                        Title = p.Title,
+                        Picture = p.Picture
+                    })
+                .ToList();
         }
     }
 }

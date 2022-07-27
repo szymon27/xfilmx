@@ -52,5 +52,17 @@ namespace WebAPI.Controllers
         [HttpDelete("deletePicture/{newsId}")]
         public bool DeletePicture(int newsId)
             => this.celebritieBll.DeletePicture(newsId);
+
+        [HttpGet("director/{celebritieId}")]
+        public List<ProductionDto> DirectorIn(int celebritieId)
+            => this.celebritieBll.DirectorIn(celebritieId);
+
+        [HttpGet("screenwriter/{celebritieId}")]
+        public List<ProductionDto> ScreenwriterIn(int celebritieId)
+            => this.celebritieBll.ScreenwriterIn(celebritieId);
+
+        [HttpGet("actor/{celebritieId}")]
+        public List<ProductionDto> ActorIn(int celebritieId)
+            => this.celebritieBll.ActorIn(celebritieId);
     }
 }

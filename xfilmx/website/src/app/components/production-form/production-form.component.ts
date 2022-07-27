@@ -44,12 +44,12 @@ export class ProductionFormComponent implements OnInit {
   genres: [Genre, boolean][] = [];
   productionCelebrities: MatTableDataSource<ProductionCelebrities>;
   seasons: Season[];
-  searchTxt: string;
+  searchCelebrityTxt: string;
   productionTrailers: ProductionTrailerDto[] = [];
   trailer: string;
 
   constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
-     private genresService: GenresService, private celebritiesService: CelebritiesService, private router: Router, private activatedRoute: ActivatedRoute) {
+     private genresService: GenresService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe(p => {
       this.productionId = p['id'];
       this.productionsService.getById(this.productionId).subscribe(res => {
@@ -110,6 +110,10 @@ export class ProductionFormComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  searchCelebrity(e: any): void{
+    this.productionCelebrities.filter = (e as HTMLInputElement).value.toLowerCase();
   }
 
   SortedSeasonArray(arr: Season[]): Season[] {

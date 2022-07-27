@@ -45,7 +45,8 @@ namespace WebAPI.BLL
                 {
                     GenreId = g.GenreId,
                     Name = g.Name
-                }).ToList();
+                }).OrderBy(g => g.Name)
+                .ToList();
         }
 
         public GenreDto Post(string name)

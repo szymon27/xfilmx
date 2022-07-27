@@ -45,7 +45,8 @@ namespace WebAPI.BLL
                 {
                     CountryId = c.CountryId,
                     Name = c.Name
-                }).ToList();
+                }).OrderBy(c=>c.Name)
+                .ToList();
         }
 
         public CountryDto Post(string name)

@@ -9,7 +9,37 @@
         <span>{{celebritie.placeOfBirth}}</span>
         <span>  {{celebritie.dateOfBirth | date}}</span>
     </div>
-    <div>
-        <h3>Played in</h3>
-    </div>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Played in
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngFor="let a of actorIn">
+            <img [src]="getProductionImage(a)" style="width:50px; height: 50px;">
+            <a href="http://localhost:4200/productions/{{a.productionId}}">{{a.title}}</a>
+        </li>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Director in
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngFor="let d of directorIn">
+            <img [src]="getProductionImage(d)" style="width:50px; height: 50px;">
+            <a href="http://localhost:4200/productions/{{d.productionId}}">{{d.title}}</a>
+        </li>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Screenwriter in
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngFor="let s of actorIn">
+            <img [src]="getProductionImage(s)" style="width:50px; height: 50px;">
+            <a href="http://localhost:4200/productions/{{s.productionId}}">{{s.title}}</a>
+        </li>
+    </mat-expansion-panel>
 </div>
