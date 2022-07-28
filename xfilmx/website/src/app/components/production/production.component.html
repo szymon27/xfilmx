@@ -1,1 +1,45 @@
-<p>production works!</p>
+<div>
+    <div>
+        <img [src]="getProductionImage()" style="width:200px; height: 200px;">
+        <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate}} - {{production.endDate}})</h1>
+        <h1 *ngIf="!production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}})</h1>
+        <h3>{{production.description}}</h3>
+        <h3> production: {{production.countries.join("/")}}</h3>
+        <h3> genre: {{production.genres.join("/")}}</h3>
+        <h4> {{production.duration}} min.</h4>       
+    </div>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Actors
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngFor="let a of actors">
+            <img [src]="getRoleImage(a)" style="width:50px; height: 50px;">           
+            <a href="http://localhost:4200/celebrities/{{getRoleId(a)}}">{{getRoleCelebritie(a)}}</a>
+            <h3> {{getRoleName(a)}} </h3>
+        </li>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Directors
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngFor="let d of directors">
+            <img [src]="getCelebritieImage(d)" style="width:50px; height: 50px;">
+            <a href="http://localhost:4200/celebrities/{{d.id}}">{{d.name}}  {{d.surname}}</a>
+        </li>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Screenwriters
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <li *ngFor="let s of screenwriters">
+            <img [src]="getCelebritieImage(s)" style="width:50px; height: 50px;">
+            <a href="http://localhost:4200/celebrities/{{s.id}}">{{s.name}}  {{s.surname}}</a>
+        </li>
+    </mat-expansion-panel>
+</div>

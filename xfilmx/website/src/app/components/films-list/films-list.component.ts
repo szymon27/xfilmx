@@ -43,7 +43,7 @@ export class FilmsListComponent implements OnInit {
   }
 
   showFilm(productionId: number): void{
-    this.router.navigate(['films/' + productionId])
+    this.router.navigate(['productions/' + productionId])
   }
   editFilm(productionId:number): void{
     this.router.navigate(['productions/' + productionId + '/edit'])

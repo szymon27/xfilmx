@@ -24,6 +24,7 @@ import { AuthorizationGuard } from "./guards/authorization.guard";
 import { RoleGuard } from "./guards/role.guard";
 import { NewProductionFormComponent } from "./components/new-production-form/new-production-form.component";
 import { ProductionFormComponent } from "./components/production-form/production-form.component";
+import { ProductionComponent } from "./components/production/production.component";
 
 export const APP_ROUTES: Routes = [
     {path: 'login', component: LoginFormComponent},
@@ -40,6 +41,7 @@ export const APP_ROUTES: Routes = [
     {path: 'productions/add', component: NewProductionFormComponent},
     {path: 'productions/:id/edit', component: ProductionFormComponent},
     {path: 'films', component: FilmsListComponent},
+    {path: 'productions/:id', component: ProductionComponent},
     {path: 'series', component: SeriesListComponent},
     {path: 'myxfilmx', component: MyXfilmxComponent},
     {path: 'users', component: UsersListComponent},

@@ -37,7 +37,7 @@
                 Screenwriter in
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <li *ngFor="let s of actorIn">
+        <li *ngFor="let s of screenwriterIn">
             <img [src]="getProductionImage(s)" style="width:50px; height: 50px;">
             <a href="http://localhost:4200/productions/{{s.productionId}}">{{s.title}}</a>
         </li>
