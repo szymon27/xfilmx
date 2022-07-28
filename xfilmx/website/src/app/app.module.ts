@@ -41,6 +41,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProductionFormComponent } from './components/production-form/production-form.component';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { NgxStarsModule } from 'ngx-stars';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -95,7 +96,8 @@ export function tokenGetter() {
     MatRadioModule,
     MatCheckboxModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxStarsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

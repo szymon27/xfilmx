@@ -1,6 +1,7 @@
 <div>
     <div>
         <img [src]="getProductionImage()" style="width:200px; height: 200px;">
+        <ngx-stars color="purple" [wholeStars]="true" [maxStars]="10"></ngx-stars>
         <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate}} - {{production.endDate}})</h1>
         <h1 *ngIf="!production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}})</h1>
         <h3>{{production.description}}</h3>
