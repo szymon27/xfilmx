@@ -178,5 +178,45 @@ namespace WebAPI.Controllers
         [HttpGet("trailers/{productionId}")]
         public List<ProductionTrailerDto> GetTrailers(int productionId)
             => this.productionBll.GetTrailers(productionId);
+
+        [HttpPut("rates/{productionId}/{userId}")]
+        public bool AddRate(int productionId, int userId, [FromBody] int rate)
+            => this.productionBll.AddRate(productionId, userId, rate);
+
+        [HttpDelete("rates/{productionId}/{userId}")]
+        public bool DeleteRate(int productionId, int userId)
+            => this.productionBll.DeleteRate(productionId, userId);
+
+        [HttpGet("rates/{productionId}/{userId}")]
+        public int? GetRate(int productionId, int userId)
+            => this.productionBll.GetRate(productionId, userId);
+
+        [HttpPut("comments/{productionId}/{userId}")]
+        public CommentDto AddComment(int productionId, int userId, [FromBody] string comment)
+            => this.productionBll.AddComment(productionId, userId, comment);
+
+        [HttpDelete("comments/{commentId}")]
+        public bool DeleteComment(int commentId)
+            => this.productionBll.DeleteComment(commentId);
+
+        [HttpGet("comments/{poductionId}")]
+        public List<CommentDto> GetComments(int productionId)
+            => this.productionBll.GetComments(productionId);
+
+        [HttpGet("toWatchList/{userId}")]
+        public List<ProductionWatchDto> GetToWatchProductions(int userId)
+            => this.productionBll.GetToWatchProductions(userId);
+
+        [HttpGet("watchedList/{userId}")]
+        public List<ProductionWatchDto> GetWatchedProductions(int userId)
+            => this.productionBll.GetWatchedProductions(userId);
+
+        [HttpPut("watch/{productionId}/{userId}")]
+        public bool AddPoductionToWatch(int productionId, int userId, [FromBody] int status)
+            => this.AddPoductionToWatch(productionId, userId, status);
+
+        [HttpDelete("watch/{productionId}/{userId}")]
+        public bool DeleteProductionFromWatch(int productionId, int userId)
+            => this.DeleteProductionFromWatch(productionId, userId);
     }
 }

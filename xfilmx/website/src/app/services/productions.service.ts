@@ -12,6 +12,7 @@ import { Production } from '../models/production';
 import { ProductionCelebrities } from '../models/production-celebrities';
 import { ProductionPictureDto } from '../models/production-picture';
 import { ProductionTrailerDto } from '../models/production-trailer';
+import { ProductionWatch } from '../models/production-watch';
 import { PutProduction } from '../models/put-production';
 import { Season } from '../models/season';
 
@@ -271,5 +272,79 @@ export class ProductionsService {
       headers: new HttpHeaders({"Content-Type":"application/json"
       })
     })
+  }
+
+  public addRate(productionId: number, userId: number, rate: number): Observable<boolean>{
+    return this.httpClient.put<boolean>(this.url + '/rates/' + productionId + '/' + userId, JSON.stringify(rate), {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteRate(productionId: number, userId: number): Observable<boolean>{
+    return this.httpClient.delete<boolean>(this.url + '/rates/' + productionId + '/' + userId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getRate(productionId: number, userId: number): Observable<number | null>{
+    return this.httpClient.get<number | null>(this.url + '/rates/' + productionId + '/' + userId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public addComment(productionId: number, userId: number, comment: string): Observable<boolean>{
+    return this.httpClient.put<boolean>(this.url + '/comments/' + productionId + '/' + userId, JSON.stringify(comment), {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteComment(commentId: number): Observable<boolean>{
+    return this.httpClient.delete<boolean>(this.url + '/comments/' + commentId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getComments(productionId: number): Observable<Comment[]>{
+    return this.httpClient.get<Comment[]>(this.url + '/comments/' + productionId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getToWatchProductions(userId: number): Observable<ProductionWatch[]>{
+    return this.httpClient.get<ProductionWatch[]>(this.url + '/toWatchList/' + userId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public getWatchedProductions(userId: number): Observable<ProductionWatch[]>{
+    return this.httpClient.get<ProductionWatch[]>(this.url + '/watchedList/' + userId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  //status
+  //0 - none
+  //1 - watched
+  //2 - to watch
+  public addProductionToWatch(productionId: number, userId: number, status: number): Observable<boolean>{
+    return this.httpClient.put<boolean>(this.url + '/watch/' + productionId + '/' + userId, JSON.stringify(status), {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
+  }
+
+  public deleteProductionFromWatch(productionId: number, userId: number): Observable<boolean>{
+    return this.httpClient.delete<boolean>(this.url + '/watch/' + productionId + '/' + userId, {
+      headers: new HttpHeaders({"Content-Type":"application/json"
+      })
+    });
   }
 }

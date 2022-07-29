@@ -745,5 +745,225 @@ namespace WebAPI.BLL
                 Id = x.ProductionTrailerId
             }).ToList();
         }
+
+        public bool AddRate(int productionId, int userId, int rate)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return false;
+
+            ProductionRate productionRate = this.unitOfWork.ProductionRateRepository.Get(productionId, userId);
+            if (productionRate == null)
+            {
+                productionRate = new ProductionRate()
+                {
+                    ProductionId = productionId,
+                    UserId = userId,
+                    Stars = (Stars)rate
+                };
+                this.unitOfWork.ProductionRateRepository.Add(productionRate);
+            }
+            else productionRate.Stars = (Stars)rate;
+
+            ProductionWatchStatus productionWatchStatus = this.unitOfWork.ProductionWatchStatusRepository.Get(productionId, userId);
+            if (productionWatchStatus == null)
+            {
+                productionWatchStatus = new ProductionWatchStatus()
+                {
+                    ProductionId = productionId,
+                    UserId = userId,
+                    WatchStatus = WatchStatus.Watched
+                };
+                this.unitOfWork.ProductionWatchStatusRepository.Add(productionWatchStatus);
+            }
+            else productionWatchStatus.WatchStatus = WatchStatus.Watched;
+
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteRate(int productionId, int userId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return false;
+
+            bool removed = this.unitOfWork.ProductionRateRepository.Delete(productionId, userId);
+            if(removed)
+            {
+                this.unitOfWork.ProductionWatchStatusRepository.Delete(productionId, userId);
+                this.unitOfWork.Complete();
+            }
+            return removed;
+        }
+
+        public int? GetRate(int productionId, int userId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return null;
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return null;
+
+            ProductionRate productionRate = this.unitOfWork.ProductionRateRepository.Get(productionId, userId);
+            if (productionRate == null)
+                return null;
+            return (int)productionRate.Stars;
+        }
+
+        public CommentDto AddComment(int productionId, int userId, string comment)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return (CommentDto)null;
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return (CommentDto)null;
+
+            if (string.IsNullOrWhiteSpace(comment))
+                return (CommentDto)null;
+
+            ProductionComment productionComment = new ProductionComment
+            {
+                ProductionId = productionId,
+                UserId = userId,
+                Comment = comment,
+                Date = DateTime.Now
+            };
+            this.unitOfWork.ProductionCommentRepository.Add(productionComment);
+            this.unitOfWork.Complete();
+            return new CommentDto
+            {
+                CommentId = productionComment.ProductionCommentId,
+                Username = user.Username,
+                Comment = productionComment.Comment,
+                Date = productionComment.Date
+            };
+        }
+
+        public bool DeleteComment(int commentId)
+        {
+            bool removed = this.unitOfWork.ProductionCommentRepository.Delete(commentId);
+            if (removed) this.unitOfWork.Complete();
+            return removed;
+        }
+
+        public List<CommentDto> GetComments(int productionId)
+        {
+            return this.unitOfWork.ProductionCommentRepository.Get().ToList()
+                .Where(pc => pc.ProductionId == productionId)
+                .OrderBy(x => x.Date)
+                .Select(x => new CommentDto
+                {
+                    CommentId = x.ProductionCommentId,
+                    Username = x.User.Username,
+                    Comment = x.Comment,
+                    Date = x.Date
+                }).ToList();
+        }
+
+        public List<ProductionWatchDto> GetToWatchProductions(int userId)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return new List<ProductionWatchDto>();
+
+            return this.unitOfWork.ProductionWatchStatusRepository.Get().ToList()
+                .Where(x => x.UserId == userId)
+                .Where(x => x.WatchStatus == WatchStatus.ToWatch)
+                .Select(x => new ProductionWatchDto
+                {
+                    ProductionId = x.ProductionId,
+                    Title = x.Production.Title,
+                    Picture = x.Production.Picture
+                }).ToList();
+        }
+
+        public List<ProductionWatchDto> GetWatchedProductions(int userId)
+        {
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return new List<ProductionWatchDto>();
+
+            return this.unitOfWork.ProductionWatchStatusRepository.Get().ToList()
+                .Where(x => x.UserId == userId)
+                .Where(x => x.WatchStatus == WatchStatus.Watched)
+                .Select(x => new ProductionWatchDto
+                {
+                    ProductionId = x.ProductionId,
+                    Title = x.Production.Title,
+                    Picture = x.Production.Picture
+                }).ToList();
+        }
+
+        public bool AddPoductionToWatch(int productionId, int userId, int status)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return false;
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return false;
+
+            ProductionWatchStatus productionWatchStatus = this.unitOfWork.ProductionWatchStatusRepository.Get(productionId, userId);
+            if(productionWatchStatus == null)
+            {
+                productionWatchStatus = new ProductionWatchStatus()
+                {
+                    ProductionId = productionId,
+                    UserId = userId,
+                    WatchStatus = (WatchStatus)status
+                };
+                this.unitOfWork.ProductionWatchStatusRepository.Add(productionWatchStatus);
+            }
+            else
+            {
+                switch(status)
+                {
+                    case (int)WatchStatus.None:
+                        {
+                            this.unitOfWork.ProductionRateRepository.Delete(productionId, userId);
+                            this.unitOfWork.ProductionWatchStatusRepository.Delete(productionId, userId);
+                            break;
+                        }
+                    case (int)WatchStatus.ToWatch:
+                        {
+                            this.unitOfWork.ProductionRateRepository.Delete(productionId, userId);
+                            productionWatchStatus.WatchStatus = WatchStatus.ToWatch;
+                            break;
+                        }
+                    case (int)WatchStatus.Watched:
+                        {
+                            productionWatchStatus.WatchStatus = WatchStatus.Watched;
+                            break;
+                        }
+                }
+            }
+            this.unitOfWork.Complete();
+            return true;
+        }
+
+        public bool DeleteProductionFromWatch(int productionId, int userId)
+        {
+            bool removed = this.unitOfWork.ProductionWatchStatusRepository.Delete(productionId, userId);
+            if (removed)
+            {
+                this.unitOfWork.ProductionRateRepository.Delete(productionId, userId);
+                this.unitOfWork.Complete();
+            }
+            return removed;
+        }
     }
 }

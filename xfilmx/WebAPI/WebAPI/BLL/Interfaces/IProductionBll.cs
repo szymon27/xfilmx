@@ -53,5 +53,18 @@ namespace WebAPI.BLL.Interfaces
         public ProductionTrailer AddTrailer(int productionId, string link);
         public bool DeleteTrailer(int trailerId);
         public List<ProductionTrailerDto> GetTrailers(int productionId);
+
+        public bool AddRate(int productionId, int userId, int rate);
+        public bool DeleteRate(int productionId, int userId);
+        public int? GetRate(int productionId, int userId);
+
+        public CommentDto AddComment(int productionId, int userId, string comment);
+        public bool DeleteComment(int commentId);
+        public List<CommentDto> GetComments(int productionId);
+
+        public List<ProductionWatchDto> GetToWatchProductions(int userId);
+        public List<ProductionWatchDto> GetWatchedProductions(int userId);
+        public bool AddPoductionToWatch(int productionId, int userId, int stauts);
+        public bool DeleteProductionFromWatch(int productionId, int userId);
     }
 }

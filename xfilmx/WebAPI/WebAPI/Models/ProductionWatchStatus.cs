@@ -21,7 +21,8 @@ namespace WebAPI.Models
 
     public enum WatchStatus
     {
-        Watched = 0,
-        ToWatch = 1
+        None = 0,
+        Watched = 1,
+        ToWatch = 2
     }
 }
