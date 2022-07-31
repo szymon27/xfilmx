@@ -1,1 +1,71 @@
-<p>series-list works!</p>
+<button id="addBtn" mat-fab color="primary" (click)="addProduction()">
+    <mat-icon>add</mat-icon>
+</button>
+
+<div>
+    <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
+</div>
+
+<mat-form-field appearance="fill">
+    <mat-label>Genres</mat-label>
+    <mat-select multiple (selectionChange)="onGenreChange($event)">     
+      <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Countries</mat-label>
+    <mat-select multiple (selectionChange)="onCountryChange($event)" defa>     
+      <mat-option *ngFor="let country of countries" [value]="country">{{country.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<div>
+    Production year
+    <input type="date" [(ngModel)]="beginDate">
+</div>
+
+<mat-form-field>
+    <mat-label>
+        Sort
+    </mat-label>
+    <mat-select (selectionChange)="onSortChange($event)" >
+        <mat-option [value]="1">A-Z</mat-option>
+        <mat-option [value]="2">Z-A</mat-option>
+        <mat-option [value]="3">Production date asc</mat-option>
+        <mat-option [value]="4">Production date desc</mat-option>
+        <mat-option [value]="5">Most rates</mat-option>
+        <mat-option [value]="6">Best Rate</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<table mat-table [dataSource]="series">
+    <ng-container matColumnDef="production">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Production </th>
+        <td mat-cell *matCellDef="let p" class="content-cell">
+            <div>
+                <div>{{p.productionId}}</div>
+                <div>{{p.title}}</div>
+                <div>({{p.beginDate | date : "YYYY"}} - {{p.endDate}})</div>
+                <div>{{p.rate}}</div>
+                <div>{{p.rateCount}}</div>
+                <div>{{p.countries.join(", ")}}</div>
+                <div>{{p.genres.join(", ")}}</div>
+                <img [src]="getImageSrc(p)" style="width:200px; height: 200px;">
+            </div>
+
+        </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> Actions </th>
+        <td mat-cell *matCellDef="let p" class="content-cell">
+            <button (click)="showSeries(p.productionId)">show</button>
+            <button (click)="editSeries(p.productionId)">edit</button>
+            <button (click)="deleteSeries(p.productionId)">delete</button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['production', 'actions']"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: ['production', 'actions']"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[25, 50, 100]" #paginator></mat-paginator>

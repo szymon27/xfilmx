@@ -213,10 +213,14 @@ namespace WebAPI.Controllers
 
         [HttpPut("watch/{productionId}/{userId}")]
         public bool AddPoductionToWatch(int productionId, int userId, [FromBody] int status)
-            => this.AddPoductionToWatch(productionId, userId, status);
+            => this.productionBll.AddPoductionToWatch(productionId, userId, status);
 
         [HttpDelete("watch/{productionId}/{userId}")]
         public bool DeleteProductionFromWatch(int productionId, int userId)
-            => this.DeleteProductionFromWatch(productionId, userId);
+            => this.productionBll.DeleteProductionFromWatch(productionId, userId);
+
+        [HttpGet("status/{productionId}/{userId}")]
+        public int GetProductionStatus(int productionId, int userId)
+            => this.productionBll.GetProductionStatus(productionId, userId);
     }
 }

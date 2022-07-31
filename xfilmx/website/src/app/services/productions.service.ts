@@ -348,4 +348,12 @@ export class ProductionsService {
       })
     });
   }
+
+  public GetProductionStatus(productionId: number, userId: number): Observable<number>{
+    return this.httpClient.get<number>(this.url + "/status/" + productionId + '/' +  userId, {
+      
+      headers: new HttpHeaders({"Content-Type":"application/json"
+    })
+    })
+  }
 }

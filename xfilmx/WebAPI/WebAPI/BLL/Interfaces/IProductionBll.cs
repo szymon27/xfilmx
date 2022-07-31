@@ -66,5 +66,6 @@ namespace WebAPI.BLL.Interfaces
         public List<ProductionWatchDto> GetWatchedProductions(int userId);
         public bool AddPoductionToWatch(int productionId, int userId, int stauts);
         public bool DeleteProductionFromWatch(int productionId, int userId);
+        public int GetProductionStatus(int productionId, int userId);
     }
 }

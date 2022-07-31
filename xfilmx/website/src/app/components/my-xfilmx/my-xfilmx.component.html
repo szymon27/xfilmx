@@ -4,7 +4,12 @@
             To watch
         </mat-panel-title>
     </mat-expansion-panel-header>
-    
+    <div class="grid">
+        <div class="grid-item" *ngFor="let item of toWatch">
+          <img [src]="getProductionImg(item.picture)" style="width:50px; height: 50px;" (click)="openProduction(item)">
+          <h2 (click)="openProduction(item)"> {{item.title}} </h2>
+        </div>
+      </div>
 </mat-expansion-panel>
 
 <mat-expansion-panel>
@@ -13,4 +18,10 @@
             Watched
         </mat-panel-title>
     </mat-expansion-panel-header>
+    <div class="grid">
+        <div class="grid-item" *ngFor="let item of watched">
+          <img [src]="getProductionImg(item.picture)" style="width:50px; height: 50px;" (click)="openProduction(item)">
+          <h2 (click)="openProduction(item)"> {{item.title}} </h2>
+        </div>
+      </div>
 </mat-expansion-panel>

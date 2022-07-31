@@ -885,8 +885,8 @@ namespace WebAPI.BLL
                 .Select(x => new ProductionWatchDto
                 {
                     ProductionId = x.ProductionId,
-                    Title = x.Production.Title,
-                    Picture = x.Production.Picture
+                    Title = this.unitOfWork.ProductionRepository.Get(x.ProductionId).Title,
+                    Picture = this.unitOfWork.ProductionRepository.Get(x.ProductionId).Picture
                 }).ToList();
         }
 
@@ -902,8 +902,8 @@ namespace WebAPI.BLL
                 .Select(x => new ProductionWatchDto
                 {
                     ProductionId = x.ProductionId,
-                    Title = x.Production.Title,
-                    Picture = x.Production.Picture
+                    Title = this.unitOfWork.ProductionRepository.Get(x.ProductionId).Title,
+                    Picture = this.unitOfWork.ProductionRepository.Get(x.ProductionId).Picture
                 }).ToList();
         }
 
@@ -964,6 +964,27 @@ namespace WebAPI.BLL
                 this.unitOfWork.Complete();
             }
             return removed;
+        }
+
+        public int GetProductionStatus(int productionId, int userId)
+        {
+            Production production = this.unitOfWork.ProductionRepository.Get(productionId);
+            if (production == null)
+                return 0;
+
+            User user = this.unitOfWork.UserRepository.Get(userId);
+            if (user == null)
+                return 0;
+
+            ProductionWatchStatus productionWatchStatus = this.unitOfWork.ProductionWatchStatusRepository.Get().ToList()
+                .Where(x => x.UserId == userId)
+                .Where(x => x.ProductionId == productionId)
+                .FirstOrDefault();
+
+            if (productionWatchStatus == null)
+                return 0;
+            else
+                return (int)productionWatchStatus.WatchStatus;
         }
     }
 }

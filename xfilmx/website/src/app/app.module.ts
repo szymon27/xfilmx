@@ -44,6 +44,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxStarsModule } from 'ngx-stars';
 import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from  'ng-gallery/lightbox';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -101,7 +103,9 @@ export function tokenGetter() {
     MatExpansionModule,
     NgxStarsModule,
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -44,7 +44,7 @@ export class ProductionComponent implements OnInit {
   comment: string;
   photos: ProductionPictureDto[];
   items: GalleryItem[] = []
-  status: number
+  status: number;
 
   galleryId = 'myLightbox'
 
@@ -93,6 +93,9 @@ export class ProductionComponent implements OnInit {
           galleryRef.load(this.items);
         })
 
+        this.productionsService.GetProductionStatus(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId']).subscribe(res=>{
+          this.status = res;
+        })
       })
     })
   }
@@ -129,8 +132,11 @@ export class ProductionComponent implements OnInit {
 
   rate(rating: number): void{
     this.productionsService.addRate(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId'], rating).subscribe(res =>{
-      if(res == null)
+      if(res == null){
         this.starsComponent.setRating(0);
+      }
+      else
+      this.status = 1;  
     })
   }
 
@@ -173,5 +179,15 @@ export class ProductionComponent implements OnInit {
 
   getGalleryImg(url: string):any{
     return 'data:image/png;base64,' + url;
+  }
+
+  onStatusChange(e: number): void{
+    console.log(e)
+    this.productionsService.addProductionToWatch(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId'], e).subscribe(res => {
+      if(res){
+      if(e == 0 || e == 2)
+        this.starsComponent.setRating(0);
+    }
+    })
   }
 }

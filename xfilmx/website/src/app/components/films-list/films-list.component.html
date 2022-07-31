@@ -5,6 +5,40 @@
 <div>
     <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
 </div>
+
+<mat-form-field appearance="fill">
+    <mat-label>Genres</mat-label>
+    <mat-select multiple (selectionChange)="onGenreChange($event)">     
+      <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Countries</mat-label>
+    <mat-select multiple (selectionChange)="onCountryChange($event)" defa>     
+      <mat-option *ngFor="let country of countries" [value]="country">{{country.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+<div>
+    Production year
+    <input type="date" [(ngModel)]="beginDate">
+</div>
+
+<mat-form-field>
+    <mat-label>
+        Sort
+    </mat-label>
+    <mat-select (selectionChange)="onSortChange($event)" >
+        <mat-option [value]="1">A-Z</mat-option>
+        <mat-option [value]="2">Z-A</mat-option>
+        <mat-option [value]="3">Production date asc</mat-option>
+        <mat-option [value]="4">Production date desc</mat-option>
+        <mat-option [value]="5">Most rates</mat-option>
+        <mat-option [value]="6">Best Rate</mat-option>
+    </mat-select>
+</mat-form-field>
+
 <table mat-table [dataSource]="films">
     <ng-container matColumnDef="production">
         <th mat-header-cell *matHeaderCellDef class="header-cell"> Production </th>
@@ -12,7 +46,7 @@
             <div>
                 <div>{{p.productionId}}</div>
                 <div>{{p.title}}</div>
-                <div>{{p.beginDate}}</div>
+                <div>({{p.beginDate | date : "YYYY"}})</div>
                 <div>{{p.rate}}</div>
                 <div>{{p.rateCount}}</div>
                 <div>{{p.countries.join(", ")}}</div>
