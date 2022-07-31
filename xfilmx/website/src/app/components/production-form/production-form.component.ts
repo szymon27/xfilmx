@@ -9,6 +9,7 @@ import { Genre } from 'src/app/models/genre';
 import { NewEpisod } from 'src/app/models/new-episod';
 import { ProductionTrailer } from 'src/app/models/post-production-trailer';
 import { ProductionCelebrities } from 'src/app/models/production-celebrities';
+import { ProductionPictureDto } from 'src/app/models/production-picture';
 import { ProductionTrailerDto } from 'src/app/models/production-trailer';
 import { PutProduction } from 'src/app/models/put-production';
 import { Season } from 'src/app/models/season';
@@ -38,7 +39,9 @@ export class ProductionFormComponent implements OnInit {
   title: string = "";
 
   imageSrc:any = null;
+  imageGallerySrc:any = null;
   file: File = null;
+  fileGallery: File = null;
   productionId: number;
   countries: [Country, boolean][] = [];
   genres: [Genre, boolean][] = [];
@@ -47,6 +50,7 @@ export class ProductionFormComponent implements OnInit {
   searchCelebrityTxt: string;
   productionTrailers: ProductionTrailerDto[] = [];
   trailer: string;
+  productionPhotos: ProductionPictureDto[] = [];
 
   constructor(private productionsService: ProductionsService, private countriesService: CountriesService,
      private genresService: GenresService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -99,12 +103,13 @@ export class ProductionFormComponent implements OnInit {
 
     this.productionsService.getSeasons(this.productionId).subscribe(res => {
       this.seasons = res;
-      console.log(res);
     });
 
     this.productionsService.getTrailers(this.productionId).subscribe(res => {
-      console.log(res)
       this.productionTrailers = res;
+    })
+    this.productionsService.getGallery(this.productionId).subscribe(res =>{
+      this.productionPhotos = res
     })
   }
 
@@ -313,4 +318,46 @@ export class ProductionFormComponent implements OnInit {
       })
   }
 
+  handleNewGalleryPicture(e: any): void {
+    this.fileGallery = (e.target as HTMLInputElement).files.item(0);
+    if(this.fileGallery != null) {
+      let reader: FileReader = new FileReader();
+      reader.readAsDataURL(this.fileGallery);
+      reader.onload = (event: any) => {
+        this.imageGallerySrc = reader.result;
+      };      
+    }
+    else {
+      this.imageGallerySrc = null;
+      this.fileGallery = null;
+    }
+  }
+
+  addToGallery(): void {
+    const token: string = localStorage.getItem("jwt");
+    console.log(this.fileGallery)
+    this.productionsService.addPicture(this.productionId, this.fileGallery).subscribe(res =>{
+      if(res != null)
+      this.productionsService.getGallery(this.productionId).subscribe(res =>{
+        this.productionPhotos = res
+      })
+      else
+      alert("cannot add to gallery")
+    });
+  }
+  
+  getGalleryImage(pic: ProductionPictureDto): any{
+    return 'data:image/png;base64,' + pic.picture;
+  }
+
+  deleteFromGallery(picId: number): void{
+    this.productionsService.removePicture(picId).subscribe(res =>{
+      if(res)
+      this.productionsService.getGallery(this.productionId).subscribe(res =>{
+        this.productionPhotos = res
+      })
+      else
+      alert("cannot remove from gallery")
+    })
+  }
 }

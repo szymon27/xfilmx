@@ -867,7 +867,7 @@ namespace WebAPI.BLL
                 .Select(x => new CommentDto
                 {
                     CommentId = x.ProductionCommentId,
-                    Username = x.User.Username,
+                    Username = this.unitOfWork.UserRepository.Get(x.UserId).Username,
                     Comment = x.Comment,
                     Date = x.Date
                 }).ToList();

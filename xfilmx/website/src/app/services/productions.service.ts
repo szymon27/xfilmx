@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Celebritie } from '../models/celebritie';
+import { Comment } from '../models/comment';
 import { Country } from '../models/country';
 import { Genre } from '../models/genre';
 import { NewEpisod } from '../models/new-episod';
@@ -295,8 +296,8 @@ export class ProductionsService {
     });
   }
 
-  public addComment(productionId: number, userId: number, comment: string): Observable<boolean>{
-    return this.httpClient.put<boolean>(this.url + '/comments/' + productionId + '/' + userId, JSON.stringify(comment), {
+  public addComment(productionId: number, userId: number, comment: string): Observable<Comment>{
+    return this.httpClient.put<Comment>(this.url + '/comments/' + productionId + '/' + userId, JSON.stringify(comment), {
       headers: new HttpHeaders({"Content-Type":"application/json"
       })
     });

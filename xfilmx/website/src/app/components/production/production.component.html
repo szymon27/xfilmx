@@ -1,8 +1,19 @@
 <div>
     <div>
         <img [src]="getProductionImage()" style="width:200px; height: 200px;">
-        <ngx-stars color="purple" [wholeStars]="true" [maxStars]="10"></ngx-stars>
-        <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate}} - {{production.endDate}})</h1>
+        <button mat-flat-button color="primary" (click)="removeRate()">X</button>
+        <ngx-stars color="purple" [wholeStars]="true" [maxStars]="10" (ratingOutput)="rate($event)"></ngx-stars>
+        <!--<mat-radio-group (change)="onStatusChange($event)">
+            <mat-radio-button value="0" [checked]="user.userType == 0 ? true : false">None</mat-radio-button>
+            <mat-radio-button value="1" [checked]="user.userType == 1 ? true : false">Watched</mat-radio-button>
+            <mat-radio-button value="2" [checked]="user.userType == 2 ? true : false">To watch</mat-radio-button>
+        </mat-radio-group>-->
+        
+        <div>
+            <span>rate: {{production.rate}}     </span>
+            <span>rates: {{production.rateCount}}</span>
+        </div>
+        <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}} - {{production.endDate | date: 'YYYY'}})</h1>
         <h1 *ngIf="!production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}})</h1>
         <h3>{{production.description}}</h3>
         <h3> production: {{production.countries.join("/")}}</h3>
@@ -43,4 +54,61 @@
             <a href="http://localhost:4200/celebrities/{{s.id}}">{{s.name}}  {{s.surname}}</a>
         </li>
     </mat-expansion-panel>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Gallery
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="grid">
+        <div class="grid-item"
+          *ngFor="let item of photos; let i = index"
+          [lightbox]="i"
+          [gallery]="galleryId">
+          <img [src]="getGalleryImg(item.picture)">
+        </div>
+      </div>
+</mat-expansion-panel>
+<mat-expansion-panel *ngIf="production.isSerie">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Seasons
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-expansion-panel *ngFor="let s of SortedSeasonArray(seasons)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Season {{s.seasonId}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+            <li *ngFor="let e of SortedEpisodArray(s.episods)"> 
+                <div>
+                    <span>{{e.episodId}}</span>
+                    <span>{{e.title}}</span>
+                </div> 
+            </li>
+        </ul>     
+    </mat-expansion-panel>   
+</mat-expansion-panel>
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Comments
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+        <form #addCommentForm="ngForm" (ngSubmit)="addComment()">
+            <textarea matInput name="comment" id="comment" [(ngModel)]="comment" required></textarea>
+            <button mat-flat-button color="primary" type="submit" [disabled]="!addCommentForm.valid">Comment</button>
+        </form>
+    </div>
+    <ul>
+        <li *ngFor="let c of comments">
+            <h1>{{c.username}}</h1>
+            <h2>{{c.comment}}</h2>
+            <button mat-flat-button color="primary" (click)="deleteComment(c.commentId)">delete comment</button>
+        </li>
+    </ul>
+</mat-expansion-panel>
 </div>

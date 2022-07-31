@@ -42,6 +42,8 @@ import { ProductionFormComponent } from './components/production-form/production
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NgxStarsModule } from 'ngx-stars';
+import { GalleryModule } from 'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -97,7 +99,9 @@ export function tokenGetter() {
     MatCheckboxModule,
     MatListModule,
     MatExpansionModule,
-    NgxStarsModule
+    NgxStarsModule,
+    GalleryModule,
+    LightboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

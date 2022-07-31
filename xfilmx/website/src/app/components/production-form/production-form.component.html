@@ -2,7 +2,7 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    general
+                    General
                 </mat-panel-title>
             </mat-expansion-panel-header>
                 <form #editProductionForm="ngForm" (ngSubmit)="editProduction()">
@@ -193,7 +193,32 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    trailers
+                    Gallery
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <form #AddPictureForm="ngForm" (ngSubmit)="addToGallery()">
+                <div>
+                    <h2>Add Picture</h2>
+                </div>
+        
+                <img [src]="imageGallerySrc" style="width:100px; height: 100px;">
+                <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewGalleryPicture($event)">
+        
+                <button mat-flat-button color="primary" [disabled]="fileGallery==null" type="submit">add picture</button>
+            </form>
+            
+            <li *ngFor="let p of productionPhotos; let i = index">
+                <div>
+                    <img [src]="getGalleryImage(p)" style="width:100px; height: 100px;">
+                    <button mat-flat-button color="primary" (click)="deleteFromGallery(p.id)">delete picture</button>
+                </div>
+            </li>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Trailers
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <form #addTrailerForm="ngForm" (ngSubmit)="addTrailer()">

@@ -199,7 +199,7 @@ namespace WebAPI.Controllers
         public bool DeleteComment(int commentId)
             => this.productionBll.DeleteComment(commentId);
 
-        [HttpGet("comments/{poductionId}")]
+        [HttpGet("comments/{productionId}")]
         public List<CommentDto> GetComments(int productionId)
             => this.productionBll.GetComments(productionId);
 
