@@ -3,7 +3,7 @@
 </button>
 
 <div>
-    <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
+    <input matInput (keyup)="search()" [(ngModel)]="searchTxt" placeholder="search">
 </div>
 
 <mat-form-field appearance="fill">
@@ -20,9 +20,11 @@
     </mat-select>
   </mat-form-field>
 
-<div>
-    Production year
-    <input type="date" [(ngModel)]="beginDate">
+  <div>
+    <mat-form-field appearance="fill">
+        <mat-label>Production year</mat-label>
+        <input matInput type="number" name="productionyear" id="productionyear" (input)="onYearChange($event)">
+    </mat-form-field>
 </div>
 
 <mat-form-field>
