@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.BLL.Interfaces;
 using WebAPI.DTO;
 using WebAPI.Models;
@@ -28,14 +29,17 @@ namespace WebAPI.Controllers
         public UserDto Post(PostUserDto dto)
             => this.userBll.Post(dto);
 
+        [Authorize]
         [HttpPut("changePassword/{userId}")]
         public bool ChangePassword(int userId, [FromBody] ChangePasswordDto dto)
             => this.userBll.ChangePassword(userId, dto);
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("changeType/{userId}")]
         public bool ChangeType(int userId, [FromBody] UserType userType)
              => this.userBll.ChangeType(userId, userType);
 
+        [Authorize]
         [HttpPut("changePicture/{userId}")]
         public bool ChangePicture(int userId)
         {
@@ -49,11 +53,12 @@ namespace WebAPI.Controllers
             return this.userBll.ChangePicture(userId, memoryStream.ToArray());
         }
 
+        [Authorize]
         [HttpDelete("deletePicture/{userId}")]
         public bool DeletePicture(int userId)
             => this.userBll.DeletePicture(userId);
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{userId}")]
         public bool Delete(int userId)
             => this.userBll.Delete(userId);

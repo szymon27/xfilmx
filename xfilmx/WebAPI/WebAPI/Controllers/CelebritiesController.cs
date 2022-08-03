@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.BLL.Interfaces;
 using WebAPI.DTO;
@@ -24,18 +25,22 @@ namespace WebAPI.Controllers
         public List<CelebritieDto> Get()
             => this.celebritieBll.Get();
 
+        [Authorize(Roles = "Employee,Admin")]
         [HttpPost]
         public CelebritieDto Post(PostCelebritieDto dto)
             => this.celebritieBll.Post(dto);
 
+        [Authorize(Roles = "Employee,Admin")]
         [HttpPut("{celebritieId}")]
         public CelebritieDto Put(int celebritieId, [FromBody] PutCelebritieDto dto)
             => this.celebritieBll.Put(celebritieId, dto);
 
+        [Authorize(Roles = "Employee,Admin")]
         [HttpDelete("{celebritieId}")]
         public bool Delete(int celebritieId)
             => this.celebritieBll.Delete(celebritieId);
 
+        [Authorize(Roles = "Employee,Admin")]
         [HttpPut("changePicture/{celebritieId}")]
         public bool ChangePicture(int celebritieId)
         {
@@ -49,6 +54,7 @@ namespace WebAPI.Controllers
             return this.celebritieBll.ChangePicture(celebritieId, memoryStream.ToArray());
         }
 
+        [Authorize(Roles = "Employee,Admin")]
         [HttpDelete("deletePicture/{newsId}")]
         public bool DeletePicture(int newsId)
             => this.celebritieBll.DeletePicture(newsId);

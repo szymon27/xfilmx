@@ -13,7 +13,6 @@ namespace WebAPI.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly IAuthorizationBll authorizationBll;
-
         public AuthorizationController(IAuthorizationBll authorizationBll)
         {
             this.authorizationBll = authorizationBll;

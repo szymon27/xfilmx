@@ -46,6 +46,7 @@ import { GalleryModule } from 'ng-gallery';
 import { LightboxModule } from  'ng-gallery/lightbox';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -77,7 +78,8 @@ export function tokenGetter() {
     CelebritieFormComponent,
     ProductionComponent,
     NewProductionFormComponent,
-    ProductionFormComponent
+    ProductionFormComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,

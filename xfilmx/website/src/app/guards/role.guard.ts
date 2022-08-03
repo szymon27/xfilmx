@@ -21,9 +21,13 @@ export class RoleGuard implements CanActivate {
         if (r == role)
           access = true;
       });
+      if(!access)    
+        this.router.navigate(["accessdenied"]);
+      return access;
     }
-    if(!access)    
+    else {
       this.router.navigate(["login"]);
-    return access;
+      return false;
+    }
   }
 }

@@ -25,31 +25,33 @@ import { RoleGuard } from "./guards/role.guard";
 import { NewProductionFormComponent } from "./components/new-production-form/new-production-form.component";
 import { ProductionFormComponent } from "./components/production-form/production-form.component";
 import { ProductionComponent } from "./components/production/production.component";
+import { AccessDeniedComponent } from "./components/access-denied/access-denied.component";
 
 export const APP_ROUTES: Routes = [
+    {path: 'accessdenied', component: AccessDeniedComponent},
     {path: 'login', component: LoginFormComponent},
     {path: 'register', component: RegisterFormComponent},
-    {path: 'account', component: AccountComponent},
+    {path: 'account', component: AccountComponent, canActivate: [AuthorizationGuard]},
     {path: 'news', component: NewsListComponent},
-    {path: 'news/add', component: NewNewsFormComponent},
+    {path: 'news/add', component: NewNewsFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
     {path: 'news/:id', component: NewsComponent},
-    {path: 'news/:id/edit', component: NewsFormComponent},
+    {path: 'news/:id/edit', component: NewsFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
     {path: 'celebrities', component: CelebritiesListComponent},
-    {path: 'celebrities/add', component: NewCelebritieFormComponent},
+    {path: 'celebrities/add', component: NewCelebritieFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
     {path: 'celebrities/:id', component: CelebritieComponent},
-    {path: 'celebrities/:id/edit', component: CelebritieFormComponent},
-    {path: 'productions/add', component: NewProductionFormComponent},
-    {path: 'productions/:id/edit', component: ProductionFormComponent},
+    {path: 'celebrities/:id/edit', component: CelebritieFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
+    {path: 'productions/add', component: NewProductionFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
+    {path: 'productions/:id/edit', component: ProductionFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
     {path: 'films', component: FilmsListComponent},
     {path: 'productions/:id', component: ProductionComponent},
     {path: 'series', component: SeriesListComponent},
-    {path: 'myxfilmx', component: MyXfilmxComponent},
-    {path: 'users', component: UsersListComponent},
+    {path: 'myxfilmx', component: MyXfilmxComponent, canActivate: [AuthorizationGuard]},
+    {path: 'users', component: UsersListComponent, canActivate: [RoleGuard], data: {roles: ['Admin']}},
     {path: 'countries', component: CountriesListComponent},
-    {path: 'countries/add', component: NewCountryFormComponent},
-    {path: 'countries/:id', component: CountryFormComponent},
+    {path: 'countries/add', component: NewCountryFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
+    {path: 'countries/:id', component: CountryFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
     {path: 'genres', component: GenresListComponent},
-    {path: 'genres/add', component: NewGenreFormComponent},
-    {path: 'genres/:id', component: GenreFormComponent},
-    {path: '', redirectTo: 'login', pathMatch: 'full'}
+    {path: 'genres/add', component: NewGenreFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
+    {path: 'genres/:id', component: GenreFormComponent, canActivate: [RoleGuard], data: {roles: ['Employee', 'Admin']}},
+    {path: '', redirectTo: 'news', pathMatch: 'full'}
 ];

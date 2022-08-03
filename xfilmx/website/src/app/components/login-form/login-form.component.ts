@@ -29,7 +29,7 @@ export class LoginFormComponent implements OnInit {
       localStorage.setItem("jwt", token);
       console.log(jwtDecode(localStorage.getItem("jwt")));
       this.invalidLogin = false;
-      this.router.navigate(["/"]);
+      this.router.navigate(["/news"]);
     }, err => {
       this.invalidLogin = true;
     });
