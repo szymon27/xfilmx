@@ -70,7 +70,9 @@ namespace WebAPI.BLL
                     Description = news.Description,
                     Date = news.Date,
                     Picture = news.Picture
-                }).ToList();
+                })
+                .OrderByDescending(news => news.Date)
+                .ToList();
         }
 
         public NewsDto Post(PostNewsDto postNews)

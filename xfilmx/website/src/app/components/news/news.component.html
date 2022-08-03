@@ -1,14 +1,22 @@
-<div>
-    <div>
-        <h2>{{news.title}}</h2>
+<div class="container">
+    <div class="image">
+        <img [src]="getImageSrc()">
     </div>
-    <div>
-        <img [src]="getImageSrc()" style="width:200px; height: 200px;">
-    </div>
-    <div>
-        <span>{{news.description}}</span>
-    </div>
-    <div>
-        <span>{{news.date}}</span>
+    <div class="content">
+        <div class="first">
+            <div>
+                <h1>
+                    {{news.title}}
+                </h1>
+            </div>
+            <div>
+                <h3>
+                    {{news.description}}
+                </h3>
+            </div>
+        </div>
+        <div class="second">
+            {{news.date | date}}
+        </div>
     </div>
 </div>

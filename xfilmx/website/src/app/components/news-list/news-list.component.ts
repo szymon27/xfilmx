@@ -33,9 +33,15 @@ export class NewsListComponent implements OnInit {
     return null;
   }
 
-  search(e: any): void {
-    this.news.filter = (e as HTMLInputElement).value.toLowerCase();
-  }
+  getShortDescription(description: string): string {
+    let x: number = 300;
+    if(description == null)
+      return "";
+    if(description.length < x)
+      return description;
+    else
+      return description.substring(0, x) + "...";
+    }
 
   addNews(): void {
     this.router.navigate(['news/add']);
