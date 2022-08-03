@@ -3,7 +3,7 @@ table {
 }
 
 .header-cell {
-    color: #673ab7;
+    color:#3F51B5;
     font-weight: bold;
     font-size: large;
     text-align: center;
@@ -11,16 +11,19 @@ table {
 
 .content-cell {
     text-align: center;
+    color: #3F51B5;
 }
 
 .content-cell button {
     margin-left: 15px;
 }
 
-#addBtn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: 5%;
-    margin-bottom: 5%;
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+}
+
+.search{
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
 }

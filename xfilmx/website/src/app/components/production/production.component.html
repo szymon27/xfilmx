@@ -1,67 +1,92 @@
 <div>
-    <div>
+
+    <div class="info">
         <img [src]="getProductionImage()" style="width:200px; height: 200px;">
-        <button mat-flat-button color="primary" (click)="removeRate()">X</button>
-        <ngx-stars color="purple" [wholeStars]="true" [maxStars]="10" (ratingOutput)="rate($event)"></ngx-stars>
-        <mat-radio-group (change)="onStatusChange($event.value)" [(ngModel)]="status">
-            <mat-radio-button id="none" [value]="0">None</mat-radio-button>
-            <mat-radio-button id="watched" [value]="1">Watched</mat-radio-button>
-            <mat-radio-button id="toWatch" [value]="2">To watch</mat-radio-button>
-        </mat-radio-group>
-        
-        <div>
-            <span>rate: {{production.rate}}     </span>
-            <span>rates: {{production.rateCount}}</span>
+        <div class="title">
+            <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}} - {{production.endDate | date: 'YYYY'}})</h1>
+            <h1 *ngIf="!production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}})</h1>
+            <textarea readonly="true" disabled="true" cols="50">{{production.description}}</textarea>
+            <h3> production: {{production.countries.join("/")}}</h3>
+            <h3> genre: {{production.genres.join("/")}}</h3>
+            <h4> {{production.duration}} min.</h4>  
         </div>
-        <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}} - {{production.endDate | date: 'YYYY'}})</h1>
-        <h1 *ngIf="!production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}})</h1>
-        <h3>{{production.description}}</h3>
-        <h3> production: {{production.countries.join("/")}}</h3>
-        <h3> genre: {{production.genres.join("/")}}</h3>
-        <h4> {{production.duration}} min.</h4>       
+        <div class="rates">
+            <div class="stars">
+                <ngx-stars [size]="2" color="#FF4081" [wholeStars]="true" [maxStars]="10" (ratingOutput)="rate($event)"></ngx-stars>
+                <button class="rmv-rate" mat-flat-button color="warn" (click)="removeRate()">X</button>
+            </div>
+            <mat-radio-group (change)="onStatusChange($event.value)" [(ngModel)]="status">
+                <mat-radio-button id="none" [value]="0">None</mat-radio-button>
+                <mat-radio-button id="watched" [value]="1">Watched</mat-radio-button>
+                <mat-radio-button id="toWatch" [value]="2">To watch</mat-radio-button>
+            </mat-radio-group>
+            <div>
+                rate: {{production.rate}}
+                rates: {{production.rateCount}}
+            </div>
+        </div>
     </div>
+
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-panel-title style="color: #3F51B5;">
                 Actors
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <li *ngFor="let a of actors">
-            <img [src]="getRoleImage(a)" style="width:50px; height: 50px;">           
-            <a href="http://localhost:4200/celebrities/{{getRoleId(a)}}">{{getRoleCelebritie(a)}}</a>
-            <h3> {{getRoleName(a)}} </h3>
-        </li>
+        <ul class="celebrities-list">
+            <li *ngFor="let a of actors" class="celebli">
+                <div class="celebrity">                   
+                    <img [src]="getRoleImage(a)" style="width:50px; height: 50px;">  
+                    <span class="text">         
+                        <a href="http://localhost:4200/celebrities/{{getRoleId(a)}}">{{getRoleCelebritie(a)}}</a>
+                        <h3 class="character"> {{getRoleName(a)}} </h3>
+                    </span>
+                </div>
+            </li>
+        </ul>
     </mat-expansion-panel>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-panel-title style="color: #3F51B5;">
                 Directors
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <li *ngFor="let d of directors">
-            <img [src]="getCelebritieImage(d)" style="width:50px; height: 50px;">
-            <a href="http://localhost:4200/celebrities/{{d.id}}">{{d.name}}  {{d.surname}}</a>
-        </li>
+        <ul class="celebrities-list">
+            <li *ngFor="let d of directors" class="celebli">
+                <div class="celebrity">
+                    <img [src]="getCelebritieImage(d)" style="width:50px; height: 50px;">
+                    <span class="text">
+                        <a href="http://localhost:4200/celebrities/{{d.id}}">{{d.name}}  {{d.surname}}</a>
+                    </span>
+                </div>
+            </li>
+        </ul>
     </mat-expansion-panel>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-panel-title style="color: #3F51B5;">
                 Screenwriters
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <li *ngFor="let s of screenwriters">
-            <img [src]="getCelebritieImage(s)" style="width:50px; height: 50px;">
-            <a href="http://localhost:4200/celebrities/{{s.id}}">{{s.name}}  {{s.surname}}</a>
-        </li>
+        <ul class="celebrities-list">
+            <li *ngFor="let s of screenwriters" class="celebli">
+                <div class="celebrity">
+                    <img [src]="getCelebritieImage(s)" style="width:50px; height: 50px;">
+                    <span class="text">
+                        <a href="http://localhost:4200/celebrities/{{s.id}}">{{s.name}}  {{s.surname}}</a>
+                    </span>
+                </div>
+            </li>
+        </ul>
     </mat-expansion-panel>
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title style="color: #3F51B5;">
             Gallery
         </mat-panel-title>
     </mat-expansion-panel-header>
     <div class="grid">
-        <div class="grid-item"
+        <div class="gallery"
           *ngFor="let item of photos; let i = index"
           [lightbox]="i"
           [gallery]="galleryId">
@@ -71,21 +96,20 @@
 </mat-expansion-panel>
 <mat-expansion-panel *ngIf="production.isSerie">
     <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title style="color: #3F51B5;">
             Seasons
         </mat-panel-title>
     </mat-expansion-panel-header>
     <mat-expansion-panel *ngFor="let s of SortedSeasonArray(seasons)">
         <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-panel-title style="color: #3F51B5">
                 Season {{s.seasonId}}
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <ul>
-            <li *ngFor="let e of SortedEpisodArray(s.episods)"> 
-                <div>
-                    <span>{{e.episodId}}</span>
-                    <span>{{e.title}}</span>
+        <ul class="seasons-list">
+            <li *ngFor="let e of SortedEpisodArray(s.episods)" class="season"> 
+                <div class="episod">
+                    {{e.episodId}}. {{e.title}}
                 </div> 
             </li>
         </ul>     
@@ -93,21 +117,25 @@
 </mat-expansion-panel>
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title style="color: #3F51B5;">
             Comments
         </mat-panel-title>
     </mat-expansion-panel-header>
-    <div>
-        <form #addCommentForm="ngForm" (ngSubmit)="addComment()">
+    <div class="comment-add">
+        <form #addCommentForm="ngForm" (ngSubmit)="addComment()" class="commentform">
             <textarea matInput name="comment" id="comment" [(ngModel)]="comment" required></textarea>
-            <button mat-flat-button color="primary" type="submit" [disabled]="!addCommentForm.valid">Comment</button>
+            <button mat-flat-button color="accent" type="submit" [disabled]="!addCommentForm.valid">Comment</button>
         </form>
     </div>
     <ul>
-        <li *ngFor="let c of comments">
-            <h1>{{c.username}}</h1>
-            <h2>{{c.comment}}</h2>
-            <button mat-flat-button color="primary" (click)="deleteComment(c.commentId)">delete comment</button>
+        <li *ngFor="let c of comments" class="commentli">
+            <div class="comment">
+                <div>
+                    <h1>{{c.username}}</h1>
+                    <h2>{{c.comment}}</h2>
+                </div>
+                    <button mat-flat-button color="warn" class="delete-comment" (click)="deleteComment(c.commentId)">delete comment</button>
+            </div>           
         </li>
     </ul>
 </mat-expansion-panel>

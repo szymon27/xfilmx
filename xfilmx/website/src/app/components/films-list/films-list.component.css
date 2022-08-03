@@ -1,16 +1,22 @@
+body{
+    margin: 0px;
+}
+
 table {
     width: 100%;
 }
 
 .header-cell {
-    color: #673ab7;
+    color: #3F51B5;
     font-weight: bold;
     font-size: large;
     text-align: center;
 }
 
 .content-cell {
-    text-align: center;
+    align-items: right;
+    text-align: left;
+    color: #3F51B5;
 }
 
 .content-cell button {
@@ -18,9 +24,24 @@ table {
 }
 
 #addBtn {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     margin-right: 5%;
     margin-bottom: 5%;
+}
+
+.search{
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.production-info{
+    display:flex;
+    vertical-align: middle;
+}
+
+.filters{
+    display: block;
 }

@@ -73,11 +73,6 @@ export class ProductionComponent implements OnInit {
           this.seasons = res;
         })
 
-        this.productionsService.getRate(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId']).subscribe(res=>{
-          if(res != null)
-          this.starsComponent.setRating(res);
-        })
-
         this.productionsService.getComments(this.production.productionId).subscribe(res => {
           this.comments = res;
         })
@@ -95,6 +90,15 @@ export class ProductionComponent implements OnInit {
 
         this.productionsService.GetProductionStatus(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId']).subscribe(res=>{
           this.status = res;
+        })
+
+        this.productionsService.getRate(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId']).subscribe(res=>{
+          if(res != null){
+            console.log(jwtDecode(localStorage.getItem("jwt"))['userId'])
+          this.starsComponent.setRating(res);
+          }
+          else
+          this.starsComponent.setRating(0);
         })
       })
     })

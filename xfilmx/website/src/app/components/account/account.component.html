@@ -26,6 +26,6 @@
         <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewPicture($event)">
 
         <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
-        <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
-    </form>
+        <button mat-flat-button color="warn" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
+    </form> 
 </div>

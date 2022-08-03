@@ -1,31 +1,129 @@
-table {
-    width: 100%;
-}
-
-.header-cell {
-    color: #673ab7;
-    font-weight: bold;
-    font-size: large;
-    text-align: center;
-}
-
-.content-cell {
-    text-align: center;
-}
-
-.content-cell button {
-    margin-left: 15px;
-}
-
-#addBtn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin-right: 5%;
-    margin-bottom: 5%;
-}
-
-li{
+.celebli{
     list-style-type: none;
     float: left;
+    background-color: #3F51B5;
+    border-radius: 5px;   
+    margin-left: 10px;
+}
+
+.celebli:hover{
+    background-color: #5f6fc9;
+}
+
+.gallery{
+    display: inline-block;
+    padding: 1%;
+}
+
+.info {
+    display:flex;
+    justify-content: center;
+    padding: 3px;
+}
+
+.info > div{
+    margin:2px;
+}
+
+.stars{
+    display:flex;
+    justify-content: center;
+    padding: 3px;
+}
+
+.rates{
+    display: table;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+
+.celebrities-list{
+    display: inline-block;
+}
+
+.celebrity{
+    height: 130px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+}
+
+.text{
+    display: block;
+}
+
+a:link, a:visited{
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover{
+   text-decoration: underline;
+}
+
+.character{
+    color:#FF4081;
+    vertical-align: bottom;
+}
+
+textarea, textarea:disabled{
+    background-color: white;
+    color: black;
+    resize: none;
+    border: 0px;
+    font-family: Roboto;
+    height: 50px;
+    overflow: hidden;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+}
+
+.rmv-rate{
+    height: 30px;
+    width: 30px;
+    min-width: none;
+    text-align: center;
+    vertical-align: auto;
+}
+
+.seasons-list{
+    display: block;
+}
+
+.season{
+    background-color: white;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+
+.episod{
+    color: #3F51B5;
+}
+
+.comment{
+    display: flex;
+    align-items: center;
+}
+
+.commentli{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-add{
+    display: block;
+    align-items: center;
+}
+
+.comment-form{
+    vertical-align: middle;
 }
