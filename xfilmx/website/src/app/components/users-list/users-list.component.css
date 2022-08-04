@@ -22,8 +22,10 @@ table {
     margin-left: 16px;
 }
 
-.search{
-    height: 30px;
-    font-size: 20px;
-    text-align: center;
+#search {
+    margin-top: 5px;
+    width:100%;
+    height: auto;
+    display:flex;
+    justify-content: center;
 }

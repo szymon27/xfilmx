@@ -98,16 +98,14 @@
                     Celebrities
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div>
-                <input matInput (keyup)="searchCelebrity($event.target)" [(ngModel)]="searchCelebrityTxt" placeholder="search">
+
+            <div id="search">
+                <mat-form-field appearance="fill">
+                    <input matInput (keyup)="searchCelebrity($event.target)" [(ngModel)]="searchCelebrityTxt" placeholder="search">
+                </mat-form-field>
             </div>
             <table mat-table [dataSource]="productionCelebrities">    
 
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef class="header-cell"> Id </th>
-                    <td mat-cell *matCellDef="let productionCelebritie" class="content-cell"> {{productionCelebritie.celebritieId}} </td>
-                </ng-container>
-    
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef class="header-cell"> Name </th>
                     <td mat-cell *matCellDef="let productionCelebritie" class="content-cell"> {{productionCelebritie.celebritieName}} </td>
@@ -120,25 +118,25 @@
     
                 <ng-container matColumnDef="role">
                     <th mat-header-cell *matHeaderCellDef class="header-cell"> Role </th>
-                    <td mat-cell *matCellDef="let celebritie" class="content-cell">
-                        <div>
-                            <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isScreenwriter" (ngModel)="celebritie.isScreenwriter" (change)="changeScreenwriter(celebritie.celebritieId, $event)">Screenwriter</mat-checkbox>
+                    <td mat-cell *matCellDef="let celebritie" class="content-cell-roles">
+                        <div class="roles">
+                            <div>
+                                <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isScreenwriter" (ngModel)="celebritie.isScreenwriter" (change)="changeScreenwriter(celebritie.celebritieId, $event)">Screenwriter</mat-checkbox>
+                            </div>
+                            <div>
+                                <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isDirector" (ngModel)="celebritie.isDirector" (change)="changeDirector(celebritie.celebritieId, $event)">Director</mat-checkbox>
 
+                            </div>
+                            <div>
+                                <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isActor" (ngModel)="celebritie.isActor" (change)="changeActor(celebritie.celebritieId, celebritie.character, $event)">Actor</mat-checkbox>
+                                <input style="margin-left:10px;" matInput type="text" name="characterName"  [(ngModel)]="celebritie.character" placeholder="Character name">
+                            </div>
                         </div>
-                        <div>
-                            <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isDirector" (ngModel)="celebritie.isDirector" (change)="changeDirector(celebritie.celebritieId, $event)">Director</mat-checkbox>
-
-                        </div>
-                        <div>
-                            <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isActor" (ngModel)="celebritie.isActor" (change)="changeActor(celebritie.celebritieId, celebritie.character, $event)">Actor</mat-checkbox>
-                            <input style="margin-left:10px;" matInput type="text" name="characterName"  [(ngModel)]="celebritie.character" placeholder="Character name">
-                        </div>
-                        
                     </td>
                 </ng-container>
     
-                <tr mat-header-row *matHeaderRowDef="['id', 'name', 'surname', 'role']"></tr>
-                <tr mat-row *matRowDef="let myRowData; columns: ['id', 'name', 'surname', 'role']"></tr>
+                <tr mat-header-row *matHeaderRowDef="['name', 'surname', 'role']"></tr>
+                <tr mat-row *matRowDef="let myRowData; columns: ['name', 'surname', 'role']"></tr>
             </table>
         </mat-expansion-panel>
 

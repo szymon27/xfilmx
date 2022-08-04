@@ -1,7 +1,10 @@
 
-<div class="search">
-    <input matInput (keyup)="search($event.target)" placeholder="search">
+<div id="search">
+    <mat-form-field appearance="fill">
+        <input matInput (keyup)="search($event.target)" placeholder="search">
+    </mat-form-field>
 </div>
+
 <table mat-table [dataSource]="users">
     <ng-container matColumnDef="picture">
         <th mat-header-cell *matHeaderCellDef class="header-cell"> Picture </th>
@@ -25,7 +28,6 @@
             </mat-radio-group>
         </td>
     </ng-container>
-
 
     <tr mat-header-row *matHeaderRowDef="['picture', 'username', 'type']"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: ['picture', 'username', 'type']"></tr>

@@ -2,47 +2,108 @@
     <mat-icon>add</mat-icon>
 </button>
 
-<div>
-    <input matInput (keyup)="search()" [(ngModel)]="searchTxt" placeholder="search" class="search">
+<div id="search">
+    <mat-form-field appearance="fill">
+        <input matInput (keyup)="search()" [(ngModel)]="searchTxt" placeholder="search" class="search">
+    </mat-form-field>
 </div>
 
-<div>
-<mat-form-field appearance="fill">
-    <mat-label>Genres</mat-label>
-    <mat-select multiple (selectionChange)="onGenreChange($event)">     
-      <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Countries</mat-label>
-    <mat-select multiple (selectionChange)="onCountryChange($event)" defa>     
-      <mat-option *ngFor="let country of countries" [value]="country">{{country.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-
-    <mat-form-field appearance="fill">
-        <mat-label>Production year</mat-label>
-        <input matInput type="number" name="productionyear" id="productionyear" (input)="onYearChange($event)">
-    </mat-form-field>
-
-    <mat-form-field>
-    <mat-label>
-        Sort
-    </mat-label>
-    <mat-select (selectionChange)="onSortChange($event)" >
-        <mat-option [value]="1">A-Z</mat-option>
-        <mat-option [value]="2">Z-A</mat-option>
-        <mat-option [value]="3">Production date asc</mat-option>
-        <mat-option [value]="4">Production date desc</mat-option>
-        <mat-option [value]="5">Most rates</mat-option>
-        <mat-option [value]="6">Best Rate</mat-option>
-    </mat-select>
-</mat-form-field>
+<div id="filterBox">
+    <div>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title style="color: #3F51B5;">
+                    Filters
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div>
+            
+                <mat-form-field appearance="fill">
+                    <mat-label>Genres</mat-label>
+                    <mat-select multiple (selectionChange)="onGenreChange($event)">     
+                    <mat-option *ngFor="let genre of genres" [value]="genre">{{genre.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            
+                <mat-form-field appearance="fill">
+                    <mat-label>Countries</mat-label>
+                    <mat-select multiple (selectionChange)="onCountryChange($event)" defa>     
+                    <mat-option *ngFor="let country of countries" [value]="country">{{country.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            
+            
+                    <mat-form-field appearance="fill">
+                        <mat-label>Production year</mat-label>
+                        <input matInput type="number" name="productionyear" id="productionyear" (input)="onYearChange($event)">
+                    </mat-form-field>
+            
+            
+                <mat-form-field>
+                    <mat-label>
+                        Sort
+                    </mat-label>
+                    <mat-select (selectionChange)="onSortChange($event)">
+                        <mat-option [value]="1">A-Z</mat-option>
+                        <mat-option [value]="2">Z-A</mat-option>
+                        <mat-option [value]="3">Production date asc</mat-option>
+                        <mat-option [value]="4">Production date desc</mat-option>
+                        <mat-option [value]="5">Most rates</mat-option>
+                        <mat-option [value]="6">Best Rate</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-expansion-panel>
+    </div>
 </div>
 
 <table mat-table [dataSource]="series">
+    <ng-container matColumnDef="production">
+        <td mat-cell *matCellDef="let p" class="row">
+            <div class="container">
+                <div class="image">
+                    <img [src]="getImageSrc(p)">
+                </div>
+                <div class="content">
+                    <div class="first">
+                        <div>
+                            <h1>
+                                {{p.title}} ({{p.beginDate | date : "YYYY"}} - {{p.endDate | date : "YYYY"}})
+                            </h1>
+                        </div>
+                        <div>
+                            <h4>
+                                {{p.countries.join(", ")}}
+                            </h4>
+                        </div>
+                        <div>
+                            <h4>
+                                {{p.genres.join(", ")}}
+                            </h4>
+                        </div>
+                        <div>
+                            <h4>
+                                rate: {{p.rate}} <br/>
+                                rates: {{p.rateCount}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="second">                
+                        <button mat-flat-button color="accent" (click)="editSeries(p.productionId)">edit</button>
+                        <button mat-flat-button color="warn" (click)="deleteSeries(p.productionId)">delete</button>
+                        <button mat-flat-button color="primary"(click)="showSeries(p.productionId)">show</button>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let myRowData; columns: ['production']"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" #paginator></mat-paginator>
+
+<!--
+    <table mat-table [dataSource]="series">
     <ng-container matColumnDef="production">
         <th mat-header-cell *matHeaderCellDef class="header-cell"> Production </th>
         <td mat-cell *matCellDef="let p" class="content-cell">
@@ -70,4 +131,4 @@
     <tr mat-header-row *matHeaderRowDef="['production', 'actions']"></tr>
     <tr mat-row *matRowDef="let myRowData; columns: ['production', 'actions']"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[25, 50, 100]" #paginator></mat-paginator>
+-->

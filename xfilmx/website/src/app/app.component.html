@@ -14,8 +14,15 @@
             <a routerLink="/genres" routerLinkActive="active">genres</a>
         </div>
         <div class="account">
-            <a routerLink="/account" routerLinkActive="active" *ngIf="isUserAuthenticated()">account</a>
-            <a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isUserAuthenticated()">logout</a>
+            <button mat-button [matMenuTriggerFor]="menu" *ngIf="isUserAuthenticated()">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="account()">account</button>
+                <button mat-menu-item (click)="logout()">logout</button>
+            </mat-menu>
+            <!--<a routerLink="/account" routerLinkActive="active" *ngIf="isUserAuthenticated()">account</a>-->
+            <!--<a routerLink="/login" routerLinkActive="active" (click)="logout()" *ngIf="isUserAuthenticated()">logout</a>-->
             <a routerLink="/login" routerLinkActive="active" *ngIf="!isUserAuthenticated()">sign in</a>
         </div>
     </div>

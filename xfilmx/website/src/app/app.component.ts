@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import jwtDecode from 'jwt-decode';
 
@@ -9,7 +10,7 @@ import jwtDecode from 'jwt-decode';
 })
 export class AppComponent {
   title = 'XFILMX';
-  constructor(private jwtHelper: JwtHelperService) {}
+  constructor(private jwtHelper: JwtHelperService, private router: Router) {}
 
   isUserAuthenticated(): boolean {
     const token: string = localStorage.getItem("jwt");
@@ -32,9 +33,12 @@ export class AppComponent {
     return false;
   }
 
-
+  account() {
+    this.router.navigate(["account"]);
+  }
 
   logout() {
     localStorage.removeItem("jwt");
+    this.router.navigate(["login"]);
   }
 }
