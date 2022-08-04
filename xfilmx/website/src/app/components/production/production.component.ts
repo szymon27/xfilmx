@@ -8,6 +8,7 @@ import { Comment } from 'src/app/models/comment';
 import { Episod } from 'src/app/models/episod';
 import { Production } from 'src/app/models/production';
 import { ProductionPictureDto } from 'src/app/models/production-picture';
+import { ProductionTrailerDto } from 'src/app/models/production-trailer';
 import { Season } from 'src/app/models/season';
 import { ProductionsService } from 'src/app/services/productions.service';
 
@@ -43,6 +44,7 @@ export class ProductionComponent implements OnInit {
   comments: Comment[] = []
   comment: string;
   photos: ProductionPictureDto[];
+  trailers: ProductionTrailerDto[];
   items: GalleryItem[] = []
   status: number;
 
@@ -86,6 +88,10 @@ export class ProductionComponent implements OnInit {
           });
           const galleryRef = this.gallery.ref(this.galleryId);
           galleryRef.load(this.items);
+        })
+
+        this.productionsService.getTrailers(this.production.productionId).subscribe(res =>{
+          this.trailers = res;
         })
 
         this.productionsService.GetProductionStatus(this.production.productionId, jwtDecode(localStorage.getItem("jwt"))['userId']).subscribe(res=>{

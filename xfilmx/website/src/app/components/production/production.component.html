@@ -5,7 +5,7 @@
         <div class="title">
             <h1 *ngIf="production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}} - {{production.endDate | date: 'YYYY'}})</h1>
             <h1 *ngIf="!production.isSerie">{{production.title}} ({{production.beginDate | date: 'YYYY'}})</h1>
-            <textarea readonly="true" disabled="true" cols="50">{{production.description}}</textarea>
+            <textarea readonly="true" disabled="true" cols="50" class="description">{{production.description}}</textarea>
             <h3> production: {{production.countries.join("/")}}</h3>
             <h3> genre: {{production.genres.join("/")}}</h3>
             <h4> {{production.duration}} min.</h4>  
@@ -113,8 +113,22 @@
                 </div> 
             </li>
         </ul>     
-    </mat-expansion-panel>   
+    </mat-expansion-panel>     
 </mat-expansion-panel>
+
+<mat-expansion-panel *ngIf="production.isSerie">
+    <mat-expansion-panel-header>
+        <mat-panel-title style="color: #3F51B5;">
+            Trailers
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+    <li *ngFor="let t of trailers; let i = index" style="list-style-type: none;">
+        <div>
+            <a style="color:#3F51B5; font-size: 16px;" href="{{t.link}}" target="_blank"> trailer {{i+1}} </a>
+        </div>
+    </li>   
+</mat-expansion-panel>
+
 <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title style="color: #3F51B5;">
@@ -123,8 +137,10 @@
     </mat-expansion-panel-header>
     <div class="comment-add">
         <form #addCommentForm="ngForm" (ngSubmit)="addComment()" class="commentform">
-            <textarea matInput name="comment" id="comment" [(ngModel)]="comment" required></textarea>
-            <button mat-flat-button color="accent" type="submit" [disabled]="!addCommentForm.valid">Comment</button>
+            <textarea matInput style="resize:none; height: 100px; width: 300px; border: solid, #3F51B5, 5px;" name="comment" id="comment" [(ngModel)]="comment" required></textarea>
+            <div>
+                <button mat-flat-button color="accent" type="submit" [disabled]="!addCommentForm.valid">Comment</button>
+            </div>
         </form>
     </div>
     <ul>
@@ -134,7 +150,7 @@
                     <h1>{{c.username}}</h1>
                     <h2>{{c.comment}}</h2>
                 </div>
-                    <button mat-flat-button color="warn" class="delete-comment" (click)="deleteComment(c.commentId)">delete comment</button>
+                    <button mat-flat-button style="position: absolute; right: 2%;" color="warn" class="delete-comment" (click)="deleteComment(c.commentId)">delete comment</button>
             </div>           
         </li>
     </ul>

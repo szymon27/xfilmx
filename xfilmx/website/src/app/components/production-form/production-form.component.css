@@ -3,3 +3,28 @@
     flex-direction: row;
     align-items: center;
 }
+
+.general{
+    height: 100%; 
+    width: 100%; 
+    display: block;
+}
+
+.description{
+    width: 400px;
+}
+
+.description::-webkit-scrollbar {
+    display: none;
+  }
+
+  a:link, a:visited{
+    color: #3F51B5;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:hover{
+   text-decoration: underline;
+}

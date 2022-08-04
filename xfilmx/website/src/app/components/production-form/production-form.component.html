@@ -1,62 +1,75 @@
 <div id="container">
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title style="color: #3F51B5;">
                     General
                 </mat-panel-title>
             </mat-expansion-panel-header>
+            <div>
                 <form #editProductionForm="ngForm" (ngSubmit)="editProduction()">
                     <div>
                         <h2>Edit production</h2>
                     </div>
         
-                    <mat-checkbox name="isSerie" id="isSerie" [(ngModel)]="production.isSerie">Is serie</mat-checkbox>
-        
-                    <mat-form-field appearance="fill">
-                        <mat-label>Title</mat-label>
-                        <input matInput type="text" name="title" id="title" [(ngModel)]="production.title" required>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="fill">
-                        <mat-label>Begin date</mat-label>
-                        <input matInput type="date" name="beginDate" id="beginDate" [ngModel]="production.beginDate | date: 'yyyy-MM-dd'" required>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="fill" *ngIf="production.isSerie">
-                        <mat-label>End date</mat-label>
-                        <input matInput type="date" name="endDate" id="endDate" [ngModel]="production.endDate | date: 'yyyy-MM-dd'">
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="fill">
-                        <mat-label>Duration</mat-label>
-                        <input matInput type="number" name="duration" id="duration" [(ngModel)]="production.duration" required>
-                    </mat-form-field>
-        
-                    <mat-form-field appearance="fill">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput id="description" name="description" [(ngModel)]="production.description" required></textarea>
-                    </mat-form-field>
+                    <div>
+                        <mat-form-field appearance="fill" style="width: 195px;">
+                            <mat-label>Title</mat-label>
+                            <input matInput type="text" name="title" id="title" [(ngModel)]="production.title" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" style="margin-left: 10px; width: 195px;">
+                            <mat-label>Duration</mat-label>
+                            <input matInput type="number" name="duration" id="duration" [(ngModel)]="production.duration" required>
+                        </mat-form-field>
+                        <div>
+                            <mat-form-field appearance="fill" class="description">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput style="height: 200px; resize:none" id="description" name="description" [(ngModel)]="production.description" required></textarea>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Begin date</mat-label>
+                                <input matInput type="date" name="beginDate" id="beginDate" [ngModel]="production.beginDate | date: 'yyyy-MM-dd'" required>
+                            </mat-form-field>
+                        </div>
+                        <mat-checkbox name="isSerie" id="isSerie" [(ngModel)]="production.isSerie">Is serie</mat-checkbox>
+
+                        <div>
+
+                            <mat-form-field appearance="fill">
+                                <mat-label>End date</mat-label>
+                                <input matInput type="date" name="endDate" id="endDate" [disabled]="!production.isSerie" [ngModel]="production.endDate | date: 'yyyy-MM-dd'">
+                            </mat-form-field>
+                        </div>
+                    </div>
         
                     <button mat-flat-button color="primary" type="submit" [disabled]="!editProductionForm.valid">edit</button>
                 </form>
+            </div>
 
+            <div>
                 <form #changePictureForm="ngForm" (ngSubmit)="onChangePicture()">
                     <div>
                         <h2>Change Picture</h2>
                     </div>
-            
-                    <img [src]="imageSrc" style="width:200px; height: 200px;">
+                    <div>
+                        <img [src]="imageSrc" style="width:200px; height: 200px;">
+                    </div>
+                    
                     <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewPicture($event)">
             
                     <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
-                    <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
+                    <button mat-flat-button color="warn" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
                 </form>
+            </div>
+
+                
         </mat-expansion-panel>
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>
-                    countries
+                <mat-panel-title style="color: #3F51B5;">
+                    Countries
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-selection-list #country>
@@ -68,8 +81,8 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>
-                    genres
+                <mat-panel-title style="color: #3F51B5;">
+                    Genres
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-selection-list #genre>
@@ -81,8 +94,8 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>
-                    celebrities
+                <mat-panel-title style="color: #3F51B5;">
+                    Celebrities
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div>
@@ -108,10 +121,19 @@
                 <ng-container matColumnDef="role">
                     <th mat-header-cell *matHeaderCellDef class="header-cell"> Role </th>
                     <td mat-cell *matCellDef="let celebritie" class="content-cell">
-                        <mat-checkbox [checked]="celebritie.isScreenwriter" (ngModel)="celebritie.isScreenwriter" (change)="changeScreenwriter(celebritie.celebritieId, $event)">Screenwriter</mat-checkbox>
-                        <mat-checkbox [checked]="celebritie.isDirector" (ngModel)="celebritie.isDirector" (change)="changeDirector(celebritie.celebritieId, $event)">Director</mat-checkbox>
-                        <mat-checkbox [checked]="celebritie.isActor" (ngModel)="celebritie.isActor" (change)="changeActor(celebritie.celebritieId, celebritie.character, $event)">Actor</mat-checkbox>
-                        <input matInput type="text" name="characterName" [(ngModel)]="celebritie.character">
+                        <div>
+                            <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isScreenwriter" (ngModel)="celebritie.isScreenwriter" (change)="changeScreenwriter(celebritie.celebritieId, $event)">Screenwriter</mat-checkbox>
+
+                        </div>
+                        <div>
+                            <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isDirector" (ngModel)="celebritie.isDirector" (change)="changeDirector(celebritie.celebritieId, $event)">Director</mat-checkbox>
+
+                        </div>
+                        <div>
+                            <mat-checkbox style="margin-left:10px;" [checked]="celebritie.isActor" (ngModel)="celebritie.isActor" (change)="changeActor(celebritie.celebritieId, celebritie.character, $event)">Actor</mat-checkbox>
+                            <input style="margin-left:10px;" matInput type="text" name="characterName"  [(ngModel)]="celebritie.character" placeholder="Character name">
+                        </div>
+                        
                     </td>
                 </ng-container>
     
@@ -122,7 +144,7 @@
 
         <mat-expansion-panel *ngIf="production.isSerie">
             <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title style="color: #3F51B5;">
                     Seasons
                 </mat-panel-title>
             </mat-expansion-panel-header>  
@@ -131,40 +153,42 @@
                 <div>
                     <h2>Add season</h2>
                 </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Season</mat-label>
+                        <input matInput type="number" name="season" id="season" [(ngModel)]="season" min="1" required>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill">
+                        <mat-label>Episod</mat-label>
+                        <input matInput type="number" name="episod" id="episod" [(ngModel)]="episod" required [disabled]="true">
+                    </mat-form-field>
     
-                <mat-form-field appearance="fill">
-                    <mat-label>Season</mat-label>
-                    <input matInput type="number" name="season" id="season" [(ngModel)]="season" min="1" required>
-                </mat-form-field>
-    
-                <mat-form-field appearance="fill">
-                    <mat-label>Episod</mat-label>
-                    <input matInput type="number" name="episod" id="episod" [(ngModel)]="episod" required [disabled]="true">
-                </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Title</mat-label>
+                        <input matInput type="text" name="title" id="title" [(ngModel)]="title" required>
+                    </mat-form-field>
+                </div>
+                
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Title</mat-label>
-                    <input matInput type="text" name="title" id="title" [(ngModel)]="title" required>
-                </mat-form-field>
-
-                <button mat-flat-button color="primary" type="submit" [disabled]="!addSeasonForm.valid">add season</button>
+                <button style="margin-bottom: 20px; margin-top: 5px" mat-flat-button color="primary" type="submit" [disabled]="!addSeasonForm.valid">add season</button>
             </form>    
 
             <mat-expansion-panel *ngFor="let s of SortedSeasonArray(seasons)">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
+                    <mat-panel-title style="color: #3F51B5;">
                         Season {{s.seasonId}}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div>
-                    <button mat-flat-button color="primary" (click)="deleteSeason(s.seasonId)">delete season</button>
+                    <button mat-flat-button color="warn" (click)="deleteSeason(s.seasonId)">delete season</button>
                 </div>
                 <ul>
-                    <li *ngFor="let e of SortedEpisodArray(s.episods)"> 
+                    <li *ngFor="let e of SortedEpisodArray(s.episods)" style="list-style-type: none; margin-top:10px"> 
                         <div>
-                            <span>{{e.episodId}}</span>
+                            <span>{{e.episodId}}. </span>
                             <span>{{e.title}}</span>
-                            <button mat-flat-button color="primary" (click)="deleteEpisod(s.seasonId, e.episodId)">delete episod</button>
+                            <button style="margin-left:10px;" mat-flat-button color="warn" (click)="deleteEpisod(s.seasonId, e.episodId)">delete episod</button>
                         </div> 
                     </li>
                 </ul>     
@@ -192,7 +216,7 @@
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title style="color: #3F51B5;">
                     Gallery
                 </mat-panel-title>
             </mat-expansion-panel-header>
@@ -200,24 +224,26 @@
                 <div>
                     <h2>Add Picture</h2>
                 </div>
-        
-                <img [src]="imageGallerySrc" style="width:100px; height: 100px;">
+                <div>
+                    <img [src]="imageGallerySrc" style="width:100px; height: 100px;">
+                </div>
+                
                 <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewGalleryPicture($event)">
         
                 <button mat-flat-button color="primary" [disabled]="fileGallery==null" type="submit">add picture</button>
             </form>
             
-            <li *ngFor="let p of productionPhotos; let i = index">
-                <div>
-                    <img [src]="getGalleryImage(p)" style="width:100px; height: 100px;">
-                    <button mat-flat-button color="primary" (click)="deleteFromGallery(p.id)">delete picture</button>
+            <li *ngFor="let p of productionPhotos; let i = index" style="list-style-type: none; margin-top:10px">
+                <div class="gallery-item">
+                    <img [src]="getGalleryImage(p)" class="item-img" style="width: 100px; height:100px">
+                    <button  mat-flat-button color="warn" class="item-btn" (click)="deleteFromGallery(p.id)">delete picture</button>
                 </div>
             </li>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title style="color: #3F51B5;">
                     Trailers
                 </mat-panel-title>
             </mat-expansion-panel-header>
@@ -226,18 +252,18 @@
                     <h2> Add trailer</h2>
                 </div>
 
-                <mat-form-field>
+                <mat-form-field style="width:300px">
                     <mat-label>Link</mat-label>
                     <input matInput type="text" name="trailer" [(ngModel)]="trailer" required>
                 </mat-form-field>
 
-                <button mat-flat-button color="primary" type="submit" [disabled]="!addTrailerForm.valid">add trailer</button>
+                <button mat-flat-button style="margin-left:10px" color="primary" type="submit" [disabled]="!addTrailerForm.valid">add trailer</button>
             </form>
             
-            <li *ngFor="let t of productionTrailers; let i = index">
+            <li *ngFor="let t of productionTrailers; let i = index" style="list-style-type: none; margin-top:10px">
                 <div>
                     <a href="{{t.link}}" target="_blank"> trailer {{i+1}} </a>
-                    <button mat-flat-button color="primary" (click)="deleteTrailer(t.id)">delete trailer</button>
+                    <button mat-flat-button color="warn" style="margin-left: 10px" (click)="deleteTrailer(t.id)">delete trailer</button>
                 </div>
             </li>
         </mat-expansion-panel>

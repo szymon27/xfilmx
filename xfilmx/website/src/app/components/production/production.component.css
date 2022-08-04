@@ -70,7 +70,7 @@ a:hover{
     vertical-align: bottom;
 }
 
-textarea, textarea:disabled{
+.description, .description:disabled{
     background-color: white;
     color: black;
     resize: none;

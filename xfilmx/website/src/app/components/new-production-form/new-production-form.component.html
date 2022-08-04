@@ -3,9 +3,6 @@
         <h2>Add production</h2>
     </div>
 
-
-    <mat-checkbox name="isSerie" id="isSerie" [(ngModel)]="production.isSerie">Is serie</mat-checkbox>
-
     <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
         <input matInput type="text" name="title" id="title" [(ngModel)]="production.title" required>
@@ -16,9 +13,11 @@
         <input matInput type="date" name="beginDate" id="beginDate" [(ngModel)]="production.beginDate" required>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" *ngIf="production.isSerie">
+    <mat-checkbox name="isSerie" id="isSerie" [(ngModel)]="production.isSerie">Is serie</mat-checkbox>
+
+    <mat-form-field appearance="fill">
         <mat-label>End date</mat-label>
-        <input matInput type="date" name="endDate" id="endDate" [(ngModel)]="production.endDate">
+        <input matInput type="date" name="endDate" id="endDate" [disabled]="!production.isSerie" [(ngModel)]="production.endDate">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
