@@ -1,24 +1,73 @@
 table {
     width: 100%;
+    border-bottom: 5px solid #3f51b5;
 }
 
-.header-cell {
-    color: #673ab7;
-    font-weight: bold;
-    font-size: large;
-    text-align: center;
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.content-cell {
-    text-align: center;
+#search {
+    margin-top: 5px;
+    width:100%;
+    height: auto;
+    display:flex;
+    justify-content: center;
 }
 
-.content-cell button {
-    margin-left: 15px;
+.container {
+    margin: 2px;
+    padding: 5px;
+    width: 500px;
+    height: 200px;
+    border: 3px solid #3f51b5;
+    display: flex;
+}
+
+.image {
+    width: 40%;
+    height: 100%
+}
+
+.image > img {
+    width: 100%;
+    height: 100%;
+}
+
+.content {
+    width: 70%;
+    height: 100%;
+    padding: 0px 15px 0px 15px;
+}
+
+h1 {
+    font-weight: bolder;
+    color: #3f51b5;
+}
+
+h3 {
+    color: black;
+}
+
+.first {
+    height: 70%;
+}
+
+.second {
+    height: 30%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.second > button {
+    margin: 0px 0px 0px 5px;
 }
 
 #addBtn {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     margin-right: 5%;

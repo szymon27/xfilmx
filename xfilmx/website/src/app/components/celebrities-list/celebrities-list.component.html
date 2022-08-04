@@ -1,39 +1,34 @@
-<button id="addBtn" mat-fab color="primary" (click)="addCelebritie()">
+<button id="addBtn" mat-fab color="accent" (click)="addCelebritie()">
     <mat-icon>add</mat-icon>
 </button>
-<div>
-    <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
+
+<div id="search">
+    <mat-form-field appearance="fill">
+        <input matInput (keyup)="search($event.target)" [(ngModel)]="searchTxt" placeholder="search">
+    </mat-form-field>
 </div>
 
 <table mat-table [dataSource]="celebrities">
-    <ng-container matColumnDef="picture">
-        <th mat-header-cell *matHeaderCellDef class="header-cell"> Picture </th>
-        <td mat-cell *matCellDef="let celebritie" class="content-cell"> 
-            <img [src]="getImageSrc(celebritie)" style="width:200px; height: 200px;">
-        </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef class="header-cell"> Name </th>
-        <td mat-cell *matCellDef="let celebritie" class="content-cell"> {{celebritie.name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="surname">
-        <th mat-header-cell *matHeaderCellDef class="header-cell"> Surname </th>
-        <td mat-cell *matCellDef="let celebritie" class="content-cell"> {{celebritie.surname}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="header-cell"> Actions </th>
-        <td mat-cell *matCellDef="let celebritie" class="content-cell">
-            <button (click)="showCelebritie(celebritie.id)">show</button>
-            <button (click)="editCelebritie(celebritie.id)">edit</button>
-            <button (click)="deleteCelebritie(celebritie.id)">delete</button>
+    <ng-container matColumnDef="celebritie">
+        <td mat-cell *matCellDef="let celebritie" class="row">
+            <div class="container">
+                <div class="image">
+                    <img [src]="getImageSrc(celebritie)">
+                </div>
+                <div class="content">
+                    <div class="first">
+                        <h1>{{celebritie.name}} {{celebritie.surname}}</h1>
+                    </div>
+                    <div class="second">
+                        <button mat-flat-button color="accent" (click)="editCelebritie(celebritie.id)">edit</button>
+                        <button mat-flat-button color="warn" (click)="deleteCelebritie(celebritie.id)">delete</button>
+                        <button mat-flat-button color="primary" (click)="showCelebritie(celebritie.id)">show</button>
+                    </div>
+                </div>
+            </div>
         </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="['picture', 'name', 'surname', 'actions']"></tr>
-    <tr mat-row *matRowDef="let myRowData; columns: ['picture', 'name', 'surname', 'actions']"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: ['celebritie']"></tr>
 </table>
-
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" #paginator></mat-paginator>

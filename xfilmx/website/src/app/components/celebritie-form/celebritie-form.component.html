@@ -1,42 +1,47 @@
 <div class="container">
-    <form #celebritieForm="ngForm" (ngSubmit)="editCelebritie()">
-        <div>
-            <h2>Edit celebritie</h2>
-        </div>
+    <div>
+        <form id="celebritieForm" #celebritieForm="ngForm" (ngSubmit)="editCelebritie()">
+            <div>
+                <h2>Edit celebritie</h2>
+            </div>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput type="text" id="name" name="name" [(ngModel)]="celebritie.name" required autofocus/>
-        </mat-form-field>
-    
-        <mat-form-field appearance="fill">
-            <mat-label>Surname</mat-label>
-            <input matInput type="text" id="surname" name="surname" [(ngModel)]="celebritie.surname" required autofocus/>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Place of birth</mat-label>
-            <input matInput type="text" id="placeOfBirth" name="placeOfBirth" [(ngModel)]="celebritie.placeOfBirth" required autofocus/>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" id="name" name="name" [(ngModel)]="celebritie.name" required autofocus/>
+            </mat-form-field>
         
-        <mat-form-field appearance="fill">
-            <mat-label>Date of birth</mat-label>
-            <input matInput type="date" id="dateOfBirth" name="dateOfBirth" [ngModel]="celebritie.dateOfBirth | date: 'yyyy-MM-dd'" required autofocus/>
-        </mat-form-field>
-     
-        <button mat-flat-button color="primary" type="submit" [disabled]="!celebritieForm.valid">edit</button>
-    </form>
+            <mat-form-field appearance="fill">
+                <mat-label>Surname</mat-label>
+                <input matInput type="text" id="surname" name="surname" [(ngModel)]="celebritie.surname" required autofocus/>
+            </mat-form-field>
 
-    <form #changePictureForm="ngForm" (ngSubmit)="onChangePicture()">
-        <div>
-            <h2>Change Picture</h2>
-        </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Place of birth</mat-label>
+                <input matInput type="text" id="placeOfBirth" name="placeOfBirth" [(ngModel)]="celebritie.placeOfBirth" required autofocus/>
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Date of birth</mat-label>
+                <input matInput type="date" id="dateOfBirth" name="dateOfBirth" [ngModel]="celebritie.dateOfBirth | date: 'yyyy-MM-dd'" required autofocus/>
+            </mat-form-field>
+        
+            <button mat-flat-button color="primary" type="submit" [disabled]="!celebritieForm.valid">edit</button>
+        </form>
+    </div>
 
-        <img [src]="imageSrc" style="width:200px; height: 200px;">
-        <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewPicture($event)">
+    <div>
+        <form id="changePictureForm" #changePictureForm="ngForm" (ngSubmit)="onChangePicture()">
+            <div>
+                <h2>Change Picture</h2>
+            </div>
 
-        <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
-        <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
-    </form>
-    <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
+            <div id="imgContainer">
+                <img [src]="imageSrc">         
+            </div>
+            <input type="file" name="picture" id="picture" accept="image/png" (change)="handleNewPicture($event)">
+            <button mat-flat-button color="primary" [disabled]="file==null" type="submit">change picture</button>
+            <button mat-flat-button color="primary" [disabled]="imageSrc==null" (click)="onDeletePicture()" type="button">delete picture</button>
+            <button mat-stroked-button color="primary" (click)="cancel()">cancel</button>
+        </form> 
+    </div>
 </div>
